@@ -1,0 +1,6 @@
+:root {
+  --background-color: rgb(240, 240, 240);
+  --text-color: rgb(15, 15, 15);
+  --shadow-color: rgba(15, 15, 15, 0.5);
+  --accent-color: rgba(240, 0, 0, 0.5);
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello Dark Mode</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
+    <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
+    <script type="module" src="../src/dark-mode-toggle.mjs"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Hi there!</h1>
+
+      <img src="https://cdn.glitch.com/d3157ced-3c57-4ee7-98ad-b6271d0a39a6%2Fcat-2083492_640.jpg?1551350494400" alt="Sitting cat in front of a tree" width="640" height="390" intrinsicsize="640x390">
+
+      <p>
+        Lorem ipsum dolor sit amet, legere ancillae ne vis. Ne vim laudem accusam consectetuer,
+        eu utinam integre abhorreant sea. Quo eius veri ei, nibh invenire democritum vel in,
+        utamur vulputate id est. Possit ceteros vis an.
+      </p>
+
+      <form id="content">
+        <fieldset>
+          <legend>Lorem ipsum</legend>
+
+          <div>
+            <select>
+              <option>Lorem</option>
+              <option>Ipsum</option>
+            </select>
+          </div>
+
+          <div>
+            <button type="button">Lorem</button>
+          </div>
+
+          <div>
+            <input type="text" value="Lorem ipsum">
+          </div>
+
+          <div>
+            <input type="search" value="Lorem ipsum">
+          </div>
+
+          <div>
+            <label><input checked type="checkbox"> Lorem</label>
+            <label><input type="checkbox"> Ipsum</label>
+          </div>
+
+          <div>
+            <label><input checked name="foo" type="radio"> Lorem</label>
+            <label><input name="foo" type="radio"> Ipsum</label>
+          </div>
+        </fieldset>
+      </form>
+
+    </main>
+
+    <dark-mode-toggle mode="dark" light="Light" dark="Dark"></dark-mode-toggle>
+
+  </body>
+</html>
+
+
+

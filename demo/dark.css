@@ -1,0 +1,36 @@
+:root {
+  --background-color: rgb(15, 15, 15);
+  --text-color: rgb(240, 240, 240);
+  --shadow-color: rgba(240, 240, 240, 0.5);
+  --accent-color: rgba(0, 0, 240, 0.5);
+}
+
+img {
+  filter: grayscale(50%);
+}
+
+.icon {
+  filter: invert(100%);
+}
+
+/* If no dark mode user agent stylesheet exists, emulate it */
+select,
+input,
+button,
+option {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  border-width: 1px;
+  border-radius: 1px;
+}
+
+/* Else, use the user agent stylesheet */
+@media (prefers-color-scheme: dark) {
+  select,
+  input,
+  button,
+  option {
+    color: unset;
+    background-color: unset;
+  }
+}

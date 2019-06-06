@@ -1,0 +1,23 @@
+{
+  "name": "dark-mode-toggle",
+  "version": "0.0.1",
+  "description": "Web Component that toggles dark mode 🌒",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomayac/dark-mode-toggle.git"
+  },
+  "keywords": [
+    "dark",
+    "mode"
+  ],
+  "author": "Thomas Steiner <steiner.thomas@gmail.com> (https://blog.tomayac.com/)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/tomayac/dark-mode-toggle/issues"
+  },
+  "homepage": "https://github.com/tomayac/dark-mode-toggle#readme"
+}
