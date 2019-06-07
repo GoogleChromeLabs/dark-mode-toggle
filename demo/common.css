@@ -1,18 +1,22 @@
 :root {
   line-sizing: normal;
+
   --heading-color: red;
   --duration: 0.5s;
   --timing: ease;
 }
 
-*, ::before, ::after {
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  transition: color var(--duration) var(--timing),
-              background-color var(--duration) var(--timing);
+  transition:
+    color var(--duration) var(--timing),
+    background-color var(--duration) var(--timing);
   font-family: sans-serif;
   font-size: 12pt;
   background-color: var(--background-color);
@@ -29,16 +33,13 @@ main {
 
 h1 {
   color: var(--heading-color);
-  text-shadow: .1rem .1rem .1rem var(--shadow-color);
+  text-shadow: 0.1rem 0.1rem 0.1rem var(--shadow-color);
   transition: text-shadow var(--duration) var(--timing);
 }
 
 img {
   max-width: 100%;
   height: auto;
-}
-
-img {
   transition: filter var(--duration) var(--timing);
 }
 
@@ -50,13 +51,13 @@ p {
 }
 
 fieldset {
-  border: solid .1rem;
-  box-shadow: .1rem .1rem .1rem var(--shadow-color);
+  border: solid 0.1rem;
+  box-shadow: 0.1rem 0.1rem 0.1rem var(--shadow-color);
   transition: box-shadow var(--duration) var(--timing);
 }
 
 div {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 #content select,
@@ -67,13 +68,10 @@ div {
 }
 
 dark-mode-toggle {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
   --dark-mode-toggle-dark-icon: url("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/198/waning-crescent-moon-symbol_1f318.png");
   --dark-mode-toggle-light-icon: url("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/198/sun-with-face_1f31e.png");
   --dark-mode-toggle-active-mode-color: var(--accent-color);
-  --dark-mode-toggle-legend-font: .85rem 'Comic Sans MS';
-  --dark-mode-toggle-label-font: .75rem 'Helvetica';
+  --dark-mode-toggle-legend-font: 0.85rem 'Comic Sans MS';
+  --dark-mode-toggle-label-font: 0.75rem 'Helvetica';
   --dark-mode-toggle-color: var(--text-color);
 }

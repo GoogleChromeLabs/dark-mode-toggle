@@ -4,7 +4,8 @@
   "description": "Web Component that toggles dark mode 🌒",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx eslint './src/*.mjs' --fix && npx stylelint './src/*.mjs' --fix && npx stylelint './demo/*.css' --fix",
+    "build": "npx babel './src/dark-mode-toggle.mjs' --presets minify --out-file './dist/dark-mode-toggle.min.mjs'"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,50 @@
   "bugs": {
     "url": "https://github.com/tomayac/dark-mode-toggle/issues"
   },
-  "homepage": "https://github.com/tomayac/dark-mode-toggle#readme"
+  "homepage": "https://github.com/tomayac/dark-mode-toggle#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-minify": "^0.5.0",
+    "eslint": "^5.16.0",
+    "eslint-config-google": "^0.13.0",
+    "stylelint": "^10.0.1",
+    "stylelint-config-standard": "^18.3.0"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 8,
+      "sourceType": "module"
+    },
+    "extends": [
+      "google"
+    ],
+    "env": {
+      "es6": true,
+      "browser": true,
+      "serviceworker": true,
+      "node": true
+    },
+    "rules": {
+      "require-jsdoc": 0
+    }
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "selector-type-no-unknown": [
+        true,
+        {
+          "ignore": [
+            "custom-elements"
+          ]
+        }
+      ],
+      "property-no-unknown": [
+        true,
+        {
+          "ignoreProperties": []
+        }
+      ]
+    }
+  }
 }
