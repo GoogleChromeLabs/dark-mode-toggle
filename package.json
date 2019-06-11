@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "npx eslint './src/*.mjs' --fix && npx stylelint './src/*.mjs' --fix && npx stylelint './demo/*.css' --fix",
-    "build": "npx babel './src/dark-mode-toggle.mjs' --presets minify --out-file './dist/dark-mode-toggle.min.mjs'"
+    "build": "npx babel './src/dark-mode-toggle.mjs' --presets minify --no-comments --out-file './dist/dark-mode-toggle.min.mjs'"
   },
   "repository": {
     "type": "git",

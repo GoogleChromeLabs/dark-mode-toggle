@@ -1,5 +1,16 @@
 ((win, doc, mqDark, mqsLight) => {
-  // https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflecting-content-attributes-in-idl-attributes
+  const LIGHT = 'light';
+  const DARK = 'dark';
+  const TOGGLE = 'toggle';
+  const SWITCH = 'switch';
+  const LEGEND = 'legend';
+  const APPEARANCE = 'appearance';
+  const MODE = 'mode';
+  const MODE_CHANGE = 'modechange';
+  const ALL = 'all';
+  const ELEMENT_NAME = 'dark-mode-toggle';
+  // See https://html.spec.whatwg.org/multipage/common-dom-interfaces.html ↵
+  // #reflecting-content-attributes-in-idl-attributes.
   const installStringReflection = (obj, attrName, propName = attrName) => {
     Object.defineProperty(obj, propName, {
       enumerable: true,
@@ -22,14 +33,20 @@
     box-sizing: border-box;
   }
 
+  :host {
+    contain: content;
+    display: block;
+  }
+
   :host([hidden]) {
     display: none;
   }
 
   form {
-    background-color: var(--dark-mode-toggle-background-color, transparent);
-    color: var(--dark-mode-toggle-color, inherit);
-    border: var(--dark-mode-toggle-border, none);
+    background-color: var(--${ELEMENT_NAME}-background-color, transparent);
+    color: var(--${ELEMENT_NAME}-color, inherit);
+    border: var(--${ELEMENT_NAME}-border, none);
+    padding: 0;
   }
 
   fieldset {
@@ -37,7 +54,8 @@
   }
 
   legend {
-    font: var(--dark-mode-toggle-legend-font, inherit);
+    font: var(--${ELEMENT_NAME}-legend-font, inherit);
+    padding: 0;
   }
 
   input,
@@ -52,27 +70,38 @@
     background-repeat: no-repeat;
     height: 1rem;
     width: 1rem;
-    margin: 0 0.5rem;
     vertical-align: middle;
-    filter: var(--dark-mode-toggle-icon-filter, none);
+    filter: var(--${ELEMENT_NAME}-icon-filter, none);
   }
 
-  .lightLabel::before {
-    background-image: var(--dark-mode-toggle-light-icon);
+  label::before {
+    margin: 0 0.5rem 0 0;
   }
 
-  .darkLabel::before {
-    background-image: var(--dark-mode-toggle-dark-icon);
+  label[dir="rtl"]::before {
+    margin: 0 0 0 0.5rem;
+  }
+
+  #lightLabel::before {
+    background-image: var(--${ELEMENT_NAME}-light-icon, none);
+  }
+
+  #darkLabel::before {
+    background-image: var(--${ELEMENT_NAME}-dark-icon, none);
+  }
+
+  #checkboxLabel::before {
+    background-image: var(--${ELEMENT_NAME}-checkbox-icon, none);
   }
 
   label {
     padding: 0.15rem;
-    font: var(--dark-mode-toggle-label-font, inherit);
+    font: var(--${ELEMENT_NAME}-label-font, inherit);
   }
 
   input {
     opacity: 0;
-    position: absolute;*/
+    position: absolute;
   }
 
   input:focus + label {
@@ -81,45 +110,57 @@
   }
 
   input:checked + label {
-    background-color: var(--dark-mode-toggle-active-mode-color, transparent);
+    background-color: var(--${ELEMENT_NAME}-active-mode-color, transparent);
   }
 
   input:checked + label::before {
-    background-color: var(--dark-mode-toggle-active-mode-color, transparent);
+    background-color: var(--${ELEMENT_NAME}-active-mode-color, transparent);
     border-radius: 1rem;
   }
 </style>
 <form id="theme">
   <fieldset>
-    <legend></legend>
+    <legend id="legend"></legend>
 
-    <input value="light" id="lightInput" name="mode" type="radio">
-    <label class="lightLabel" for="lightInput"></label>
+    <input id="lightRadio" name="mode" type="radio">
+    <label id="lightLabel" for="lightRadio"></label>
 
-    <input value="dark" id="darkRadio" name="mode" type="radio">
-    <label class="darkLabel" for="darkRadio"></label>
+    <input id="darkRadio" name="mode" type="radio">
+    <label id="darkLabel" for="darkRadio"></label>
 
-    <input value="dark" id="darkCheckbox" name="mode" type="checkbox">
-    <label class="darkLabel" for="darkCheckbox"></label>
+    <input id="darkCheckbox" name="mode" type="checkbox">
+    <label id="checkboxLabel" for="darkCheckbox"></label>
   </fieldset>
 </form>`;
 
   class DarkModeToogle extends HTMLElement {
     static get observedAttributes() {
-      return ['mode', 'appearance', 'legend', 'light', 'dark'];
+      return [MODE, APPEARANCE, LEGEND, LIGHT, DARK];
     }
 
     constructor() {
       super();
 
-      installStringReflection(this, 'mode');
-      installStringReflection(this, 'appearance');
-      installStringReflection(this, 'legend');
-      installStringReflection(this, 'light');
-      installStringReflection(this, 'dark');
+      installStringReflection(this, MODE);
+      installStringReflection(this, APPEARANCE);
+      installStringReflection(this, LEGEND);
+      installStringReflection(this, LIGHT);
+      installStringReflection(this, DARK);
 
       this._darkCSS = null;
       this._lightCSS = null;
+
+      doc.addEventListener(MODE_CHANGE, (e) => {
+        // Don't react on our own events.
+        if (e.srcElement === this) {
+          return;
+        }
+        this.mode = e.detail.mode;
+        const darkModeOn = this.mode === DARK;
+        this.darkCheckbox.checked = darkModeOn;
+        this.darkRadio.checked = darkModeOn;
+        this.lightRadio.checked = !darkModeOn;
+      });
 
       this._initializeDOM();
     }
@@ -128,88 +169,142 @@
       const shadowRoot = this.attachShadow({mode: 'closed'});
       shadowRoot.appendChild(template.content.cloneNode(true));
 
+      // Store original `media` attribute value.
+      // Note: we treat `prefers-color-scheme: light` and
+      // `prefers-color-scheme: no-preference` the same.
       this._darkCSS =
           doc.querySelectorAll(`link[rel="stylesheet"][media="${mqDark}"]`);
       this._darkCSS.forEach((link) => link.dataset.originalMedia = link.media);
-      // Treat `prefers-color-scheme: light` and
-      // `prefers-color-scheme: no-preference` alike
       this._lightCSS = document.querySelectorAll(mqsLight.map((mqLight) => {
         return `link[rel="stylesheet"][media*="${mqLight}"]`;
       }).join(', '));
       this._lightCSS.forEach((link) => link.dataset.originalMedia = link.media);
 
-      this.lightInput = shadowRoot.querySelector('#lightInput');
-      this.lightLabel = shadowRoot.querySelector('.lightLabel');
-
+      // Get DOM references.
+      this.lightRadio = shadowRoot.querySelector('#lightRadio');
+      this.lightLabel = shadowRoot.querySelector('#lightLabel');
       this.darkRadio = shadowRoot.querySelector('#darkRadio');
+      this.darkLabel = shadowRoot.querySelector('#darkLabel');
       this.darkCheckbox = shadowRoot.querySelector('#darkCheckbox');
-      this.darkLabels = shadowRoot.querySelectorAll('.darkLabel');
+      this.checkboxLabel = shadowRoot.querySelector('#checkboxLabel');
+      this.legendLabel = shadowRoot.querySelector('#legend');
 
+      // Store the light and the dark icon coming from CSS variables.
+      this._lightIcon = win.getComputedStyle(this.lightLabel, ':before')
+          .getPropertyValue('background-image');
+      this._darkIcon = win.getComputedStyle(this.darkLabel, ':before')
+          .getPropertyValue('background-image');
 
-      this.lightInput.hidden = this.appearance === 'toggle';
-      this.lightLabel.hidden = this.appearance === 'toggle';
-      this.darkRadio.hidden = this.appearance === 'toggle';
-      this.darkLabels[0].hidden = this.appearance === 'toggle';
-      this.darkCheckbox.hidden = this.appearance !== 'toggle';
-      this.darkLabels[1].hidden = this.appearance !== 'toggle';
-
-      this.legendLabel = shadowRoot.querySelector('legend');
-
+      // Does the browser support native `prefers-color-scheme`?
       const hasNativePrefersColorScheme =
           win.matchMedia('(prefers-color-scheme)').matches;
-      this.lightInput.checked = hasNativePrefersColorScheme &&
-          ((win.matchMedia(mqsLight[0]).matches) ||
-           (win.matchMedia(mqsLight[1]).matches)) ? true : false;
-      if (this.lightInput.checked) {
-        this.mode = 'light';
+      // Set initial state, giving preference to the native value, defaulting to
+      // a light experience.
+      if (hasNativePrefersColorScheme) {
+        if ((win.matchMedia(mqsLight[0]).matches) ||
+            (win.matchMedia(mqsLight[1]).matches)) {
+          this.lightRadio.checked = true;
+          this.mode = LIGHT;
+        } else if (win.matchMedia(mqDark).matches) {
+          this.darkRadio.checked = true;
+          this.mode = DARK;
+        }
+      }
+      if (!this.mode) {
+        this.lightRadio.checked = true;
+        this.mode = LIGHT;
       }
 
-      this.darkRadio.checked = hasNativePrefersColorScheme &&
-          win.matchMedia(mqDark).matches ? true : false;
+      // Default to toggle appearance.
+      if (!this.appearance) {
+        this.appearance = TOGGLE;
+      }
+
+      // Update the appearance to either of toggle or switch.
+      this._updateAppearance();
+
+      // Make the checkbox reflect the state of the radios
+      this._updateCheckbox();
+
+      // Synchronize the behavior of the radio and the checkbox.
+      [this.lightRadio, this.darkRadio].forEach((input) => {
+        input.addEventListener('change', () => {
           this.darkCheckbox.checked = this.darkRadio.checked;
-      if (this.darkRadio.checked) {
-        this.mode = 'dark';
-      }
-
-      [this.lightInput, this.darkRadio, this.darkCheckbox].forEach((input) => {
-        input.addEventListener('change', (e) => {
-          this.mode = e.target.value;
-          if (this.mode === 'dark' && !e.target.checked) {
-            this.lightInput.checked = true;
-          }
-          if (this.mode === 'light') {
-            this.darkCheckbox.checked = false;
-          }
-          this._updateMode.bind(this)();
+          this.mode = this.lightRadio.checked ? LIGHT : DARK;
+          this._dispatchEvent();
         });
+      });
+      this.darkCheckbox.addEventListener('change', () => {
+        this.darkRadio.checked = this.darkCheckbox.checked;
+        this.lightRadio.checked = !this.darkCheckbox.checked;
+        this.mode = this.darkCheckbox.checked ? DARK : LIGHT;
+        this._dispatchEvent();
       });
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-      if (name === 'mode') {
-        if (newValue !== 'light' && newValue !== 'dark') {
-          throw (new RangeError());
-        }
-        if (newValue === 'light') {
-          this.lightInput.click();
-        } else {
-          this.darkRadio.click();
+      if (name === MODE) {
+        if (newValue !== LIGHT && newValue !== DARK) {
+          throw new RangeError(`Allowed values: "${LIGHT}" and "${DARK}".`);
         }
         this._updateMode();
-      } else if (name === 'legend') {
+      } else if (name === APPEARANCE) {
+        if (newValue !== TOGGLE && newValue !== SWITCH) {
+          throw new RangeError('Allowed values: "${TOGGLE}" and "${SWITCH}".');
+        }
+        this._updateAppearance();
+      } else if (name === LEGEND) {
         this.legendLabel.textContent = newValue;
-      } else if (name === 'light') {
+      } else if (name === LIGHT) {
         this.lightLabel.textContent = newValue;
-      } else if (name === 'dark') {
-        this.darkLabels.forEach(darkLabel => darkLabel.textContent = newValue);
-      } else if (name === 'appearance') {
+        if (this.mode === LIGHT) {
+          this.checkboxLabel.textContent = newValue;
+        }
+      } else if (name === DARK) {
+        this.darkLabel.textContent = newValue;
+        if (this.mode === DARK) {
+          this.checkboxLabel.textContent = newValue;
+        }
+      }
+    }
+
+    _dispatchEvent() {
+      this.dispatchEvent(new CustomEvent(MODE_CHANGE, {
+        bubbles: true,
+        composed: true,
+        detail: {mode: this.mode}
+      }));
+    }
+
+    _updateAppearance() {
+      // Hide or show the light-related affordances dependent on the appearance,
+      // which can be "switch" or "toggle".
+      const appearAsToogle = this.appearance === TOGGLE;
+      this.lightRadio.hidden = appearAsToogle;
+      this.lightLabel.hidden = appearAsToogle;
+      this.darkRadio.hidden = appearAsToogle;
+      this.darkLabel.hidden = appearAsToogle;
+      this.darkCheckbox.hidden = !appearAsToogle;
+      this.checkboxLabel.hidden = !appearAsToogle;
+    }
+
+    _updateCheckbox() {
+      if (this.mode === LIGHT) {
+        this.checkboxLabel.style.setProperty(`--${ELEMENT_NAME}-checkbox-icon`,
+            this._lightIcon);
+        this.checkboxLabel.textContent = this.light;
+      } else {
+        this.checkboxLabel.style.setProperty(`--${ELEMENT_NAME}-checkbox-icon`,
+            this._darkIcon);
+        this.checkboxLabel.textContent = this.dark;
       }
     }
 
     _updateMode() {
-      if (this.lightInput.checked) {
+      this._updateCheckbox();
+      if (this.mode === LIGHT) {
         this._lightCSS.forEach((link) => {
-          link.media = 'all';
+          link.media = ALL;
           link.disabled = false;
         });
         this._darkCSS.forEach((link) => {
@@ -218,7 +313,7 @@
         });
       } else {
         this._darkCSS.forEach((link) => {
-          link.media = 'all';
+          link.media = ALL;
           link.disabled = false;
         });
         this._lightCSS.forEach((link) => {
@@ -229,7 +324,7 @@
     }
   }
 
-  win.customElements.define('dark-mode-toggle', DarkModeToogle);
+  win.customElements.define(ELEMENT_NAME, DarkModeToogle);
 })(window, document, '(prefers-color-scheme: dark)', [
   '(prefers-color-scheme: light)',
   '(prefers-color-scheme: no-preference)',

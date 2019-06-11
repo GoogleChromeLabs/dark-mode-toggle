@@ -1,5 +1,4 @@
-((a,b,c,d)=>{// https://html.spec.whatwg.org/multipage/common-dom-interfaces.html#reflecting-content-attributes-in-idl-attributes
-const e=(a,b,c=b)=>{Object.defineProperty(a,c,{enumerable:!0,get(){const a=this.getAttribute(b);return null===a?'':a},set(a){this.setAttribute(b,a)}})},f=b.createElement('template');f.innerHTML=`
+((a,b,c,d)=>{const e='light',f=(a,b,c=b)=>{Object.defineProperty(a,c,{enumerable:!0,get(){const a=this.getAttribute(b);return null===a?'':a},set(a){this.setAttribute(b,a)}})},g=b.createElement('template');g.innerHTML=`
 <style>
   *,
   ::before,
@@ -7,14 +6,19 @@ const e=(a,b,c=b)=>{Object.defineProperty(a,c,{enumerable:!0,get(){const a=this.
     box-sizing: border-box;
   }
 
+  :host {
+    contain: content;
+    display: block;
+  }
+
   :host([hidden]) {
     display: none;
   }
 
   form {
-    background-color: var(--dark-mode-toggle-background-color, transparent);
-    color: var(--dark-mode-toggle-color, inherit);
-    border: var(--dark-mode-toggle-border, none);
+    background-color: var(--${'dark-mode-toggle'}-background-color, transparent);
+    color: var(--${'dark-mode-toggle'}-color, inherit);
+    border: var(--${'dark-mode-toggle'}-border, none);
   }
 
   fieldset {
@@ -22,7 +26,7 @@ const e=(a,b,c=b)=>{Object.defineProperty(a,c,{enumerable:!0,get(){const a=this.
   }
 
   legend {
-    font: var(--dark-mode-toggle-legend-font, inherit);
+    font: var(--${'dark-mode-toggle'}-legend-font, inherit);
   }
 
   input,
@@ -39,25 +43,29 @@ const e=(a,b,c=b)=>{Object.defineProperty(a,c,{enumerable:!0,get(){const a=this.
     width: 1rem;
     margin: 0 0.5rem;
     vertical-align: middle;
-    filter: var(--dark-mode-toggle-icon-filter, none);
+    filter: var(--${'dark-mode-toggle'}-icon-filter, none);
   }
 
-  .lightLabel::before {
-    background-image: var(--dark-mode-toggle-light-icon);
+  #lightLabel::before {
+    background-image: var(--${'dark-mode-toggle'}-light-icon, none);
   }
 
-  .darkLabel::before {
-    background-image: var(--dark-mode-toggle-dark-icon);
+  #darkLabel::before {
+    background-image: var(--${'dark-mode-toggle'}-dark-icon, none);
+  }
+
+  #checkboxLabel::before {
+    background-image: var(--${'dark-mode-toggle'}-checkbox-icon, none);
   }
 
   label {
     padding: 0.15rem;
-    font: var(--dark-mode-toggle-label-font, inherit);
+    font: var(--${'dark-mode-toggle'}-label-font, inherit);
   }
 
   input {
     opacity: 0;
-    position: absolute;*/
+    position: absolute;
   }
 
   input:focus + label {
@@ -66,25 +74,25 @@ const e=(a,b,c=b)=>{Object.defineProperty(a,c,{enumerable:!0,get(){const a=this.
   }
 
   input:checked + label {
-    background-color: var(--dark-mode-toggle-active-mode-color, transparent);
+    background-color: var(--${'dark-mode-toggle'}-active-mode-color, transparent);
   }
 
   input:checked + label::before {
-    background-color: var(--dark-mode-toggle-active-mode-color, transparent);
+    background-color: var(--${'dark-mode-toggle'}-active-mode-color, transparent);
     border-radius: 1rem;
   }
 </style>
 <form id="theme">
   <fieldset>
-    <legend></legend>
+    <legend id="legend"></legend>
 
-    <input value="light" id="lightInput" name="mode" type="radio">
-    <label class="lightLabel" for="lightInput"></label>
+    <input id="lightRadio" name="mode" type="radio">
+    <label id="lightLabel" for="lightRadio"></label>
 
-    <input value="dark" id="darkRadio" name="mode" type="radio">
-    <label class="darkLabel" for="darkRadio"></label>
+    <input id="darkRadio" name="mode" type="radio">
+    <label id="darkLabel" for="darkRadio"></label>
 
-    <input value="dark" id="darkCheckbox" name="mode" type="checkbox">
-    <label class="darkLabel" for="darkCheckbox"></label>
+    <input id="darkCheckbox" name="mode" type="checkbox">
+    <label id="checkboxLabel" for="darkCheckbox"></label>
   </fieldset>
-</form>`;class g extends HTMLElement{static get observedAttributes(){return['mode','appearance','legend','light','dark']}constructor(){super(),e(this,'mode'),e(this,'appearance'),e(this,'legend'),e(this,'light'),e(this,'dark'),this._darkCSS=null,this._lightCSS=null,this._initializeDOM()}_initializeDOM(){const e=this.attachShadow({mode:'closed'});e.appendChild(f.content.cloneNode(!0)),this._darkCSS=b.querySelectorAll(`link[rel="stylesheet"][media="${c}"]`),this._darkCSS.forEach(a=>a.dataset.originalMedia=a.media),this._lightCSS=document.querySelectorAll(d.map(a=>`link[rel="stylesheet"][media*="${a}"]`).join(', ')),this._lightCSS.forEach(a=>a.dataset.originalMedia=a.media),this.lightInput=e.querySelector('#lightInput'),this.lightLabel=e.querySelector('.lightLabel'),this.darkRadio=e.querySelector('#darkRadio'),this.darkCheckbox=e.querySelector('#darkCheckbox'),this.darkLabels=e.querySelectorAll('.darkLabel'),this.lightInput.hidden='toggle'===this.appearance,this.lightLabel.hidden='toggle'===this.appearance,this.darkRadio.hidden='toggle'===this.appearance,this.darkLabels[0].hidden='toggle'===this.appearance,this.darkCheckbox.hidden='toggle'!==this.appearance,this.darkLabels[1].hidden='toggle'!==this.appearance,this.legendLabel=e.querySelector('legend');const g=a.matchMedia('(prefers-color-scheme)').matches;this.lightInput.checked=!!(g&&(a.matchMedia(d[0]).matches||a.matchMedia(d[1]).matches)),this.lightInput.checked&&(this.mode='light'),this.darkRadio.checked=!!(g&&a.matchMedia(c).matches),this.darkCheckbox.checked=this.darkRadio.checked,this.darkRadio.checked&&(this.mode='dark'),[this.lightInput,this.darkRadio,this.darkCheckbox].forEach(a=>{a.addEventListener('change',a=>{this.mode=a.target.value,'dark'!==this.mode||a.target.checked||(this.lightInput.checked=!0),'light'===this.mode&&(this.darkCheckbox.checked=!1),this._updateMode.bind(this)()})})}attributeChangedCallback(a,b,c){if('mode'===a){if('light'!==c&&'dark'!==c)throw new RangeError;'light'===c?this.lightInput.click():this.darkRadio.click(),this._updateMode()}else if('legend'===a)this.legendLabel.textContent=c;else if('light'===a)this.lightLabel.textContent=c;else if('dark'===a)this.darkLabels.forEach(a=>a.textContent=c);else if('appearance'===a);}_updateMode(){this.lightInput.checked?(this._lightCSS.forEach(a=>{a.media='all',a.disabled=!1}),this._darkCSS.forEach(a=>{a.media=a.dataset.originalMedia,a.disabled=!0})):(this._darkCSS.forEach(a=>{a.media='all',a.disabled=!1}),this._lightCSS.forEach(a=>{a.media=a.dataset.originalMedia,a.disabled=!0}))}}a.customElements.define('dark-mode-toggle',g)})(window,document,'(prefers-color-scheme: dark)',['(prefers-color-scheme: light)','(prefers-color-scheme: no-preference)']);
+</form>`;class h extends HTMLElement{static get observedAttributes(){return['mode','appearance','legend',e,'dark']}constructor(){super(),f(this,'mode'),f(this,'appearance'),f(this,'legend'),f(this,e),f(this,'dark'),this._darkCSS=null,this._lightCSS=null,b.addEventListener('modechange',a=>{a.srcElement===this||(this.mode=a.detail.mode)}),this._initializeDOM()}_initializeDOM(){const f=this.attachShadow({mode:'closed'});f.appendChild(g.content.cloneNode(!0)),this._darkCSS=b.querySelectorAll(`link[rel="stylesheet"][media="${c}"]`),this._darkCSS.forEach(a=>a.dataset.originalMedia=a.media),this._lightCSS=document.querySelectorAll(d.map(a=>`link[rel="stylesheet"][media*="${a}"]`).join(', ')),this._lightCSS.forEach(a=>a.dataset.originalMedia=a.media),this.lightRadio=f.querySelector('#lightRadio'),this.lightLabel=f.querySelector('#lightLabel'),this.darkRadio=f.querySelector('#darkRadio'),this.darkLabel=f.querySelector('#darkLabel'),this.darkCheckbox=f.querySelector('#darkCheckbox'),this.checkboxLabel=f.querySelector('#checkboxLabel'),this.legendLabel=f.querySelector('#legend'),this._lightIcon=a.getComputedStyle(this.lightLabel,':before').getPropertyValue('background-image'),this._darkIcon=a.getComputedStyle(this.darkLabel,':before').getPropertyValue('background-image'),this._updateAppearance();const h=a.matchMedia('(prefers-color-scheme)').matches;h&&(a.matchMedia(d[0]).matches||a.matchMedia(d[1]).matches?(this.lightRadio.checked=!0,this.mode=e):a.matchMedia(c).matches&&(this.darkRadio.checked=!0,this.mode='dark')),this.mode||(this.lightRadio.checked=!0,this.mode=e),this._updateCheckbox(),[this.lightRadio,this.darkRadio].forEach(a=>{a.addEventListener('change',()=>{this.mode=this.lightRadio.checked?e:'dark',this.darkCheckbox.checked=this.darkRadio.checked,this._updateMode(),this._dispatchEvent()})}),this.darkCheckbox.addEventListener('change',()=>{this.mode=this.darkCheckbox.checked?'dark':e,this.darkRadio.checked=this.darkCheckbox.checked,this._updateMode(),this._dispatchEvent()})}attributeChangedCallback(a,b,c){if(a==='mode'){if(c!==e&&c!=='dark')throw new RangeError(`Allowed values: "${e}" and "${'dark'}".`);c===e?this.lightRadio.click():this.darkRadio.click(),this._updateMode()}else if(a==='appearance'){if(c!=='toggle'&&c!=='switch')throw new RangeError('Allowed values: "${TOGGLE}" and "${SWITCH}".');this._updateAppearance()}else'legend'===a?this.legendLabel.textContent=c:a===e?(this.lightLabel.textContent=c,this.mode===e&&(this.checkboxLabel.textContent=c)):'dark'===a&&(this.darkLabel.textContent=c,'dark'===this.mode&&(this.checkboxLabel.textContent=c))}_dispatchEvent(){this.dispatchEvent(new CustomEvent('modechange',{bubbles:!0,composed:!0,detail:{mode:this.mode}}))}_updateAppearance(){const a=this.appearance==='toggle';this.lightRadio.hidden=a,this.lightLabel.hidden=a,this.darkRadio.hidden=a,this.darkLabel.hidden=a,this.darkCheckbox.hidden=!a,this.checkboxLabel.hidden=!a}_updateCheckbox(){this.mode===e?(this.checkboxLabel.style.setProperty(`--${'dark-mode-toggle'}-checkbox-icon`,this._lightIcon),this.checkboxLabel.textContent=this.light):(this.checkboxLabel.style.setProperty(`--${'dark-mode-toggle'}-checkbox-icon`,this._darkIcon),this.checkboxLabel.textContent=this.dark)}_updateMode(){this._updateCheckbox(),this.mode===e?(this._lightCSS.forEach(a=>{a.media='all',a.disabled=!1}),this._darkCSS.forEach(a=>{a.media=a.dataset.originalMedia,a.disabled=!0})):(this._darkCSS.forEach(a=>{a.media='all',a.disabled=!1}),this._lightCSS.forEach(a=>{a.media=a.dataset.originalMedia,a.disabled=!0}))}}a.customElements.define('dark-mode-toggle',h)})(window,document,'(prefers-color-scheme: dark)',['(prefers-color-scheme: light)','(prefers-color-scheme: no-preference)']);
