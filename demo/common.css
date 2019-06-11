@@ -74,6 +74,7 @@ dark-mode-toggle {
   --dark-mode-toggle-label-font: 0.75rem 'Helvetica';
   --dark-mode-toggle-color: var(--text-color);
   --dark-mode-toggle-background-color: var(--background-color);
+
   position: absolute;
   right: 1rem;
 }
@@ -88,5 +89,6 @@ dark-mode-toggle#dmt2 {
 
 dark-mode-toggle#dmt3 {
   --dark-mode-toggle-active-mode-color: var(--accent-color);
+
   top: 9rem;
 }

@@ -273,7 +273,7 @@
       this.dispatchEvent(new CustomEvent(MODE_CHANGE, {
         bubbles: true,
         composed: true,
-        detail: {mode: this.mode}
+        detail: {mode: this.mode},
       }));
     }
 
