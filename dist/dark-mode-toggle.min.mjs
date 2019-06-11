@@ -78,8 +78,8 @@
   }
 
   input:focus + label {
+    outline: rgb(229, 151, 0) auto 5px;
     outline: -webkit-focus-ring-color auto 5px;
-    outline: focus-ring-color auto 5px;
   }
 
   input:checked + label {
