@@ -207,6 +207,7 @@
           this.mode = LIGHT;
         } else if (win.matchMedia(mqDark).matches) {
           this.darkRadio.checked = true;
+          this.darkCheckbox.checked = true;
           this.mode = DARK;
         }
       }
