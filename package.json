@@ -2,10 +2,12 @@
   "name": "dark-mode-toggle",
   "version": "0.0.1",
   "description": "Web Component that toggles dark mode 🌒",
-  "main": "index.js",
+  "main": "./src/dark-mode-toggle.mjs",
+  "module": "./dist/dark-mode-toggle.min.mjs",
   "scripts": {
-    "lint": "npx eslint './src/*.mjs' --fix && npx stylelint './src/*.mjs' --fix && npx stylelint './demo/*.css' --fix",
-    "build": "npx babel './src/dark-mode-toggle.mjs' --presets minify --no-comments --out-file './dist/dark-mode-toggle.min.mjs'"
+    "lint:js": "npx eslint './src/*.mjs' --fix",
+    "lint:css": "npx stylelint './src/*.mjs' --fix && npx stylelint './demo/*.css' --fix",
+    "build": "npx babel './src/dark-mode-toggle.mjs' --presets minify --plugins minify-template-strings --no-comments --out-file './dist/dark-mode-toggle.min.mjs'"
   },
   "repository": {
     "type": "git",
@@ -23,10 +25,11 @@
   "homepage": "https://github.com/tomayac/dark-mode-toggle#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-minify-template-strings": "^1.0.3",
     "babel-preset-minify": "^0.5.0",
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.13.0",
-    "stylelint": "^10.0.1",
+    "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0"
   },
   "eslintConfig": {
@@ -65,5 +68,6 @@
         }
       ]
     }
-  }
+  },
+  "dependencies": {}
 }

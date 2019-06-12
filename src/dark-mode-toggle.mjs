@@ -25,7 +25,8 @@
   };
 
   const template = doc.createElement('template');
-  template.innerHTML = `
+  const html = () => {};
+  template.innerHTML = html`
 <style>
   *,
   ::before,
