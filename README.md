@@ -5,11 +5,22 @@ to your site and that adds
 [`prefers-color-scheme`](https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme)
 support even to browsers that don't support the media feature natively.
 
+## Demo
+
+See the custom element in action in the [demo](https://tomayac.github.io/dark-mode-toggle/demo/).
+
 ## Usage
 
 ```html
+<!-- ⚠️ Split your CSS in common, dark, and light, don't worry whether your browser supports the media query -->
+<link rel="stylesheet" href="common.css">
+<link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
+<link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
+
+<!-- Include the custom element code -->
 <script type="module" src="dark-mode-toggle.min.mjs"></script>
 
+<!-- Use the custom element, see the demo for configuration options -->
 <dark-mode-toggle></dark-mode-toggle>
 ```
 
@@ -63,6 +74,10 @@ darkModeToggle.appearance = 'toggle';
 /* The background color for the active mode */
 --dark-mode-toggle-active-mode-background-color
 ```
+
+## Notes
+
+This is not an official Google product.
 
 ## License
 
