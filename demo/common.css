@@ -2,6 +2,10 @@
   --heading-color: red;
   --duration: 0.5s;
   --timing: ease;
+  --background-color: rgb(240, 240, 240);
+  --text-color: rgb(15, 15, 15);
+  --shadow-color: rgba(15, 15, 15, 0.5);
+  --accent-color: rgba(240, 0, 0, 0.5);
 }
 
 *,
@@ -61,8 +65,10 @@ div {
 aside {
   position: absolute;
   top: 1rem;
-  right: 1rem;
+  right: 0;
   background: var(--background-color);
+  padding: 0.5rem;
+  text-align: center;
 }
 
 #content select,
@@ -79,4 +85,7 @@ dark-mode-toggle {
   --dark-mode-toggle-label-font: 0.75rem 'Helvetica';
   --dark-mode-toggle-color: var(--text-color);
   --dark-mode-toggle-background-color: none;
+
+  border: solid 1px var(--text-color);
+  margin-bottom: 1rem;
 }

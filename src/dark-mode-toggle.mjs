@@ -8,7 +8,7 @@
   const MODE = 'mode';
   const MODE_CHANGE = 'modechange';
   const ALL = 'all';
-  const ELEMENT_NAME = 'dark-mode-toggle';
+  const NAME = 'dark-mode-toggle';
   // See https://html.spec.whatwg.org/multipage/common-dom-interfaces.html ↵
   // #reflecting-content-attributes-in-idl-attributes.
   const installStringReflection = (obj, attrName, propName = attrName) => {
@@ -43,9 +43,8 @@
   }
 
   form {
-    background-color: var(--${ELEMENT_NAME}-background-color, transparent);
-    color: var(--${ELEMENT_NAME}-color, inherit);
-    border: var(--${ELEMENT_NAME}-border, none);
+    background-color: var(--${NAME}-background-color, transparent);
+    color: var(--${NAME}-color, inherit);
     padding: 0;
   }
 
@@ -54,7 +53,7 @@
   }
 
   legend {
-    font: var(--${ELEMENT_NAME}-legend-font, inherit);
+    font: var(--${NAME}-legend-font, inherit);
     padding: 0;
   }
 
@@ -79,21 +78,21 @@
   }
 
   #lightLabel::before {
-    background-image: var(--${ELEMENT_NAME}-light-icon, none);
+    background-image: var(--${NAME}-light-icon, none);
   }
 
   #darkLabel::before {
-    filter: var(--${ELEMENT_NAME}-icon-filter, none);
-    background-image: var(--${ELEMENT_NAME}-dark-icon, none);
+    filter: var(--${NAME}-icon-filter, none);
+    background-image: var(--${NAME}-dark-icon, none);
   }
 
   #checkboxLabel::before {
-    background-image: var(--${ELEMENT_NAME}-checkbox-icon, none);
+    background-image: var(--${NAME}-checkbox-icon, none);
   }
 
   label {
     padding: 0.15rem;
-    font: var(--${ELEMENT_NAME}-label-font, inherit);
+    font: var(--${NAME}-label-font, inherit);
   }
 
   input {
@@ -107,16 +106,16 @@
   }
 
   input:checked + label {
-    background-color: var(--${ELEMENT_NAME}-active-mode-color, transparent);
+    background-color: var(--${NAME}-active-mode-background-color, transparent);
   }
 
   input:checked + label::before {
-    background-color: var(--${ELEMENT_NAME}-active-mode-color, transparent);
+    background-color: var(--${NAME}-active-mode-background-color, transparent);
     border-radius: 1rem;
   }
 
   input:checked + #checkboxLabel::before {
-    filter: var(--${ELEMENT_NAME}-icon-filter, none);
+    filter: var(--${NAME}-icon-filter, none);
   }
 </style>
 <form id="theme">
@@ -288,11 +287,11 @@
 
     _updateCheckbox() {
       if (this.mode === LIGHT) {
-        this.checkboxLabel.style.setProperty(`--${ELEMENT_NAME}-checkbox-icon`,
+        this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
             this._lightIcon);
         this.checkboxLabel.textContent = this.light;
       } else {
-        this.checkboxLabel.style.setProperty(`--${ELEMENT_NAME}-checkbox-icon`,
+        this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
             this._darkIcon);
         this.checkboxLabel.textContent = this.dark;
       }
@@ -322,7 +321,7 @@
     }
   }
 
-  win.customElements.define(ELEMENT_NAME, DarkModeToogle);
+  win.customElements.define(NAME, DarkModeToogle);
 })(window, document, '(prefers-color-scheme: dark)', [
   '(prefers-color-scheme: light)',
   '(prefers-color-scheme: no-preference)',
