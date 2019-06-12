@@ -5,9 +5,11 @@
   "main": "./src/dark-mode-toggle.mjs",
   "module": "./dist/dark-mode-toggle.min.mjs",
   "scripts": {
+    "clean": "rm -rf ./dist && mkdir dist",
     "lint:js": "npx eslint './src/*.mjs' --fix",
-    "lint:css": "npx stylelint './src/*.mjs' --fix && npx stylelint './demo/*.css' --fix",
-    "build": "npx babel './src/dark-mode-toggle.mjs' --presets minify --plugins minify-template-strings --no-comments --out-file './dist/dark-mode-toggle.min.mjs'"
+    "lint:css": "cp ./src/dark-mode-toggle.mjs ./src/dark-mode-toggle.html && npx stylelint './src/*.html' --fix && cp ./src/dark-mode-toggle.html ./src/dark-mode-toggle.mjs && rm ./src/dark-mode-toggle.html && npx stylelint './demo/*.css' --fix",
+    "lint": "npm run lint:js && npm run lint:css",
+    "build": "npm run clean && sed 's/template.innerHTML = `/template.innerHTML = html`/' ./src/dark-mode-toggle.mjs > ./src/dark-mode-toggle.temp.mjs && npx babel './src/dark-mode-toggle.temp.mjs' --presets minify --plugins minify-template-strings --no-comments --out-file './dist/dark-mode-toggle.min.mjs' && rm ./src/dark-mode-toggle.temp.mjs"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,7 @@
     "babel-preset-minify": "^0.5.0",
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.13.0",
+    "minify-html-literals": "^1.2.2",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0"
   },

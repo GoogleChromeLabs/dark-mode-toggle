@@ -25,8 +25,7 @@
   };
 
   const template = doc.createElement('template');
-  const html = () => {};
-  template.innerHTML = html`
+  template.innerHTML = `
 <style>
   *,
   ::before,
@@ -73,9 +72,6 @@
     width: 1rem;
     vertical-align: middle;
     filter: var(--${ELEMENT_NAME}-icon-filter, none);
-  }
-
-  label::before {
     margin: 0 0.5rem 0 0;
   }
 
@@ -152,10 +148,6 @@
       this._lightCSS = null;
 
       doc.addEventListener(MODE_CHANGE, (e) => {
-        // Don't react on our own events.
-        if (e.srcElement === this) {
-          return;
-        }
         this.mode = e.detail.mode;
         const darkModeOn = this.mode === DARK;
         this.darkCheckbox.checked = darkModeOn;
