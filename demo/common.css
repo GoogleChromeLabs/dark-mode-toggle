@@ -58,6 +58,13 @@ div {
   padding: 0.5rem;
 }
 
+aside {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--background-color);
+}
+
 #content select,
 #content button,
 #content input[type="text"],
@@ -66,27 +73,10 @@ div {
 }
 
 dark-mode-toggle {
-  --dark-mode-toggle-dark-icon: url("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/198/waning-crescent-moon-symbol_1f318.png");
-  --dark-mode-toggle-light-icon: url("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/198/sun-with-face_1f31e.png");
+  --dark-mode-toggle-dark-icon: url("moon.png");
+  --dark-mode-toggle-light-icon: url("sun.png");
   --dark-mode-toggle-legend-font: bold 0.85rem 'Helvetica';
   --dark-mode-toggle-label-font: 0.75rem 'Helvetica';
   --dark-mode-toggle-color: var(--text-color);
-  --dark-mode-toggle-background-color: var(--background-color);
-
-  position: absolute;
-  right: 1rem;
-}
-
-dark-mode-toggle#dmt1 {
-  top: 1rem;
-}
-
-dark-mode-toggle#dmt2 {
-  top: 4rem;
-}
-
-dark-mode-toggle#dmt3 {
-  --dark-mode-toggle-active-mode-color: var(--accent-color);
-
-  top: 9rem;
+  --dark-mode-toggle-background-color: none;
 }

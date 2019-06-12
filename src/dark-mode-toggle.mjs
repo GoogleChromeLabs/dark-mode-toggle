@@ -71,7 +71,6 @@
     height: 1rem;
     width: 1rem;
     vertical-align: middle;
-    filter: var(--${ELEMENT_NAME}-icon-filter, none);
     margin: 0 0.5rem 0 0;
   }
 
@@ -84,6 +83,7 @@
   }
 
   #darkLabel::before {
+    filter: var(--${ELEMENT_NAME}-icon-filter, none);
     background-image: var(--${ELEMENT_NAME}-dark-icon, none);
   }
 
@@ -113,6 +113,10 @@
   input:checked + label::before {
     background-color: var(--${ELEMENT_NAME}-active-mode-color, transparent);
     border-radius: 1rem;
+  }
+
+  input:checked + #checkboxLabel::before {
+    filter: var(--${ELEMENT_NAME}-icon-filter, none);
   }
 </style>
 <form id="theme">
