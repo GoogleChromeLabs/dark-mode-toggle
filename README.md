@@ -1,7 +1,7 @@
 # `<dark-mode-toggle>` Element
 
 A custom element that allows you to easily put a *Dark Mode 🌒* toggle or switch
-to your site and that adds
+on your site and that adds
 [`prefers-color-scheme`](https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme)
 support even to browsers that don't support the media feature natively.
 
