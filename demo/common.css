@@ -86,6 +86,5 @@ dark-mode-toggle {
   --dark-mode-toggle-color: var(--text-color);
   --dark-mode-toggle-background-color: none;
 
-  border: solid 1px var(--text-color);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }

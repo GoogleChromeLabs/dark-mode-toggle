@@ -1,12 +1,13 @@
-((win, doc, mqDark, mqsLight) => {
+((win, doc, store, mqDark, mqsLight) => {
   const LIGHT = 'light';
   const DARK = 'dark';
   const TOGGLE = 'toggle';
   const SWITCH = 'switch';
   const LEGEND = 'legend';
   const APPEARANCE = 'appearance';
+  const PERSIST = 'persist';
   const MODE = 'mode';
-  const MODE_CHANGE = 'modechange';
+  const COLOR_SCHEME_CHANGE = 'colorschemechange';
   const ALL = 'all';
   const NAME = 'dark-mode-toggle';
   // See https://html.spec.whatwg.org/multipage/common-dom-interfaces.html ↵
@@ -20,6 +21,22 @@
       },
       set(v) {
         this.setAttribute(attrName, v);
+      },
+    });
+  };
+
+  const installBoolReflection = (obj, attrName, propName = attrName) => {
+    Object.defineProperty(obj, propName, {
+      enumerable: true,
+      get() {
+        return this.hasAttribute(attrName);
+      },
+      set(v) {
+        if (v) {
+          this.setAttribute(attrName, '');
+        } else {
+          this.removeAttribute(attrName);
+        }
       },
     });
   };
@@ -135,7 +152,7 @@
 
   class DarkModeToogle extends HTMLElement {
     static get observedAttributes() {
-      return [MODE, APPEARANCE, LEGEND, LIGHT, DARK];
+      return [MODE, APPEARANCE, PERSIST, LEGEND, LIGHT, DARK];
     }
 
     constructor() {
@@ -147,15 +164,15 @@
       installStringReflection(this, LIGHT);
       installStringReflection(this, DARK);
 
+      installBoolReflection(this, PERSIST);
+
       this._darkCSS = null;
       this._lightCSS = null;
 
-      doc.addEventListener(MODE_CHANGE, (e) => {
-        this.mode = e.detail.mode;
-        const darkModeOn = this.mode === DARK;
-        this.darkCheckbox.checked = darkModeOn;
-        this.darkRadio.checked = darkModeOn;
-        this.lightRadio.checked = !darkModeOn;
+      doc.addEventListener(COLOR_SCHEME_CHANGE, (e) => {
+        this.mode = e.detail.colorScheme;
+        this._updateRadios();
+        this._updateCheckbox();
       });
 
       this._initializeDOM();
@@ -194,22 +211,25 @@
       // Does the browser support native `prefers-color-scheme`?
       const hasNativePrefersColorScheme =
           win.matchMedia('(prefers-color-scheme)').matches;
-      // Set initial state, giving preference to the native value, defaulting to
-      // a light experience.
-      if (hasNativePrefersColorScheme) {
+      // Set initial state, giving preference to a persisted value, then the
+      // native value (if supported), and eventually defaulting to a light
+      // experience.
+      const persistedValue = store.getItem(NAME);
+      if (persistedValue && [DARK, LIGHT].includes(persistedValue)) {
+        this.mode = persistedValue;
+      } else if (hasNativePrefersColorScheme) {
         if ((win.matchMedia(mqsLight[0]).matches) ||
             (win.matchMedia(mqsLight[1]).matches)) {
-          this.lightRadio.checked = true;
           this.mode = LIGHT;
         } else if (win.matchMedia(mqDark).matches) {
-          this.darkRadio.checked = true;
-          this.darkCheckbox.checked = true;
           this.mode = DARK;
         }
       }
       if (!this.mode) {
-        this.lightRadio.checked = true;
         this.mode = LIGHT;
+      }
+      if (this.persistMode && !persistedValue) {
+        store.setItem(NAME, this.mode);
       }
 
       // Default to toggle appearance.
@@ -220,23 +240,28 @@
       // Update the appearance to either of toggle or switch.
       this._updateAppearance();
 
+      // Update the radios
+      this._updateRadios();
+
       // Make the checkbox reflect the state of the radios
       this._updateCheckbox();
 
       // Synchronize the behavior of the radio and the checkbox.
       [this.lightRadio, this.darkRadio].forEach((input) => {
         input.addEventListener('change', () => {
-          this.darkCheckbox.checked = this.darkRadio.checked;
           this.mode = this.lightRadio.checked ? LIGHT : DARK;
+          this._updateCheckbox();
           this._dispatchEvent();
         });
       });
       this.darkCheckbox.addEventListener('change', () => {
-        this.darkRadio.checked = this.darkCheckbox.checked;
-        this.lightRadio.checked = !this.darkCheckbox.checked;
         this.mode = this.darkCheckbox.checked ? DARK : LIGHT;
+        this._updateRadios();
         this._dispatchEvent();
       });
+
+      // Finally update the mode
+      this._updateMode();
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -244,12 +269,22 @@
         if (newValue !== LIGHT && newValue !== DARK) {
           throw new RangeError(`Allowed values: "${LIGHT}" and "${DARK}".`);
         }
+        if (this.persistMode) {
+          store.setItem(NAME, this.mode);
+        }
         this._updateMode();
       } else if (name === APPEARANCE) {
         if (newValue !== TOGGLE && newValue !== SWITCH) {
           throw new RangeError('Allowed values: "${TOGGLE}" and "${SWITCH}".');
         }
         this._updateAppearance();
+      } else if (name === PERSIST) {
+        this.persistMode = this.hasAttribute(PERSIST);
+        if (this.persistMode) {
+          store.setItem(NAME, this.mode);
+        } else {
+          store.removeItem(NAME);
+        }
       } else if (name === LEGEND) {
         this.legendLabel.textContent = newValue;
       } else if (name === LIGHT) {
@@ -266,10 +301,10 @@
     }
 
     _dispatchEvent() {
-      this.dispatchEvent(new CustomEvent(MODE_CHANGE, {
+      this.dispatchEvent(new CustomEvent(COLOR_SCHEME_CHANGE, {
         bubbles: true,
         composed: true,
-        detail: {mode: this.mode},
+        detail: {colorScheme: this.mode},
       }));
     }
 
@@ -283,6 +318,15 @@
       this.darkLabel.hidden = appearAsToogle;
       this.darkCheckbox.hidden = !appearAsToogle;
       this.checkboxLabel.hidden = !appearAsToogle;
+    }
+
+    _updateRadios() {
+      if (this.mode === LIGHT) {
+        this.lightRadio.checked = true;
+      } else {
+        this.darkRadio.checked = true;
+        this.darkCheckbox.checked = true;
+      }
     }
 
     _updateCheckbox() {
@@ -322,7 +366,7 @@
   }
 
   win.customElements.define(NAME, DarkModeToogle);
-})(window, document, '(prefers-color-scheme: dark)', [
+})(window, document, window.localStorage, '(prefers-color-scheme: dark)', [
   '(prefers-color-scheme: light)',
   '(prefers-color-scheme: no-preference)',
 ]);

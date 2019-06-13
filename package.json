@@ -6,7 +6,7 @@
   "module": "./dist/dark-mode-toggle.min.mjs",
   "scripts": {
     "clean": "rm -rf ./dist && mkdir dist",
-    "lint:js": "npx eslint './src/*.mjs' --fix",
+    "lint:js": "npx eslint './src/*.mjs' --fix && npx eslint './demo/*.mjs' --fix",
     "lint:css": "cp ./src/dark-mode-toggle.mjs ./src/dark-mode-toggle.html && npx stylelint './src/*.html' --fix && cp ./src/dark-mode-toggle.html ./src/dark-mode-toggle.mjs && rm ./src/dark-mode-toggle.html && npx stylelint './demo/*.css' --fix",
     "lint": "npm run lint:js && npm run lint:css",
     "build": "npm run clean && sed 's/template.innerHTML = `/template.innerHTML = html`/' ./src/dark-mode-toggle.mjs > ./src/dark-mode-toggle.temp.mjs && npx babel './src/dark-mode-toggle.temp.mjs' --presets minify --plugins minify-template-strings --no-comments --out-file './dist/dark-mode-toggle.min.mjs' && rm ./src/dark-mode-toggle.temp.mjs"
