@@ -48,7 +48,8 @@ See the custom element in action in the
 Properties can be set directly on the custom element at creation time, or
 dynamically via JavaScript.
 
-Note that the icons are set via CSS variables.
+Note that the dark and light **icons** are set via CSS variables, see
+[Style Customization](#style-customization) below.
 
 | Name | Required | Values | Default | Description |
 | ---- | -------- | ------ | ------- | ----------- |
@@ -105,14 +106,16 @@ Reacting on color scheme changes:
 
 ## Style Customization
 
+See the demo source code for some concrete examples.
+
 | CSS Variable Name | Default | Description |
 | ----------------- | ------- | ----------- |
+| --dark-mode-toggle-light-icon | No icon | The icon for the light state in `background-image:` notation. |
+| --dark-mode-toggle-dark-icon | No icon | The icon for the dark state in `background-image:` notation. |
 | `--dark-mode-toggle-color` | User-Agent stylesheet text color | The main text color in `color:` notation. |
 | `--dark-mode-toggle-background-color` | User-Agent stylesheet background color | The main background color in `background-color:` notation. |
 | --dark-mode-toggle-legend-font | User-Agent `<legend>` font | The font of the legend in shorthand `font:` notation. |
 | --dark-mode-toggle-label-font | User-Agent `<label>` font | The font of the labels in shorthand `font:` notation. |
-| --dark-mode-toggle-light-icon | No icon | The icon for the light state in `background-image:` notation. |
-| --dark-mode-toggle-dark-icon | No icon | The icon for the dark state in `background-image:` notation. |
 | --dark-mode-toggle-icon-filter | No filter | The filter for the dark icon (so you can use all black or all white icons and just invert the dark icon) in `filter:` notation. |
 | --dark-mode-toggle-active-mode-background-color | No background color | The background color for the currently active mode in `background-color:` notation. |
 
