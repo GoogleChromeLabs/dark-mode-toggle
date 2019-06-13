@@ -334,10 +334,12 @@
         this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
             this._lightIcon);
         this.checkboxLabel.textContent = this.light;
+        this.darkCheckbox.checked = false;
       } else {
         this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
             this._darkIcon);
         this.checkboxLabel.textContent = this.dark;
+        this.darkCheckbox.checked = true;
       }
     }
 
