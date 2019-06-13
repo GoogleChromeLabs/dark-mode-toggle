@@ -43,7 +43,8 @@ npm install --save dark-mode-toggle
 See the custom element in action in the
 [interactive demo](https://tomayac.github.io/dark-mode-toggle/demo/).
 It shows four different kinds of synchronized `<dark-mode-toggle>`s.
-If you are using Chrome on an Android device, pay attention to the address bar's theme color.
+If you are using Chrome on an Android device, pay attention to the address bar's
+theme color.
 
 <img src="https://user-images.githubusercontent.com/145676/59439071-df55f580-8df4-11e9-89fb-ec91ac41de39.png" width="400" alt="light"> <img src="https://user-images.githubusercontent.com/145676/59439072-df55f580-8df4-11e9-82a3-6dc03cf950f3.png" width="400" alt="dark">
 
@@ -129,7 +130,7 @@ This is not an official Google product.
 
 ## License
 
-Copyright 2019 Thomas Steiner
+Copyright 2019 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
