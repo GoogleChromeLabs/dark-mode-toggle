@@ -58,7 +58,7 @@
   };
 
   const template = doc.createElement('template');
-  template.innerHTML = html`
+  template.innerHTML = `
 <style>
   *,
   ::before,
