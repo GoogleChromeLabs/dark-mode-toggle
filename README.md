@@ -26,25 +26,48 @@ The example below illustrates the principle.
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/dark-mode-toggle/dist/dark-mode-toggle.min.mjs">
+    <link rel="stylesheet" href="https://googlechromelabs.github.io/dark-mode-toggle/demo/common.css">
+    <link rel="stylesheet" href="https://googlechromelabs.github.io/dark-mode-toggle/demo/light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
+    <link rel="stylesheet" href="https://googlechromelabs.github.io/dark-mode-toggle/demo/dark.css" media="(prefers-color-scheme: dark)">
+    <script type="module" src="https://googlechromelabs.github.io/dark-mode-toggle/dist/dark-mode-toggle.min.mjs"></script>
+    <style>
+      #dark-mode-toggle-1 {
+        --dark-mode-toggle-dark-icon: url("https://googlechromelabs.github.io/dark-mode-toggle/demo/moon.png");
+        --dark-mode-toggle-light-icon: url("https://googlechromelabs.github.io/dark-mode-toggle/demo/sun.png");
+        --dark-mode-toggle-remember-icon-checked: url("https://googlechromelabs.github.io/dark-mode-toggle/demo/checked.svg");
+        --dark-mode-toggle-remember-icon-unchecked: url("https://googlechromelabs.github.io/dark-mode-toggle/demo/unchecked.svg");
+        --dark-mode-toggle-remember-font: 0.75rem 'Helvetica';
+        --dark-mode-toggle-legend-font: bold 0.85rem 'Helvetica';
+        --dark-mode-toggle-label-font: 0.85rem 'Helvetica';
+        --dark-mode-toggle-color: var(--text-color);
+        --dark-mode-toggle-background-color: none;
+        --dark-mode-toggle-active-mode-background-color: var(--accent-color);
+        --dark-mode-toggle-remember-filter: invert(100%);
+      }
+    </style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
 ```
 -->
 ```html
-<!-- ⚠️ Split your CSS in common, dark, and light, don't worry whether your -->
-<!-- browser actually supports the media query. -->
-
-<!-- <link rel="stylesheet" href="common.css"> -->
-<!-- <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"> -->
-<!-- <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)"> -->
-
-<!-- Include the custom element code -->
-<!-- <script type="module" src="dark-mode-toggle.min.mjs"></script> -->
-
-<!-- Use the custom element, see the demo for configuration options -->
-<dark-mode-toggle></dark-mode-toggle>
+<main>
+  <h1>Hi there</h1>
+  <img src="https://googlechromelabs.github.io/dark-mode-toggle/demo/cat.jpg"
+       alt="Sitting cat in front of a tree" width="320" height="195"
+       intrinsicsize="640x390">
+  <p>This is just a test… Check out the dark mode toggle in the upper right corner!</p>
+</main>
+<aside>
+  <dark-mode-toggle
+      id="dark-mode-toggle-1"
+      legend="Theme Switcher"
+      appearance="switch"
+      dark="Dark"
+      light="Light"
+      remember="Remember this"
+  ></dark-mode-toggle>
+</aside>
 ```
 
 ## Demo
