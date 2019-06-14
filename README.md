@@ -13,12 +13,11 @@ npm install --save dark-mode-toggle
 
 ## Usage
 
-**The custom element assumes that you have organized your CSS in different files
-that you load conditionally based on the `media` attribut in the stylesheet's
-corresponding `link` element.**
-This is a great performance pattern, as you don't force people to download CSS
-that they don't need based on their current theme preference,
-yet nevertheless non-matching stylesheets still get loaded,
+⚠️ The custom element assumes that you have organized your CSS in different files
+that you load conditionally based on the **`media`** attribute in the stylesheet's
+corresponding `link` element. This is a great performance pattern,
+as you don't force people to download CSS that they don't need
+based on their current theme preference, yet non-matching stylesheets still get loaded,
 but don't compete for bandwidth in the critical rendering path.
 You can also have more than one file per theme.
 The example below illustrates the principle.
@@ -53,7 +52,7 @@ The example below illustrates the principle.
 See the custom element in action in the
 [interactive demo](https://googlechromelabs.github.io/dark-mode-toggle/demo/).
 It shows four different kinds of synchronized `<dark-mode-toggle>`s.
-If you are using Chrome on an Android device, pay attention to the address bar's
+If you use Chrome on an Android device, pay attention to the address bar's
 theme color, and also note how the favicon changes.
 
 <img src="https://user-images.githubusercontent.com/145676/59439071-df55f580-8df4-11e9-89fb-ec91ac41de39.png" width="400" alt="light"> <img src="https://user-images.githubusercontent.com/145676/59439072-df55f580-8df4-11e9-82a3-6dc03cf950f3.png" width="400" alt="dark">
@@ -63,7 +62,7 @@ theme color, and also note how the favicon changes.
 Properties can be set directly on the custom element at creation time, or
 dynamically via JavaScript.
 
-Note that the dark and light **icons** are set via CSS variables, see
+👉 Note that the dark and light **icons** are set via CSS variables, see
 [Style Customization](#style-customization) below.
 
 | Name | Required | Values | Default | Description |
@@ -124,7 +123,7 @@ Reacting on color scheme changes:
   });
 ```
 
-Reacting on :
+Reacting on "remember the last selected mode" functionality changes:
 
 ```js
   /* On the page */

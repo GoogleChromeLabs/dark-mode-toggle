@@ -30,6 +30,6 @@
 
   doc.addEventListener('permanentcolorscheme', (e) => {
     console.log(`${e.detail.permanent ? 'R' : 'Not r'
-        }emembering the last selected mode.`);
+    }emembering the last selected mode.`);
   });
 })(document);
