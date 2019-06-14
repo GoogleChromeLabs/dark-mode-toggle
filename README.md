@@ -56,7 +56,7 @@ The example below illustrates the principle.
   <img src="https://googlechromelabs.github.io/dark-mode-toggle/demo/cat.jpg"
        alt="Sitting cat in front of a tree" width="320" height="195"
        intrinsicsize="640x390">
-  <p>This is just a test… Check out the dark mode toggle in the upper right corner!</p>
+  <p>Check out the dark mode toggle in the upper right corner!</p>
 </main>
 <aside>
   <dark-mode-toggle
