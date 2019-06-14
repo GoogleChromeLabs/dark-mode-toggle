@@ -26,7 +26,7 @@ The example below illustrates the principle.
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://tomayac.github.io/dark-mode-toggle/dist/dark-mode-toggle.min.mjs">
+    <script type="module" src="dark-mode-toggle.min.mjs">
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -50,12 +50,12 @@ The example below illustrates the principle.
 ## Demo
 
 See the custom element in action in the
-[interactive demo](https://googlechromelabs.github.io/dark-mode-toggle/demo/).
+[interactive demo](https://googlechromelabs.github.io/dark-mode-toggle/demo/index.html).
 It shows four different kinds of synchronized `<dark-mode-toggle>`s.
 If you use Chrome on an Android device, pay attention to the address bar's
 theme color, and also note how the favicon changes.
 
-<img src="https://user-images.githubusercontent.com/145676/59439071-df55f580-8df4-11e9-89fb-ec91ac41de39.png" width="400" alt="light"> <img src="https://user-images.githubusercontent.com/145676/59439072-df55f580-8df4-11e9-82a3-6dc03cf950f3.png" width="400" alt="dark">
+<img src="https://user-images.githubusercontent.com/145676/59537453-ec5b0d80-8ef6-11e9-9efb-c44ed9db24b6.png" width="400" alt="Dark"> <img src="https://user-images.githubusercontent.com/145676/59537454-ec5b0d80-8ef6-11e9-8a89-5e3fbda9c15c.png" width="400" alt="Light">
 
 ## Properties
 
