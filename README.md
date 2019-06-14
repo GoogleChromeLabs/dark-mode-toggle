@@ -26,7 +26,7 @@ The example below illustrates the principle.
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="dark-mode-toggle.min.mjs">
+    <script type="module" src="https://unpkg.com/dark-mode-toggle/dist/dark-mode-toggle.min.mjs">
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
