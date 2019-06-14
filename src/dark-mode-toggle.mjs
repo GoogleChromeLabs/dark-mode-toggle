@@ -372,7 +372,8 @@
           throw new RangeError(`Allowed values: "${LIGHT}" and "${DARK}".`);
         }
         // Only show the dialog programmatically on devices not capable of hover
-        if (win.matchMedia('(hover: none)').matches) {
+        // and only if there is a label
+        if (win.matchMedia('(hover: none)').matches && this.remember) {
           this._showPermanentAside();
         }
         if (this.permanent) {
