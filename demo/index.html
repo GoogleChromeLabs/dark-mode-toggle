@@ -6,52 +6,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="">
+    <link rel="icon" content="">
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
     <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
-    <script type="module" src="../src/dark-mode-toggle.mjs"></script>
     <script type="module" src="dark-mode-toggle-playground.mjs"></script>
+    <script type="module" src="../src/dark-mode-toggle.mjs"></script>
   </head>
   <body>
     <main>
       <h1>Hi there!</h1>
-
       <img src="cat.jpg" alt="Sitting cat in front of a tree" width="640" height="390" intrinsicsize="640x390">
-
       <p>
         Lorem ipsum dolor sit amet, legere ancillae ne vis. Ne vim laudem accusam consectetuer,
         eu utinam integre abhorreant sea. Quo eius veri ei, nibh invenire democritum vel in,
         utamur vulputate id est. Possit ceteros vis an.
       </p>
-
       <form id="content">
         <fieldset>
           <legend>Lorem ipsum</legend>
-
           <div>
             <select>
               <option>Lorem</option>
               <option>Ipsum</option>
             </select>
           </div>
-
           <div>
             <button type="button">Lorem</button>
           </div>
-
           <div>
             <input type="text" value="Lorem ipsum">
           </div>
-
           <div>
             <input type="search" value="Lorem ipsum">
           </div>
-
           <div>
             <label><input checked type="checkbox"> Lorem</label>
             <label><input type="checkbox"> Ipsum</label>
           </div>
-
           <div>
             <label><input checked name="foo" type="radio"> Lorem</label>
             <label><input name="foo" type="radio"> Ipsum</label>
@@ -60,13 +52,17 @@
       </form>
     </main>
     <aside>
-      <dark-mode-toggle id="dark-mode-toogle-1"></dark-mode-toggle>
-      <dark-mode-toggle id="dark-mode-toogle-2" style="--dark-mode-toggle-light-icon: url(sun.svg); --dark-mode-toggle-dark-icon: url(moon.svg); --dark-mode-toggle-icon-filter: invert(100%);"></dark-mode-toggle>
-      <dark-mode-toggle id="dark-mode-toogle-3" legend="Dark Mode" light="off" dark="on"></dark-mode-toggle>
-      <dark-mode-toggle id="dark-mode-toogle-4" legend="Theme" light="Light" dark="Dark" appearance="switch" style="--dark-mode-toggle-active-mode-background-color: var(--accent-color);"></dark-mode-toggle>
+      <dark-mode-toggle id="dark-mode-toggle-1"></dark-mode-toggle>
+    </aside>
+    <aside>
+      <dark-mode-toggle id="dark-mode-toggle-2"></dark-mode-toggle>
+    </aside>
+    <aside>
+      <dark-mode-toggle id="dark-mode-toggle-3" legend="Dark Mode" light="off" dark="on" remember="always"></dark-mode-toggle>
+    </aside>
+    <aside>
+      <dark-mode-toggle id="dark-mode-toggle-4" legend="Theme Switcher" light="Light" dark="Dark" remember="Remember this" appearance="switch"></dark-mode-toggle>
     </aside>
   </body>
 </html>
-
-
 

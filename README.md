@@ -1,7 +1,7 @@
 # `<dark-mode-toggle>` Element
 
-A custom element that allows you to easily put a *Dark Mode 🌒* toggle or switch
-on your site and that adds
+A custom element that allows you to easily put a *Dark Mode 🌒* toggle
+or switch on your site and that adds
 [`prefers-color-scheme`](https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme)
 support even to browsers that don't support the media feature natively.
 
@@ -12,6 +12,16 @@ npm install --save dark-mode-toggle
 ```
 
 ## Usage
+
+**The custom element assumes that you have organized your CSS in different files
+that you load conditionally based on the `media` attribut in the stylesheet's
+corresponding `link` element.**
+This is a great performance pattern, as you don't force people to download CSS
+that they don't need based on their current theme preference,
+yet nevertheless non-matching stylesheets still get loaded,
+but don't compete for bandwidth in the critical rendering path.
+You can also have more than one file per theme.
+The example below illustrates the principle.
 
 <!--
 ```
@@ -41,10 +51,10 @@ npm install --save dark-mode-toggle
 ## Demo
 
 See the custom element in action in the
-[interactive demo](https://tomayac.github.io/dark-mode-toggle/demo/).
+[interactive demo](https://googlechromelabs.github.io/dark-mode-toggle/demo/).
 It shows four different kinds of synchronized `<dark-mode-toggle>`s.
 If you are using Chrome on an Android device, pay attention to the address bar's
-theme color.
+theme color, and also note how the favicon changes.
 
 <img src="https://user-images.githubusercontent.com/145676/59439071-df55f580-8df4-11e9-89fb-ec91ac41de39.png" width="400" alt="light"> <img src="https://user-images.githubusercontent.com/145676/59439072-df55f580-8df4-11e9-82a3-6dc03cf950f3.png" width="400" alt="dark">
 
@@ -60,14 +70,16 @@ Note that the dark and light **icons** are set via CSS variables, see
 | ---- | -------- | ------ | ------- | ----------- |
 | `mode` | No | Any of `"dark"` or `"light"` | Defaults to whatever the user's preferred color scheme is according to `prefers-color-scheme`, or `"light"` if the user's browser doesn't support the media query. | If set overrides the user's preferred color scheme. |
 | `appearance` | No | Any of `"toggle"` or `"switch"` | Defaults to `"toggle"`. | The `"switch"` appearance conveys the idea of a theme switcher (light/dark), whereas `"toggle"` conveys the idea of a dark mode toggle (on/off). |
-| `persist` | No | `true` if present | Defaults to not persist the last choice. | If present persists the last selected mode (`"dark"` or `"light"`), which allows the user to persistently override their usual preferred color scheme. |
+| `permanent` | No | `true` if present | Defaults to not remember the last choice. | If present remembers the last selected mode (`"dark"` or `"light"`), which allows the user to permanently override their usual preferred color scheme. |
 | `legend` | No | Any string | Defaults to no legend. | Any string value that represents the legend for the toggle or switch. |
 | `light` | No | Any string | Defaults to no label. | Any string value that represents the label for the `"light"` mode. |
 | `dark` | No | Any string | Defaults to no label. | Any string value that represents the label for the `"dark"` mode. |
+| `remember` | No | Any string | Defaults to no label. | Any string value that represents the label for the "remember the last selected mode" functionality. |
 
 ## Events
 
 - `colorschemechange`: Fired when the color scheme gets changed.
+- `permanentcolorscheme`: Fired when the color scheme should be permanently remembered or not.
 
 ## Complete Example
 
@@ -94,10 +106,13 @@ darkModeToggle.appearance = 'switch';
 // Set the appearance to resemble a toggle (dark mode: on/off)
 darkModeToggle.appearance = 'toggle';
 
-// Persist the user's last color scheme choice
-darkModeToggle.setAttribute('persist', '');
+// Set a "remember the last selected mode" label
+darkModeToggle.remember = 'Remember this';
+
+// Remember the user's last color scheme choice
+darkModeToggle.setAttribute('permanent', '');
 // Forget the user's last color scheme choice
-darkModeToggle.removeAttribute('persist');
+darkModeToggle.removeAttribute('permanent');
 ```
 
 Reacting on color scheme changes:
@@ -106,7 +121,17 @@ Reacting on color scheme changes:
   /* On the page */
   document.addEventListener('colorschemechange', (e) => {
     console.log(`Color scheme changed to ${e.detail.colorScheme}.`);
-  })
+  });
+```
+
+Reacting on :
+
+```js
+  /* On the page */
+  document.addEventListener('permanentcolorscheme', (e) => {
+    console.log(`${e.detail.permanent ? 'R' : 'Not r'
+        }emembering the last selected mode.`);
+  });
 ```
 
 ## Style Customization
@@ -115,14 +140,18 @@ See the demo source code for some concrete examples.
 
 | CSS Variable Name | Default | Description |
 | ----------------- | ------- | ----------- |
-| --dark-mode-toggle-light-icon | No icon | The icon for the light state in `background-image:` notation. |
-| --dark-mode-toggle-dark-icon | No icon | The icon for the dark state in `background-image:` notation. |
+| `--dark-mode-toggle-light-icon` | No icon | The icon for the light state in `background-image:` notation. |
+| `--dark-mode-toggle-dark-icon` | No icon | The icon for the dark state in `background-image:` notation. |
+| `--dark-mode-toggle-remember-icon-checked` | No icon | The icon for the checked "remember the last selected mode" functionality in `background-image:` notation. |
+| `--dark-mode-toggle-remember-icon-unchecked` | No icon | The icon for the unchecked "remember the last selected mode" functionality in `background-image:` notation. |
 | `--dark-mode-toggle-color` | User-Agent stylesheet text color | The main text color in `color:` notation. |
 | `--dark-mode-toggle-background-color` | User-Agent stylesheet background color | The main background color in `background-color:` notation. |
-| --dark-mode-toggle-legend-font | User-Agent `<legend>` font | The font of the legend in shorthand `font:` notation. |
-| --dark-mode-toggle-label-font | User-Agent `<label>` font | The font of the labels in shorthand `font:` notation. |
-| --dark-mode-toggle-icon-filter | No filter | The filter for the dark icon (so you can use all black or all white icons and just invert the dark icon) in `filter:` notation. |
-| --dark-mode-toggle-active-mode-background-color | No background color | The background color for the currently active mode in `background-color:` notation. |
+| `--dark-mode-toggle-legend-font` | User-Agent `<legend>` font | The font of the legend in shorthand `font:` notation. |
+| `--dark-mode-toggle-label-font` | User-Agent `<label>` font | The font of the labels in shorthand `font:` notation. |
+| `--dark-mode-toggle-remember-font` | User-Agent `<label>` font | The font of the "remember the last selected mode" functionality label in shorthand `font:` notation. |
+| `--dark-mode-toggle-icon-filter` | No filter | The filter for the dark icon (so you can use all black or all white icons and just invert one of them) in `filter:` notation. |
+| `--dark-mode-toggle-remember-filter` | No filter | The filter for the "remember the last selected mode" functionality icon (so you can use all black or all white icons and just invert one of them) in `filter:` notation. |
+| `--dark-mode-toggle-active-mode-background-color` | No background color | The background color for the currently active mode in `background-color:` notation. |
 
 ## Notes
 

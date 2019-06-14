@@ -17,13 +17,15 @@
 ((win, doc, store, mqDark, mqsLight) => {
   const LIGHT = 'light';
   const DARK = 'dark';
+  const REMEMBER = 'remember';
+  const LEGEND = 'legend';
   const TOGGLE = 'toggle';
   const SWITCH = 'switch';
-  const LEGEND = 'legend';
   const APPEARANCE = 'appearance';
-  const PERSIST = 'persist';
+  const PERMANENT = 'permanent';
   const MODE = 'mode';
   const COLOR_SCHEME_CHANGE = 'colorschemechange';
+  const PERMANENT_COLOR_SCHEME = 'permanentcolorscheme';
   const ALL = 'all';
   const NAME = 'dark-mode-toggle';
   // See https://html.spec.whatwg.org/multipage/common-dom-interfaces.html ↵
@@ -95,6 +97,21 @@
     cursor: pointer;
   }
 
+  label {
+    padding: 0.15rem;
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  input:focus + label {
+    outline: rgb(229, 151, 0) auto 2px;
+    outline: -webkit-focus-ring-color auto 5px;
+  }
+
   label::before {
     content: "";
     display: inline-block;
@@ -123,37 +140,78 @@
     background-image: var(--${NAME}-checkbox-icon, none);
   }
 
-  label {
-    padding: 0.15rem;
+  #permanentLabel::before {
+    background-image: var(--${NAME}-remember-icon-unchecked, none);
+  }
+
+  #lightLabel,
+  #darkLabel,
+  #checkboxLabel {
     font: var(--${NAME}-label-font, inherit);
   }
 
-  input {
-    opacity: 0;
-    position: absolute;
+  #permanentLabel {
+    font: var(--${NAME}-remember-font, inherit);
   }
 
-  input:focus + label {
-    outline: rgb(229, 151, 0) auto 5px;
-    outline: -webkit-focus-ring-color auto 5px;
+  input:checked + #permanentLabel::before {
+    background-image: var(--${NAME}-remember-icon-checked, none);
   }
 
-  input:checked + label {
+  input:checked + #darkLabel,
+  input:checked + #lightLabel {
     background-color: var(--${NAME}-active-mode-background-color, transparent);
   }
 
-  input:checked + label::before {
+  input:checked + #darkLabel::before,
+  input:checked + #lightLabel::before {
     background-color: var(--${NAME}-active-mode-background-color, transparent);
-    border-radius: 1rem;
   }
 
   input:checked + #checkboxLabel::before {
     filter: var(--${NAME}-icon-filter, none);
   }
+
+  input:checked + #checkboxLabel + aside #permanentLabel::before {
+    filter: var(--${NAME}-remember-filter, none);
+  }
+
+  aside {
+    visibility: hidden;
+    margin-top: 0.15rem;
+  }
+
+  #lightLabel:focus-visible ~ aside,
+  #darkLabel:focus-visible ~ aside,
+  #checkboxLabel:focus-visible ~ aside {
+    visibility: visible;
+    transition: visibility 0s;
+  }
+
+  @media (hover: hover) {
+    aside {
+      transition: visibility 3s;
+    }
+
+    aside:hover {
+      visibility: visible;
+    }
+
+    #lightLabel:hover ~ aside,
+    #darkLabel:hover ~ aside,
+    #checkboxLabel:hover ~ aside {
+      visibility: visible;
+      transition: visibility 0s;
+    }
+
+    aside #permanentLabel:empty {
+      display: none;
+    }
+  }
 </style>
-<form id="theme">
+<form>
   <fieldset>
-    <legend id="legend"></legend>
+    <legend></legend>
 
     <input id="lightRadio" name="mode" type="radio">
     <label id="lightLabel" for="lightRadio"></label>
@@ -161,14 +219,19 @@
     <input id="darkRadio" name="mode" type="radio">
     <label id="darkLabel" for="darkRadio"></label>
 
-    <input id="darkCheckbox" name="mode" type="checkbox">
+    <input id="darkCheckbox" type="checkbox">
     <label id="checkboxLabel" for="darkCheckbox"></label>
+
+    <aside>
+      <input id="permanentCheckbox" type="checkbox">
+      <label id="permanentLabel" for="permanentCheckbox"></label>
+    </aside>
   </fieldset>
 </form>`;
 
   class DarkModeToogle extends HTMLElement {
     static get observedAttributes() {
-      return [MODE, APPEARANCE, PERSIST, LEGEND, LIGHT, DARK];
+      return [MODE, APPEARANCE, PERMANENT, LEGEND, LIGHT, DARK, REMEMBER];
     }
 
     constructor() {
@@ -179,8 +242,9 @@
       installStringReflection(this, LEGEND);
       installStringReflection(this, LIGHT);
       installStringReflection(this, DARK);
+      installStringReflection(this, REMEMBER);
 
-      installBoolReflection(this, PERSIST);
+      installBoolReflection(this, PERMANENT);
 
       this._darkCSS = null;
       this._lightCSS = null;
@@ -189,6 +253,11 @@
         this.mode = e.detail.colorScheme;
         this._updateRadios();
         this._updateCheckbox();
+      });
+
+      doc.addEventListener(PERMANENT_COLOR_SCHEME, (e) => {
+        this.permanent = e.detail.permanent;
+        this.permanentCheckbox.checked = this.permanent;
       });
 
       this._initializeDOM();
@@ -216,7 +285,10 @@
       this.darkLabel = shadowRoot.querySelector('#darkLabel');
       this.darkCheckbox = shadowRoot.querySelector('#darkCheckbox');
       this.checkboxLabel = shadowRoot.querySelector('#checkboxLabel');
-      this.legendLabel = shadowRoot.querySelector('#legend');
+      this.legendLabel = shadowRoot.querySelector('legend');
+      this.permanentAside = shadowRoot.querySelector('aside');
+      this.permanentCheckbox = shadowRoot.querySelector('#permanentCheckbox');
+      this.permanentLabel = shadowRoot.querySelector('#permanentLabel');
 
       // Store the light and the dark icon coming from CSS variables.
       this._lightIcon = win.getComputedStyle(this.lightLabel, ':before')
@@ -227,12 +299,14 @@
       // Does the browser support native `prefers-color-scheme`?
       const hasNativePrefersColorScheme =
           win.matchMedia('(prefers-color-scheme)').matches;
-      // Set initial state, giving preference to a persisted value, then the
+      // Set initial state, giving preference to a remembered value, then the
       // native value (if supported), and eventually defaulting to a light
       // experience.
-      const persistedValue = store.getItem(NAME);
-      if (persistedValue && [DARK, LIGHT].includes(persistedValue)) {
-        this.mode = persistedValue;
+      const rememberedValue = store.getItem(NAME);
+      if (rememberedValue && [DARK, LIGHT].includes(rememberedValue)) {
+        this.mode = rememberedValue;
+        this.permanentCheckbox.checked = true;
+        this.permanent = true;
       } else if (hasNativePrefersColorScheme) {
         if ((win.matchMedia(mqsLight[0]).matches) ||
             (win.matchMedia(mqsLight[1]).matches)) {
@@ -244,7 +318,7 @@
       if (!this.mode) {
         this.mode = LIGHT;
       }
-      if (this.persistMode && !persistedValue) {
+      if (this.permanent && !rememberedValue) {
         store.setItem(NAME, this.mode);
       }
 
@@ -267,42 +341,62 @@
         input.addEventListener('change', () => {
           this.mode = this.lightRadio.checked ? LIGHT : DARK;
           this._updateCheckbox();
-          this._dispatchEvent();
+          this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
         });
       });
       this.darkCheckbox.addEventListener('change', () => {
         this.mode = this.darkCheckbox.checked ? DARK : LIGHT;
         this._updateRadios();
-        this._dispatchEvent();
+        this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
       });
 
-      // Finally update the mode
+      // Make remembering the last mode optional
+      this.permanentCheckbox.addEventListener('change', () => {
+        this.permanent = this.permanentCheckbox.checked;
+        this._dispatchEvent(PERMANENT_COLOR_SCHEME, {
+          permanent: this.permanent,
+        });
+      });
+
+      // Finally update the mode and let the world know what's going on
       this._updateMode();
+      this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
+      this._dispatchEvent(PERMANENT_COLOR_SCHEME, {
+        permanent: this.permanent,
+      });
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
       if (name === MODE) {
-        if (newValue !== LIGHT && newValue !== DARK) {
+        if (![LIGHT, DARK].includes(newValue)) {
           throw new RangeError(`Allowed values: "${LIGHT}" and "${DARK}".`);
         }
-        if (this.persistMode) {
+        // Only show the dialog programmatically on devices not capable of hover
+        if (win.matchMedia('(hover: none)').matches) {
+          this._showPermanentAside();
+        }
+        if (this.permanent) {
           store.setItem(NAME, this.mode);
         }
+        this._updateRadios();
+        this._updateCheckbox();
         this._updateMode();
       } else if (name === APPEARANCE) {
-        if (newValue !== TOGGLE && newValue !== SWITCH) {
+        if (![TOGGLE, SWITCH].includes(newValue)) {
           throw new RangeError('Allowed values: "${TOGGLE}" and "${SWITCH}".');
         }
         this._updateAppearance();
-      } else if (name === PERSIST) {
-        this.persistMode = this.hasAttribute(PERSIST);
-        if (this.persistMode) {
+      } else if (name === PERMANENT) {
+        if (this.permanent) {
           store.setItem(NAME, this.mode);
         } else {
           store.removeItem(NAME);
         }
+        this.permanentCheckbox.checked = this.permanent;
       } else if (name === LEGEND) {
         this.legendLabel.textContent = newValue;
+      } else if (name === REMEMBER) {
+        this.permanentLabel.textContent = newValue;
       } else if (name === LIGHT) {
         this.lightLabel.textContent = newValue;
         if (this.mode === LIGHT) {
@@ -316,11 +410,11 @@
       }
     }
 
-    _dispatchEvent() {
-      this.dispatchEvent(new CustomEvent(COLOR_SCHEME_CHANGE, {
+    _dispatchEvent(type, value) {
+      this.dispatchEvent(new CustomEvent(type, {
         bubbles: true,
         composed: true,
-        detail: {colorScheme: this.mode},
+        detail: value,
       }));
     }
 
@@ -341,7 +435,6 @@
         this.lightRadio.checked = true;
       } else {
         this.darkRadio.checked = true;
-        this.darkCheckbox.checked = true;
       }
     }
 
@@ -360,7 +453,6 @@
     }
 
     _updateMode() {
-      this._updateCheckbox();
       if (this.mode === LIGHT) {
         this._lightCSS.forEach((link) => {
           link.media = ALL;
@@ -380,6 +472,13 @@
           link.disabled = true;
         });
       }
+    }
+
+    _showPermanentAside() {
+      this.permanentAside.style.visibility = 'visible';
+      win.setTimeout(() => {
+        this.permanentAside.style.visibility = 'hidden';
+      }, 3000);
     }
   }
 
