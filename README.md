@@ -1,3 +1,5 @@
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/dark-mode-toggle)
+
 # `<dark-mode-toggle>` Element
 
 A custom element that allows you to easily put a *Dark Mode 🌒* toggle
