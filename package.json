@@ -1,6 +1,6 @@
 {
   "name": "dark-mode-toggle",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Web Component that toggles dark mode 🌒",
   "main": "./src/dark-mode-toggle.mjs",
   "browser": "src/dark-mode-toggle.mjs",

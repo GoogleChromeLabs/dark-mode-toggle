@@ -290,12 +290,6 @@
       this.permanentCheckbox = shadowRoot.querySelector('#permanentCheckbox');
       this.permanentLabel = shadowRoot.querySelector('#permanentLabel');
 
-      // Store the light and the dark icon coming from CSS variables.
-      this._lightIcon = win.getComputedStyle(this.lightLabel, ':before')
-          .getPropertyValue('background-image');
-      this._darkIcon = win.getComputedStyle(this.darkLabel, ':before')
-          .getPropertyValue('background-image');
-
       // Does the browser support native `prefers-color-scheme`?
       const hasNativePrefersColorScheme =
           win.matchMedia('(prefers-color-scheme)').matches;
@@ -442,12 +436,12 @@
     _updateCheckbox() {
       if (this.mode === LIGHT) {
         this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
-            this._lightIcon);
+            `var(--${NAME}-light-icon)`);
         this.checkboxLabel.textContent = this.light;
         this.darkCheckbox.checked = false;
       } else {
         this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
-            this._darkIcon);
+            `var(--${NAME}-dark-icon)`);
         this.checkboxLabel.textContent = this.dark;
         this.darkCheckbox.checked = true;
       }
