@@ -1,20 +1,22 @@
 {
   "name": "dark-mode-toggle",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Web Component that toggles dark mode 🌒",
   "main": "./src/dark-mode-toggle.mjs",
-  "browser": "./src/dark-mode-toggle.mjs",
-  "module": "./dist/dark-mode-toggle.min.mjs",
+  "browser": "src/dark-mode-toggle.mjs",
+  "module": "dist/dark-mode-toggle.min.mjs",
+  "unpkg": "dist/dark-mode-toggle.min.mjs",
   "files": [
-    "./src/",
-    "./dist/"
+    "src",
+    "dist"
   ],
   "scripts": {
     "clean": "rm -rf ./dist && mkdir dist",
     "lint:js": "npx eslint './src/*.mjs' --fix && npx eslint './demo/*.mjs' --fix",
     "lint:css": "cp ./src/dark-mode-toggle.mjs ./src/dark-mode-toggle.html && npx stylelint './src/*.html' --fix && cp ./src/dark-mode-toggle.html ./src/dark-mode-toggle.mjs && rm ./src/dark-mode-toggle.html && npx stylelint './demo/*.css' --fix",
     "lint": "npm run lint:js && npm run lint:css",
-    "build": "npm run clean && sed 's/template.innerHTML = `/template.innerHTML = html`/' ./src/dark-mode-toggle.mjs > ./src/dark-mode-toggle.temp.mjs && npx babel './src/dark-mode-toggle.temp.mjs' --presets minify --plugins minify-template-strings --no-comments --out-file './dist/dark-mode-toggle.min.mjs' && sed -i .temp 's/^/\\/\\/ Copyright 2019 Google LLC. Licensed under the Apache License, Version 2.0.\\\n/' ./dist/dark-mode-toggle.min.mjs && rm ./dist/dark-mode-toggle.min.mjs.temp && rm ./src/dark-mode-toggle.temp.mjs"
+    "build": "npm run clean && sed 's/template.innerHTML = `/template.innerHTML = html`/' ./src/dark-mode-toggle.mjs > ./src/dark-mode-toggle.temp.mjs && npx babel './src/dark-mode-toggle.temp.mjs' --presets minify --plugins minify-template-strings --no-comments --out-file './dist/dark-mode-toggle.min.mjs' && sed -i .temp 's/^/\\/\\/ Copyright 2019 Google LLC. Licensed under the Apache License, Version 2.0.\\\n/' ./dist/dark-mode-toggle.min.mjs && rm ./dist/dark-mode-toggle.min.mjs.temp && rm ./src/dark-mode-toggle.temp.mjs",
+    "prepublish": "npm run lint && npm run build"
   },
   "repository": {
     "type": "git",
