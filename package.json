@@ -1,6 +1,6 @@
 {
   "name": "dark-mode-toggle",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Web Component that toggles dark mode 🌒",
   "main": "./src/dark-mode-toggle.mjs",
   "browser": "src/dark-mode-toggle.mjs",
@@ -36,7 +36,8 @@
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.13.0",
     "stylelint": "^10.1.0",
-    "stylelint-config-standard": "^18.3.0"
+    "stylelint-config-standard": "^18.3.0",
+    "terser": "^4.0.0"
   },
   "eslintConfig": {
     "parserOptions": {
@@ -75,7 +76,5 @@
       ]
     }
   },
-  "dependencies": {
-    "terser": "^4.0.0"
-  }
+  "dependencies": {}
 }
