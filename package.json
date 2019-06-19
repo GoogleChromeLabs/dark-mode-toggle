@@ -15,7 +15,7 @@
     "lint:js": "npx eslint './src/*.mjs' --fix && npx eslint './demo/*.mjs' --fix",
     "lint:css": "cp ./src/dark-mode-toggle.mjs ./src/dark-mode-toggle.html && npx stylelint './src/*.html' --fix && cp ./src/dark-mode-toggle.html ./src/dark-mode-toggle.mjs && rm ./src/dark-mode-toggle.html && npx stylelint './demo/*.css' --fix",
     "lint": "npm run lint:js && npm run lint:css",
-    "build": "npm run clean && sed 's/template.innerHTML = `/template.innerHTML = html`/' ./src/dark-mode-toggle.mjs > ./src/dark-mode-toggle.temp.mjs && npx babel './src/dark-mode-toggle.temp.mjs' --presets minify --plugins minify-template-strings --no-comments --out-file './dist/dark-mode-toggle.min.mjs' && sed -i .temp 's/^/\\/\\/ Copyright 2019 Google LLC. Licensed under the Apache License, Version 2.0.\\\n/' ./dist/dark-mode-toggle.min.mjs && rm ./dist/dark-mode-toggle.min.mjs.temp && rm ./src/dark-mode-toggle.temp.mjs",
+    "build": "npm run clean && npx terser ./src/dark-mode-toggle.mjs -m toplevel=true --comments /@license/ --ecma=8 -o ./dist/dark-mode-toggle.min.mjs",
     "prepublish": "npm run lint && npm run build"
   },
   "repository": {
@@ -33,12 +33,8 @@
   },
   "homepage": "https://github.com/googlechromelabs/dark-mode-toggle#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-minify-template-strings": "^1.0.3",
-    "babel-preset-minify": "^0.5.0",
     "eslint": "^5.16.0",
     "eslint-config-google": "^0.13.0",
-    "minify-html-literals": "^1.2.2",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0"
   },
@@ -79,5 +75,7 @@
       ]
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "terser": "^4.0.0"
+  }
 }
