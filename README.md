@@ -9,9 +9,24 @@ support even to browsers that don't support the media feature natively.
 
 ## Installation
 
+From npm:
+
 ```bash
 npm install --save dark-mode-toggle
 ```
+
+In the browser:
+
+```js
+import * as DarkModeToggle from 'https://cdn.pika.dev/dark-mode-toggle';
+```
+or 
+
+```js
+import * as DarkModeToggle from 'https://unpkg.com/dark-mode-toggle';
+```
+
+
 
 ## Usage
 
