@@ -301,7 +301,7 @@ export class DarkModeToogle extends HTMLElement {
 
     // Does the browser support native `prefers-color-scheme`?
     const hasNativePrefersColorScheme =
-        win.matchMedia('(prefers-color-scheme)').matches;
+        win.matchMedia('(prefers-color-scheme)').media !== 'not all';
     // Set initial state, giving preference to a remembered value, then the
     // native value (if supported), and eventually defaulting to a light
     // experience.
