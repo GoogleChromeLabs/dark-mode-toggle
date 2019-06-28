@@ -3,9 +3,12 @@
 # `<dark-mode-toggle>` Element
 
 A custom element that allows you to easily put a *Dark Mode 🌒* toggle
-or switch on your site and that adds
-[`prefers-color-scheme`](https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme)
-support even to browsers that don't support the media feature natively.
+or switch on your site, so you can initially adhere to your users' preferences according to
+[`prefers-color-scheme`](https://drafts.csswg.org/mediaqueries-5/#prefers-color-scheme),
+but also allow them to (optionally permanently) override their system setting for just your site.
+
+📚 Read all(!) about dark mode in the related article
+[Hello Darkness, My Old Friend](https://web.dev/prefers-color-scheme/).
 
 ## Installation
 
@@ -20,13 +23,11 @@ In the browser:
 ```js
 import * as DarkModeToggle from 'https://cdn.pika.dev/dark-mode-toggle';
 ```
-or 
+or
 
 ```js
 import * as DarkModeToggle from 'https://unpkg.com/dark-mode-toggle';
 ```
-
-
 
 ## Usage
 
