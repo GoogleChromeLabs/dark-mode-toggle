@@ -182,6 +182,7 @@ See the demo source code for some concrete examples.
 | ----------------- | ------- | ----------- |
 | `--dark-mode-toggle-light-icon` | No icon | The icon for the light state in `background-image:` notation. |
 | `--dark-mode-toggle-dark-icon` | No icon | The icon for the dark state in `background-image:` notation. |
+| `--dark-mode-toggle-icon-size` | 1rem | The icon size in CSS length data type notation. |
 | `--dark-mode-toggle-remember-icon-checked` | No icon | The icon for the checked "remember the last selected mode" functionality in `background-image:` notation. |
 | `--dark-mode-toggle-remember-icon-unchecked` | No icon | The icon for the unchecked "remember the last selected mode" functionality in `background-image:` notation. |
 | `--dark-mode-toggle-color` | User-Agent stylesheet text color | The main text color in `color:` notation. |

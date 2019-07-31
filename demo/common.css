@@ -129,6 +129,7 @@ dark-mode-toggle {
 #dark-mode-toggle-2 {
   --dark-mode-toggle-light-icon: url("sun.svg");
   --dark-mode-toggle-dark-icon: url("moon.svg");
+  --dark-mode-toggle-icon-size: 2rem;
   --dark-mode-toggle-icon-filter: invert(100%);
 }
 

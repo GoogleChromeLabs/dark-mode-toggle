@@ -124,10 +124,10 @@ input:focus + label {
 label::before {
   content: "";
   display: inline-block;
-  background-size: 1rem;
+  background-size: var(--${NAME}-icon-size, 1rem);
   background-repeat: no-repeat;
-  height: 1rem;
-  width: 1rem;
+  height: var(--${NAME}-icon-size, 1rem);
+  width: var(--${NAME}-icon-size, 1rem);
   vertical-align: middle;
   margin: 0 0.5rem 0 0;
 }
