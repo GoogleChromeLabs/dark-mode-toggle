@@ -307,6 +307,7 @@ export class DarkModeToogle extends HTMLElement {
       win.matchMedia(MQ_DARK).addListener(({matches}) => {
         if (!this.permanent) {
           this.mode = matches ? DARK : LIGHT;
+          this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
         }
       });
     }
