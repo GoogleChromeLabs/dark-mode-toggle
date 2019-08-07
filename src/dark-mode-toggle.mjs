@@ -159,6 +159,13 @@ label[dir="rtl"]::before {
   font: var(--${NAME}-label-font, inherit);
 }
 
+#lightLabel:empty,
+#darkLabel:empty,
+#checkboxLabel:empty {
+  font-size: 0;
+  padding: 0;
+}
+
 #permanentLabel {
   font: var(--${NAME}-remember-font, inherit);
 }
@@ -238,7 +245,7 @@ aside {
 </fieldset>
 </form>`;
 
-export class DarkModeToogle extends HTMLElement {
+export class DarkModeToggle extends HTMLElement {
   static get observedAttributes() {
     return [MODE, APPEARANCE, PERMANENT, LEGEND, LIGHT, DARK, REMEMBER];
   }
@@ -434,13 +441,13 @@ export class DarkModeToogle extends HTMLElement {
   _updateAppearance() {
     // Hide or show the light-related affordances dependent on the appearance,
     // which can be "switch" or "toggle".
-    const appearAsToogle = this.appearance === TOGGLE;
-    this.lightRadio.hidden = appearAsToogle;
-    this.lightLabel.hidden = appearAsToogle;
-    this.darkRadio.hidden = appearAsToogle;
-    this.darkLabel.hidden = appearAsToogle;
-    this.darkCheckbox.hidden = !appearAsToogle;
-    this.checkboxLabel.hidden = !appearAsToogle;
+    const appearAsToggle = this.appearance === TOGGLE;
+    this.lightRadio.hidden = appearAsToggle;
+    this.lightLabel.hidden = appearAsToggle;
+    this.darkRadio.hidden = appearAsToggle;
+    this.darkLabel.hidden = appearAsToggle;
+    this.darkCheckbox.hidden = !appearAsToggle;
+    this.checkboxLabel.hidden = !appearAsToggle;
   }
 
   _updateRadios() {
@@ -495,4 +502,4 @@ export class DarkModeToogle extends HTMLElement {
   }
 }
 
-win.customElements.define(NAME, DarkModeToogle);
+win.customElements.define(NAME, DarkModeToggle);
