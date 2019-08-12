@@ -8,9 +8,20 @@
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="">
     <link rel="icon" content="">
-    <link rel="stylesheet" href="common.css">
-    <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
+    <script>
+      // If `prefers-color-scheme` is not supported, fall back to light mode.
+      // In this case, light.css will be downloaded with `highest` priority.
+      if (window.matchMedia('(prefers-color-scheme)').media === 'not all') {
+        document.documentElement.style.display = 'none';
+        document.head.insertAdjacentHTML(
+            'beforeend',
+            '<link rel="stylesheet" href="light.css" onload="document.documentElement.style.display = ``">'
+        );
+      }
+    </script>
     <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+    <link rel="stylesheet" href="common.css">    
     <script type="module" src="dark-mode-toggle-playground.mjs"></script>
     <script type="module" src="../src/dark-mode-toggle.mjs"></script>
   </head>
