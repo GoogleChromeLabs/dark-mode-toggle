@@ -15,7 +15,8 @@
  * limitations under the License.
  */
 :root {
-  color-scheme: dark light;
+  color-scheme: dark light; /* stylelint-disable-line property-no-unknown */
+
   --heading-color: red;
   --duration: 0.5s;
   --timing: ease;
