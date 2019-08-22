@@ -31,7 +31,11 @@ import * as DarkModeToggle from 'https://unpkg.com/dark-mode-toggle';
 
 ## Usage
 
-⚠️ The custom element assumes that you have organized your CSS in different files
+There are two ways how you can use `<dark-mode-toggle>`:
+
+### Using different stylesheets per color scheme that are conditionally loaded
+
+The custom element assumes that you have organized your CSS in different files
 that you load conditionally based on the **`media`** attribute in the stylesheet's
 corresponding `link` element. This is a great performance pattern,
 as you don't force people to download CSS that they don't need
@@ -69,6 +73,11 @@ The example below illustrates the principle.
 ```
 -->
 ```html
+<!-- In the `<head>`
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
+  <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
+-->
 <main>
   <h1>Hi there</h1>
   <img src="https://googlechromelabs.github.io/dark-mode-toggle/demo/cat.jpg"
@@ -86,6 +95,31 @@ The example below illustrates the principle.
       remember="Remember this"
   ></dark-mode-toggle>
 </aside>
+```
+
+### Using a CSS classes that you toggle 
+
+If you prefer to not split your CSS in different files based on the color scheme,
+you can instead work with a class that you toggle, for example `class="dark"`.
+You can see this in action in [this demo](https://dark-mode-class-toggle.glitch.me/).
+
+
+```js
+import * as DarkModeToggle from 'https://cdn.pika.dev/dark-mode-toggle';
+
+const toggle = document.querySelector('dark-mode-toggle');
+const body = document.body;
+
+// Initialize the toggle based on `prefers-color-scheme`, defaulting to 'light'.
+toggle.mode = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+// Set or remove the `dark` class the first time.
+toggle.mode === 'dark' ? body.classList.add('dark') : body.classList.remove('dark');
+
+// Listen for toggle changes (which includes `prefers-color-scheme` changes)
+// and toggle the `dark` class accordingly.
+toggle.addEventListener('colorschemechange', () => {
+  body.classList.toggle('dark', toggle.mode === 'dark');
+});
 ```
 
 ## Demo
