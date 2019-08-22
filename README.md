@@ -1,6 +1,6 @@
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/dark-mode-toggle)
-
 # `<dark-mode-toggle>` Element
+
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/dark-mode-toggle)
 
 A custom element that allows you to easily put a *Dark Mode 🌒* toggle
 or switch on your site, so you can initially adhere to your users' preferences according to
@@ -12,28 +12,35 @@ but also allow them to (optionally permanently) override their system setting fo
 
 ## Installation
 
-From npm:
+Install from npm:
 
 ```bash
 npm install --save dark-mode-toggle
 ```
 
-In the browser:
+Then import in your app:
 
 ```js
-import * as DarkModeToggle from 'https://cdn.pika.dev/dark-mode-toggle';
+import * as DarkModeToggle from './node_modules/dark-mode-toggle';
 ```
-or
 
-```js
-import * as DarkModeToggle from 'https://unpkg.com/dark-mode-toggle';
+Else, use a `<script type="module">` tag (served from Pika's CDN):
+
+```html
+<script type="module" src="https://cdn.pika.dev/dark-mode-toggle"></script>
+```
+
+Or, alternatively, use a `<script type="module">` tag (served from unpkg's CDN):
+
+```html
+<script type="module" src="https://unpkg.com/dark-mode-toggle"></script>  
 ```
 
 ## Usage
 
 There are two ways how you can use `<dark-mode-toggle>`:
 
-### Using different stylesheets per color scheme that are conditionally loaded
+### ① Using different stylesheets per color scheme that are conditionally loaded
 
 The custom element assumes that you have organized your CSS in different files
 that you load conditionally based on the **`media`** attribute in the stylesheet's
@@ -73,10 +80,11 @@ The example below illustrates the principle.
 ```
 -->
 ```html
-<!-- In the `<head>`
+<!-- In the `<head>`    
   <link rel="stylesheet" href="common.css">
   <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
   <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
+  <script type="module" src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"></script>
 -->
 <main>
   <h1>Hi there</h1>
@@ -97,12 +105,11 @@ The example below illustrates the principle.
 </aside>
 ```
 
-### Using a CSS classes that you toggle 
+### ② Using a CSS class that you toggle 
 
 If you prefer to not split your CSS in different files based on the color scheme,
 you can instead work with a class that you toggle, for example `class="dark"`.
 You can see this in action in [this demo](https://dark-mode-class-toggle.glitch.me/).
-
 
 ```js
 import * as DarkModeToggle from 'https://cdn.pika.dev/dark-mode-toggle';
