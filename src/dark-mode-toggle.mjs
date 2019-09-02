@@ -36,6 +36,7 @@ const COLOR_SCHEME_CHANGE = 'colorschemechange';
 const PERMANENT_COLOR_SCHEME = 'permanentcolorscheme';
 const ALL = 'all';
 const NAME = 'dark-mode-toggle';
+const DEFAULT_URL = 'https://googlechromelabs.github.io/dark-mode-toggle/demo/';
 
 // See https://html.spec.whatwg.org/multipage/common-dom-interfaces.html ↵
 // #reflecting-content-attributes-in-idl-attributes.
@@ -69,6 +70,7 @@ const installBoolReflection = (obj, attrName, propName = attrName) => {
 };
 
 const template = doc.createElement('template');
+// eslint-disable-next-line max-len
 template.innerHTML = `
 <style>
 *,
@@ -137,12 +139,12 @@ label[dir="rtl"]::before {
 }
 
 #lightLabel::before {
-  background-image: var(--${NAME}-light-icon, none);
+  background-image: var(--${NAME}-light-icon, url("${DEFAULT_URL}sun.png"));
 }
 
 #darkLabel::before {
   filter: var(--${NAME}-icon-filter, none);
-  background-image: var(--${NAME}-dark-icon, none);
+  background-image: var(--${NAME}-dark-icon, url("${DEFAULT_URL}moon.png"));
 }
 
 #checkboxLabel::before {
@@ -150,7 +152,7 @@ label[dir="rtl"]::before {
 }
 
 #permanentLabel::before {
-  background-image: var(--${NAME}-remember-icon-unchecked, none);
+  background-image: var(--${NAME}-remember-icon-unchecked, url("${DEFAULT_URL}unchecked.svg"));
 }
 
 #lightLabel,
@@ -171,7 +173,7 @@ label[dir="rtl"]::before {
 }
 
 input:checked + #permanentLabel::before {
-  background-image: var(--${NAME}-remember-icon-checked, none);
+  background-image: var(--${NAME}-remember-icon-checked, url("${DEFAULT_URL}checked.svg"));
 }
 
 input:checked + #darkLabel,
@@ -189,7 +191,7 @@ input:checked + #checkboxLabel::before {
 }
 
 input:checked + #checkboxLabel + aside #permanentLabel::before {
-  filter: var(--${NAME}-remember-filter, none);
+  filter: var(--${NAME}-remember-filter, invert(100%));
 }
 
 aside {
@@ -461,12 +463,12 @@ export class DarkModeToggle extends HTMLElement {
   _updateCheckbox() {
     if (this.mode === LIGHT) {
       this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
-          `var(--${NAME}-light-icon)`);
+          `var(--${NAME}-light-icon, url("${DEFAULT_URL}moon.png"))`);
       this.checkboxLabel.textContent = this.light;
       this.darkCheckbox.checked = false;
     } else {
       this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
-          `var(--${NAME}-dark-icon)`);
+          `var(--${NAME}-dark-icon, url("${DEFAULT_URL}sun.png"))`);
       this.checkboxLabel.textContent = this.dark;
       this.darkCheckbox.checked = true;
     }
