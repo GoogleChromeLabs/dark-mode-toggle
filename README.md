@@ -117,8 +117,6 @@ import * as DarkModeToggle from 'https://cdn.pika.dev/dark-mode-toggle';
 const toggle = document.querySelector('dark-mode-toggle');
 const body = document.body;
 
-// Initialize the toggle based on `prefers-color-scheme`, defaulting to 'light'.
-toggle.mode = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 // Set or remove the `dark` class the first time.
 toggle.mode === 'dark' ? body.classList.add('dark') : body.classList.remove('dark');
 
