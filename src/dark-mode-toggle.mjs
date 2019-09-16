@@ -34,6 +34,7 @@ const PERMANENT = 'permanent';
 const MODE = 'mode';
 const COLOR_SCHEME_CHANGE = 'colorschemechange';
 const PERMANENT_COLOR_SCHEME = 'permanentcolorscheme';
+const ALL = 'all';
 const NOT_ALL = 'not all';
 const NAME = 'dark-mode-toggle';
 const DEFAULT_URL = 'https://googlechromelabs.github.io/dark-mode-toggle/demo/';
@@ -285,17 +286,6 @@ export class DarkModeToggle extends HTMLElement {
     const shadowRoot = this.attachShadow({mode: 'closed'});
     shadowRoot.appendChild(template.content.cloneNode(true));
 
-    // Store original `media` attribute value.
-    // Note: we treat `prefers-color-scheme: light` and
-    // `prefers-color-scheme: no-preference` the same.
-    this._darkCSS =
-        doc.querySelectorAll(`link[rel="stylesheet"][media="${MQ_DARK}"]`);
-    this._darkCSS.forEach((link) => link.dataset.originalMedia = link.media);
-    this._lightCSS = document.querySelectorAll(MQ_LIGHT.map((mqLight) => {
-      return `link[rel="stylesheet"][media*="${mqLight}"]`;
-    }).join(', '));
-    this._lightCSS.forEach((link) => link.dataset.originalMedia = link.media);
-
     // Get DOM references.
     this.lightRadio = shadowRoot.querySelector('#lightRadio');
     this.lightLabel = shadowRoot.querySelector('#lightLabel');
@@ -477,7 +467,7 @@ export class DarkModeToggle extends HTMLElement {
   _updateMode() {
     if (this.mode === LIGHT) {
       this._lightCSS.forEach((link) => {
-        link.media = link.dataset.originalMedia;
+        link.media = ALL;
         link.disabled = false;
       });
       this._darkCSS.forEach((link) => {
@@ -486,7 +476,7 @@ export class DarkModeToggle extends HTMLElement {
       });
     } else {
       this._darkCSS.forEach((link) => {
-        link.media = link.dataset.originalMedia;
+        link.media = ALL;
         link.disabled = false;
       });
       this._lightCSS.forEach((link) => {
