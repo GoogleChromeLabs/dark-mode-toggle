@@ -34,7 +34,7 @@ const PERMANENT = 'permanent';
 const MODE = 'mode';
 const COLOR_SCHEME_CHANGE = 'colorschemechange';
 const PERMANENT_COLOR_SCHEME = 'permanentcolorscheme';
-const ALL = 'all';
+const NOT_ALL = 'not all';
 const NAME = 'dark-mode-toggle';
 const DEFAULT_URL = 'https://googlechromelabs.github.io/dark-mode-toggle/demo/';
 
@@ -477,20 +477,20 @@ export class DarkModeToggle extends HTMLElement {
   _updateMode() {
     if (this.mode === LIGHT) {
       this._lightCSS.forEach((link) => {
-        link.media = ALL;
+        link.media = link.dataset.originalMedia;
         link.disabled = false;
       });
       this._darkCSS.forEach((link) => {
-        link.media = link.dataset.originalMedia;
+        link.media = NOT_ALL;
         link.disabled = true;
       });
     } else {
       this._darkCSS.forEach((link) => {
-        link.media = ALL;
+        link.media = link.dataset.originalMedia;
         link.disabled = false;
       });
       this._lightCSS.forEach((link) => {
-        link.media = link.dataset.originalMedia;
+        link.media = NOT_ALL;
         link.disabled = true;
       });
     }
