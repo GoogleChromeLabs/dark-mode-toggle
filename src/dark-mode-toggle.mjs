@@ -286,6 +286,15 @@ export class DarkModeToggle extends HTMLElement {
     const shadowRoot = this.attachShadow({mode: 'closed'});
     shadowRoot.appendChild(template.content.cloneNode(true));
 
+    // Store original `media` attribute value.
+    // Note: we treat `prefers-color-scheme: light` and
+    // `prefers-color-scheme: no-preference` the same.
+    this._darkCSS =
+        doc.querySelectorAll(`link[rel="stylesheet"][media="${MQ_DARK}"]`);
+    this._lightCSS = document.querySelectorAll(MQ_LIGHT.map((mqLight) => {
+      return `link[rel="stylesheet"][media*="${mqLight}"]`;
+    }).join(', '));
+
     // Get DOM references.
     this.lightRadio = shadowRoot.querySelector('#lightRadio');
     this.lightLabel = shadowRoot.querySelector('#lightLabel');
@@ -300,7 +309,7 @@ export class DarkModeToggle extends HTMLElement {
 
     // Does the browser support native `prefers-color-scheme`?
     const hasNativePrefersColorScheme =
-        win.matchMedia('(prefers-color-scheme)').media !== 'not all';
+        win.matchMedia('(prefers-color-scheme)').media !== NOT_ALL;
     // Listen to `prefers-color-scheme` changes, unless `permanent` is true.
     if (hasNativePrefersColorScheme) {
       win.matchMedia(MQ_DARK).addListener(({matches}) => {
