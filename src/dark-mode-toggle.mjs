@@ -113,6 +113,7 @@ label {
 
 label {
   padding: 0.15rem;
+  white-space: pre;
 }
 
 input {
