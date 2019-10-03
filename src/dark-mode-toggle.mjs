@@ -98,7 +98,10 @@ form {
 fieldset {
   border: none;
   margin: 0;
-  padding: 0;
+  padding-block-start: 0.25rem;
+  padding-block-end: 0.25rem;
+  padding-inline-start: 0.25rem;
+  padding-inline-end: 0.25rem;
 }
 
 legend {
@@ -113,7 +116,7 @@ label {
 
 label {
   padding: 0.15rem;
-  white-space: pre;
+  white-space: nowrap;
 }
 
 input {
