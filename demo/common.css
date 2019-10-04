@@ -117,18 +117,22 @@ dark-mode-toggle {
   margin-bottom: 1.5rem;
 }
 
-#dark-mode-toggle-1,
+#dark-mode-toggle-1 {
+  --dark-mode-toggle-dark-icon: url("sun.png");
+  --dark-mode-toggle-light-icon: url("moon.png");
+}
+
+#dark-mode-toggle-2 {
+  --dark-mode-toggle-dark-icon: url("sun.svg");
+  --dark-mode-toggle-light-icon: url("moon.svg");
+  --dark-mode-toggle-icon-size: 2rem;
+  --dark-mode-toggle-icon-filter: invert(100%);
+}
+
 #dark-mode-toggle-3,
 #dark-mode-toggle-4 {
   --dark-mode-toggle-dark-icon: url("moon.png");
   --dark-mode-toggle-light-icon: url("sun.png");
-}
-
-#dark-mode-toggle-2 {
-  --dark-mode-toggle-light-icon: url("sun.svg");
-  --dark-mode-toggle-dark-icon: url("moon.svg");
-  --dark-mode-toggle-icon-size: 2rem;
-  --dark-mode-toggle-icon-filter: invert(100%);
 }
 
 #dark-mode-toggle-3 {
