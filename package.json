@@ -16,7 +16,7 @@
     "lint:js": "npx eslint \"./src/*.mjs\" --fix && npx eslint \"./demo/*.mjs\" --fix",
     "lint:css": "shx cp ./src/template-contents.tpl ./src/template-contents.html && npx stylelint \"./src/*.html\" --fix && shx cp ./src/template-contents.html ./src/template-contents.tpl && shx rm ./src/template-contents.html && npx stylelint \"./demo/*.css\" --fix",
     "lint": "npm run lint:js && npm run lint:css",
-    "build": "npm run clean && npx terser ./src/dark-mode-toggle.mjs -m toplevel=true --comments /@license/ --ecma=8 -o ./dist/dark-mode-toggle.min.mjs",
+    "build": "npm run clean && npx terser ./src/dark-mode-toggle.mjs --toplevel --mangle-props regex=\\\"^_\\\" --comments /@license/ --ecma=8 -o ./dist/dark-mode-toggle.min.mjs",
     "prepare": "npm run lint && npm run build"
   },
   "repository": {
