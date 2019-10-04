@@ -23,10 +23,7 @@ const LIGHT = 'light';
 const DARK = 'dark';
 const NO_PREFERENCE = 'no-preference';
 const MQ_DARK = `(${PREFERS_COLOR_SCHEME}:${DARK})`;
-const MQ_LIGHT = [
-  `(${PREFERS_COLOR_SCHEME}:${LIGHT})`,
-  `(${PREFERS_COLOR_SCHEME}:${NO_PREFERENCE})`,
-];
+const MQ_LIGHT = `(${PREFERS_COLOR_SCHEME}:${LIGHT}),(${PREFERS_COLOR_SCHEME}:${NO_PREFERENCE})`;
 const LINK_REL_STYLESHEET = 'link[rel=stylesheet]';
 const REMEMBER = 'remember';
 const LEGEND = 'legend';
@@ -156,12 +153,7 @@ export class DarkModeToggle extends HTMLElement {
       this._permanentCheckbox.checked = true;
       this.permanent = true;
     } else if (hasNativePrefersColorScheme) {
-      if ((matchMedia(MQ_LIGHT[0]).matches) ||
-          (matchMedia(MQ_LIGHT[1]).matches)) {
-        this.mode = LIGHT;
-      } else if (matchMedia(MQ_DARK).matches) {
-        this.mode = DARK;
-      }
+      this.mode = matchMedia(MQ_LIGHT).matches ? LIGHT : DARK;
     }
     if (!this.mode) {
       this.mode = LIGHT;
