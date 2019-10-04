@@ -126,7 +126,7 @@ input {
 }
 
 input:focus + label {
-  outline: #E59700 auto 2px;
+  outline: #e59700 auto 2px;
   outline: -webkit-focus-ring-color auto 5px;
 }
 
@@ -236,6 +236,8 @@ aside {
 </style>
 <form>
 <fieldset>
+  <label></label>
+
   <input id="lightRadio" name="mode" type="radio">
   <label id="lightLabel" for="lightRadio"></label>
 
