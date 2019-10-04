@@ -15,9 +15,8 @@
  */
 
 // @license © 2019 Google LLC. Licensed under the Apache License, Version 2.0.
-const win = window;
 const doc = document;
-const store = win.localStorage;
+const store = localStorage;
 const PREFERS_COLOR_SCHEME = 'prefers-color-scheme';
 const MEDIA = 'media';
 const LIGHT = 'light';
@@ -107,7 +106,7 @@ export class DarkModeToggle extends HTMLElement {
 
     doc.addEventListener(PERMANENT_COLOR_SCHEME, (event) => {
       this.permanent = event.detail.permanent;
-      this.permanentCheckbox.checked = this.permanent;
+      this._permanentCheckbox.checked = this.permanent;
     });
 
     this._initializeDOM();
@@ -122,26 +121,26 @@ export class DarkModeToggle extends HTMLElement {
     // We need to support `media="(prefers-color-scheme: dark)"` (with space)
     // and `media="(prefers-color-scheme:dark)"` (without space)
     this._darkCSS = doc.querySelectorAll(`${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${DARK}"]`);
-    this._lightCSS = document.querySelectorAll(`${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${LIGHT}"],${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${NO_PREFERENCE}"]`);
+    this._lightCSS = doc.querySelectorAll(`${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${LIGHT}"],${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${NO_PREFERENCE}"]`);
 
     // Get DOM references.
-    this.lightRadio = shadowRoot.querySelector('#lightRadio');
-    this.lightLabel = shadowRoot.querySelector('#lightLabel');
-    this.darkRadio = shadowRoot.querySelector('#darkRadio');
-    this.darkLabel = shadowRoot.querySelector('#darkLabel');
-    this.darkCheckbox = shadowRoot.querySelector('#darkCheckbox');
-    this.checkboxLabel = shadowRoot.querySelector('#checkboxLabel');
-    this.legendLabel = shadowRoot.querySelector('legend');
-    this.permanentAside = shadowRoot.querySelector('aside');
-    this.permanentCheckbox = shadowRoot.querySelector('#permanentCheckbox');
-    this.permanentLabel = shadowRoot.querySelector('#permanentLabel');
+    this._lightRadio = shadowRoot.querySelector('#lightRadio');
+    this._lightLabel = shadowRoot.querySelector('#lightLabel');
+    this._darkRadio = shadowRoot.querySelector('#darkRadio');
+    this._darkLabel = shadowRoot.querySelector('#darkLabel');
+    this._darkCheckbox = shadowRoot.querySelector('#darkCheckbox');
+    this._checkboxLabel = shadowRoot.querySelector('#checkboxLabel');
+    this._legendLabel = shadowRoot.querySelector('legend');
+    this._permanentAside = shadowRoot.querySelector('aside');
+    this._permanentCheckbox = shadowRoot.querySelector('#permanentCheckbox');
+    this._permanentLabel = shadowRoot.querySelector('#permanentLabel');
 
     // Does the browser support native `prefers-color-scheme`?
     const hasNativePrefersColorScheme =
-        win.matchMedia(MQ_DARK).media !== NOT_ALL;
+        matchMedia(MQ_DARK).media !== NOT_ALL;
     // Listen to `prefers-color-scheme` changes, unless `permanent` is true.
     if (hasNativePrefersColorScheme) {
-      win.matchMedia(MQ_DARK).addListener(({matches}) => {
+      matchMedia(MQ_DARK).addListener(({matches}) => {
         if (!this.permanent) {
           this.mode = matches ? DARK : LIGHT;
           this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
@@ -154,13 +153,13 @@ export class DarkModeToggle extends HTMLElement {
     const rememberedValue = store.getItem(NAME);
     if (rememberedValue && [DARK, LIGHT].includes(rememberedValue)) {
       this.mode = rememberedValue;
-      this.permanentCheckbox.checked = true;
+      this._permanentCheckbox.checked = true;
       this.permanent = true;
     } else if (hasNativePrefersColorScheme) {
-      if ((win.matchMedia(MQ_LIGHT[0]).matches) ||
-          (win.matchMedia(MQ_LIGHT[1]).matches)) {
+      if ((matchMedia(MQ_LIGHT[0]).matches) ||
+          (matchMedia(MQ_LIGHT[1]).matches)) {
         this.mode = LIGHT;
-      } else if (win.matchMedia(MQ_DARK).matches) {
+      } else if (matchMedia(MQ_DARK).matches) {
         this.mode = DARK;
       }
     }
@@ -186,22 +185,22 @@ export class DarkModeToggle extends HTMLElement {
     this._updateCheckbox();
 
     // Synchronize the behavior of the radio and the checkbox.
-    [this.lightRadio, this.darkRadio].forEach((input) => {
+    [this._lightRadio, this._darkRadio].forEach((input) => {
       input.addEventListener('change', () => {
-        this.mode = this.lightRadio.checked ? LIGHT : DARK;
+        this.mode = this._lightRadio.checked ? LIGHT : DARK;
         this._updateCheckbox();
         this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
       });
     });
-    this.darkCheckbox.addEventListener('change', () => {
-      this.mode = this.darkCheckbox.checked ? DARK : LIGHT;
+    this._darkCheckbox.addEventListener('change', () => {
+      this.mode = this._darkCheckbox.checked ? DARK : LIGHT;
       this._updateRadios();
       this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
     });
 
     // Make remembering the last mode optional
-    this.permanentCheckbox.addEventListener('change', () => {
-      this.permanent = this.permanentCheckbox.checked;
+    this._permanentCheckbox.addEventListener('change', () => {
+      this.permanent = this._permanentCheckbox.checked;
       this._dispatchEvent(PERMANENT_COLOR_SCHEME, {
         permanent: this.permanent,
       });
@@ -222,7 +221,7 @@ export class DarkModeToggle extends HTMLElement {
       }
       // Only show the dialog programmatically on devices not capable of hover
       // and only if there is a label
-      if (win.matchMedia('(hover:none)').matches && this.remember) {
+      if (matchMedia('(hover:none)').matches && this.remember) {
         this._showPermanentAside();
       }
       if (this.permanent) {
@@ -242,20 +241,20 @@ export class DarkModeToggle extends HTMLElement {
       } else {
         store.removeItem(NAME);
       }
-      this.permanentCheckbox.checked = this.permanent;
+      this._permanentCheckbox.checked = this.permanent;
     } else if (name === LEGEND) {
-      this.legendLabel.textContent = newValue;
+      this._legendLabel.textContent = newValue;
     } else if (name === REMEMBER) {
-      this.permanentLabel.textContent = newValue;
+      this._permanentLabel.textContent = newValue;
     } else if (name === LIGHT) {
-      this.lightLabel.textContent = newValue;
+      this._lightLabel.textContent = newValue;
       if (this.mode === LIGHT) {
-        this.checkboxLabel.textContent = newValue;
+        this._checkboxLabel.textContent = newValue;
       }
     } else if (name === DARK) {
-      this.darkLabel.textContent = newValue;
+      this._darkLabel.textContent = newValue;
       if (this.mode === DARK) {
-        this.checkboxLabel.textContent = newValue;
+        this._checkboxLabel.textContent = newValue;
       }
     }
   }
@@ -272,33 +271,33 @@ export class DarkModeToggle extends HTMLElement {
     // Hide or show the light-related affordances dependent on the appearance,
     // which can be "switch" or "toggle".
     const appearAsToggle = this.appearance === TOGGLE;
-    this.lightRadio.hidden = appearAsToggle;
-    this.lightLabel.hidden = appearAsToggle;
-    this.darkRadio.hidden = appearAsToggle;
-    this.darkLabel.hidden = appearAsToggle;
-    this.darkCheckbox.hidden = !appearAsToggle;
-    this.checkboxLabel.hidden = !appearAsToggle;
+    this._lightRadio.hidden = appearAsToggle;
+    this._lightLabel.hidden = appearAsToggle;
+    this._darkRadio.hidden = appearAsToggle;
+    this._darkLabel.hidden = appearAsToggle;
+    this._darkCheckbox.hidden = !appearAsToggle;
+    this._checkboxLabel.hidden = !appearAsToggle;
   }
 
   _updateRadios() {
     if (this.mode === LIGHT) {
-      this.lightRadio.checked = true;
+      this._lightRadio.checked = true;
     } else {
-      this.darkRadio.checked = true;
+      this._darkRadio.checked = true;
     }
   }
 
   _updateCheckbox() {
     if (this.mode === LIGHT) {
-      this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
+      this._checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
           `var(--${NAME}-light-icon,url("${DEFAULT_URL}moon.png"))`);
-      this.checkboxLabel.textContent = this.light;
-      this.darkCheckbox.checked = false;
+      this._checkboxLabel.textContent = this.light;
+      this._darkCheckbox.checked = false;
     } else {
-      this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
+      this._checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
           `var(--${NAME}-dark-icon,url("${DEFAULT_URL}sun.png"))`);
-      this.checkboxLabel.textContent = this.dark;
-      this.darkCheckbox.checked = true;
+      this._checkboxLabel.textContent = this.dark;
+      this._darkCheckbox.checked = true;
     }
   }
 
@@ -325,11 +324,11 @@ export class DarkModeToggle extends HTMLElement {
   }
 
   _showPermanentAside() {
-    this.permanentAside.style.visibility = 'visible';
-    win.setTimeout(() => {
-      this.permanentAside.style.visibility = 'hidden';
+    this._permanentAside.style.visibility = 'visible';
+    setTimeout(() => {
+      this._permanentAside.style.visibility = 'hidden';
     }, 3000);
   }
 }
 
-win.customElements.define(NAME, DarkModeToggle);
+customElements.define(NAME, DarkModeToggle);
