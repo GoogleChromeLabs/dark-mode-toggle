@@ -33,7 +33,7 @@ Else, use a `<script type="module">` tag (served from Pika's CDN):
 Or, alternatively, use a `<script type="module">` tag (served from unpkg's CDN):
 
 ```html
-<script type="module" src="https://unpkg.com/dark-mode-toggle"></script>  
+<script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
 ```
 
 ## Usage
@@ -80,7 +80,7 @@ The example below illustrates the principle.
 ```
 -->
 ```html
-<!-- In the `<head>`    
+<!-- In the `<head>`
   <link rel="stylesheet" href="common.css">
   <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
   <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
@@ -105,7 +105,7 @@ The example below illustrates the principle.
 </aside>
 ```
 
-### ② Using a CSS class that you toggle 
+### ② Using a CSS class that you toggle
 
 If you prefer to not split your CSS in different files based on the color scheme,
 you can instead work with a class that you toggle, for example `class="dark"`.
@@ -236,12 +236,25 @@ See the demo source code for some concrete examples.
 ## Hacking on `<dark-mode-toggle>`
 
 The core custom element code lives in
-[src/dark-mode-toggle.mjs](https://github.com/GoogleChromeLabs/dark-mode-toggle/blob/master/src/dark-mode-toggle.mjs).
+[`src/dark-mode-toggle.mjs`](https://github.com/GoogleChromeLabs/dark-mode-toggle/blob/master/src/dark-mode-toggle.mjs).
 You can start hacking and testing your changes by running `npm run start`
-and then navigating to http://localhost:8080/demo.
+and then navigating to <http://localhost:8080/demo/>.
 No build step required 🎉, this happens automatically upon `npm publish`ing.
 If for whatever reason you want to build locally, run `npm run build`.
 You can lint by running `npm run lint`.
+
+The HTML and the CSS used by `<dark-mode-toggle>` is hard-coded as a template literal
+in the file `src/dark-mode-toggle.mjs`.
+For optimal performance, the contents of this literal are hand-minified.
+If you need to tweak the HTML or the CSS, find the unminified template literal contents
+in `src/template-contents.tpl` and copy them over to `src/dark-mode-toggle.mjs`.
+Once your changes are done, commit them to both the `*.tpl` file (in unminified form)
+and the `*.mjs` file (in minified form).
+
+(This is actually just making a strong argument for
+[CSS Modules](https://github.com/w3c/webcomponents/issues/759) and
+[HTML Modules](https://github.com/w3c/webcomponents/issues/645)
+that would allow for proper tools integration).
 
 ## Notes
 

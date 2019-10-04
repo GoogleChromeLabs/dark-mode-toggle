@@ -29,6 +29,10 @@ img {
   filter: invert(100%);
 }
 
+a {
+  color: yellow;
+}
+
 /* If no dark mode user agent stylesheet exists, emulate it */
 select,
 input,

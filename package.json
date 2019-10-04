@@ -1,6 +1,6 @@
 {
   "name": "dark-mode-toggle",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Web Component that toggles dark mode 🌒",
   "main": "./src/dark-mode-toggle.mjs",
   "browser": "src/dark-mode-toggle.mjs",
@@ -14,7 +14,7 @@
     "start": "npx http-server && echo \"Server running on http://localhost:8080/demo/\"",
     "clean": "rm -rf ./dist && mkdir dist",
     "lint:js": "npx eslint './src/*.mjs' --fix && npx eslint './demo/*.mjs' --fix",
-    "lint:css": "cp ./src/dark-mode-toggle.mjs ./src/dark-mode-toggle.html && npx stylelint './src/*.html' --fix && cp ./src/dark-mode-toggle.html ./src/dark-mode-toggle.mjs && rm ./src/dark-mode-toggle.html && npx stylelint './demo/*.css' --fix",
+    "lint:css": "cp ./src/template-contents.tpl ./src/template-contents.html && npx stylelint './src/*.html' --fix && cp ./src/template-contents.html ./src/template-contents.tpl && rm ./src/template-contents.html && npx stylelint './demo/*.css' --fix",
     "lint": "npm run lint:js && npm run lint:css",
     "build": "npm run clean && npx terser ./src/dark-mode-toggle.mjs -m toplevel=true --comments /@license/ --ecma=8 -o ./dist/dark-mode-toggle.min.mjs",
     "prepare": "npm run lint && npm run build"
