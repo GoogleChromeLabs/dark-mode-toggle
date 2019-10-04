@@ -233,6 +233,16 @@ See the demo source code for some concrete examples.
 | `--dark-mode-toggle-remember-filter` | No filter | The filter for the "remember the last selected mode" functionality icon (so you can use all black or all white icons and just invert one of them) in `filter:` notation. |
 | `--dark-mode-toggle-active-mode-background-color` | No background color | The background color for the currently active mode in `background-color:` notation. |
 
+## Hacking on `<dark-mode-toggle>`
+
+The core custom element code lives in
+[src/dark-mode-toggle.mjs](https://github.com/GoogleChromeLabs/dark-mode-toggle/blob/master/src/dark-mode-toggle.mjs).
+You can start hacking and testing your changes by running `npm run start`
+and then navigating to http://localhost:8080/demo.
+No build step required 🎉, this happens automatically upon `npm publish`ing.
+If for whatever reason you want to build locally, run `npm run build`.
+You can lint by running `npm run lint`.
+
 ## Notes
 
 This is not an official Google product.
