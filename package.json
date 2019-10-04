@@ -12,9 +12,9 @@
   ],
   "scripts": {
     "start": "npx http-server && echo \"Server running on http://localhost:8080/demo/\"",
-    "clean": "rm -rf ./dist && mkdir dist",
-    "lint:js": "npx eslint './src/*.mjs' --fix && npx eslint './demo/*.mjs' --fix",
-    "lint:css": "cp ./src/template-contents.tpl ./src/template-contents.html && npx stylelint './src/*.html' --fix && cp ./src/template-contents.html ./src/template-contents.tpl && rm ./src/template-contents.html && npx stylelint './demo/*.css' --fix",
+    "clean": "shx rm -rf ./dist && mkdir dist",
+    "lint:js": "npx eslint \"./src/*.mjs\" --fix && npx eslint \"./demo/*.mjs\" --fix",
+    "lint:css": "shx cp ./src/template-contents.tpl ./src/template-contents.html && npx stylelint \"./src/*.html\" --fix && shx cp ./src/template-contents.html ./src/template-contents.tpl && shx rm ./src/template-contents.html && npx stylelint \"./demo/*.css\" --fix",
     "lint": "npm run lint:js && npm run lint:css",
     "build": "npm run clean && npx terser ./src/dark-mode-toggle.mjs -m toplevel=true --comments /@license/ --ecma=8 -o ./dist/dark-mode-toggle.min.mjs",
     "prepare": "npm run lint && npm run build"
@@ -37,6 +37,7 @@
     "eslint": "^6.5.1",
     "eslint-config-google": "^0.14.0",
     "http-server": "^0.11.1",
+    "shx": "^0.3.2",
     "stylelint": "^11.0.0",
     "stylelint-config-standard": "^19.0.0",
     "terser": "^4.3.4"
