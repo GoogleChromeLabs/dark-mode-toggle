@@ -98,10 +98,10 @@ form {
 fieldset {
   border: none;
   margin: 0;
-  padding-block-start: 0.25rem;
-  padding-block-end: 0.25rem;
-  padding-inline-start: 0.25rem;
-  padding-inline-end: 0.25rem;
+  padding-block-start: .25rem;
+  padding-block-end: .25rem;
+  padding-inline-start: .25rem;
+  padding-inline-end: .25rem;
 }
 
 legend {
@@ -115,7 +115,7 @@ label {
 }
 
 label {
-  padding: 0.15rem;
+  padding: .15rem;
   white-space: nowrap;
 }
 
@@ -126,7 +126,7 @@ input {
 }
 
 input:focus + label {
-  outline: rgb(229, 151, 0) auto 2px;
+  outline: #E59700 auto 2px;
   outline: -webkit-focus-ring-color auto 5px;
 }
 
@@ -138,11 +138,11 @@ label::before {
   height: var(--${NAME}-icon-size, 1rem);
   width: var(--${NAME}-icon-size, 1rem);
   vertical-align: middle;
-  margin: 0 0.5rem 0 0;
+  margin: 0 .5rem 0 0;
 }
 
 label[dir="rtl"]::before {
-  margin: 0 0 0 0.5rem;
+  margin: 0 0 0 .5rem;
 }
 
 #lightLabel::before {
@@ -236,8 +236,6 @@ aside {
 </style>
 <form>
 <fieldset>
-  <legend></legend>
-
   <input id="lightRadio" name="mode" type="radio">
   <label id="lightLabel" for="lightRadio"></label>
 
@@ -274,14 +272,14 @@ export class DarkModeToggle extends HTMLElement {
     this._darkCSS = null;
     this._lightCSS = null;
 
-    doc.addEventListener(COLOR_SCHEME_CHANGE, (e) => {
-      this.mode = e.detail.colorScheme;
+    doc.addEventListener(COLOR_SCHEME_CHANGE, (event) => {
+      this.mode = event.detail.colorScheme;
       this._updateRadios();
       this._updateCheckbox();
     });
 
-    doc.addEventListener(PERMANENT_COLOR_SCHEME, (e) => {
-      this.permanent = e.detail.permanent;
+    doc.addEventListener(PERMANENT_COLOR_SCHEME, (event) => {
+      this.permanent = event.detail.permanent;
       this.permanentCheckbox.checked = this.permanent;
     });
 
@@ -299,7 +297,7 @@ export class DarkModeToggle extends HTMLElement {
         doc.querySelectorAll(`link[rel="stylesheet"][media="${MQ_DARK}"]`);
     this._lightCSS = document.querySelectorAll(MQ_LIGHT.map((mqLight) => {
       return `link[rel="stylesheet"][media*="${mqLight}"]`;
-    }).join(', '));
+    }).join());
 
     // Get DOM references.
     this.lightRadio = shadowRoot.querySelector('#lightRadio');
