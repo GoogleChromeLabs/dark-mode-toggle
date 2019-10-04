@@ -243,7 +243,18 @@ No build step required 🎉, this happens automatically upon `npm publish`ing.
 If for whatever reason you want to build locally, run `npm run build`.
 You can lint by running `npm run lint`.
 
-The HTML or CSS used by `<dark-mode-toggle>` is hardcoded as a template literal in the `src/dark-mode-toggle.mjs`. For optimal performance, the contents of this literal are hand-minified. If you need to tweak the HTML or the CSS, find the unminified template literal contents in `src/template-contents.tpl`, and copy them over to `src/dark-mode-toggle.mjs`. Once your changes are done, commit them to both the `*.tpl` file (in unminified form) and the `*.mjs` file (in minified form).
+The HTML and the CSS used by `<dark-mode-toggle>` is hard-coded as a template literal
+in the file `src/dark-mode-toggle.mjs`.
+For optimal performance, the contents of this literal are hand-minified.
+If you need to tweak the HTML or the CSS, find the unminified template literal contents
+in `src/template-contents.tpl` and copy them over to `src/dark-mode-toggle.mjs`.
+Once your changes are done, commit them to both the `*.tpl` file (in unminified form)
+and the `*.mjs` file (in minified form).
+
+(This is actually just making a strong argument for
+[CSS Modules](https://github.com/w3c/webcomponents/issues/759) and
+[HTML Modules](https://github.com/w3c/webcomponents/issues/645)
+that would allow for proper tools integration).
 
 ## Notes
 
