@@ -18,10 +18,10 @@
 const win = window;
 const doc = document;
 const store = win.localStorage;
-const MQ_DARK = '(prefers-color-scheme: dark)';
+const MQ_DARK = '(prefers-color-scheme:dark)';
 const MQ_LIGHT = [
-  '(prefers-color-scheme: light)',
-  '(prefers-color-scheme: no-preference)',
+  '(prefers-color-scheme:light)',
+  '(prefers-color-scheme:no-preference)',
 ];
 const LIGHT = 'light';
 const DARK = 'dark';
@@ -117,9 +117,9 @@ export class DarkModeToggle extends HTMLElement {
     // Note: we treat `prefers-color-scheme: light` and
     // `prefers-color-scheme: no-preference` the same.
     this._darkCSS =
-        doc.querySelectorAll(`link[rel="stylesheet"][media="${MQ_DARK}"]`);
+        doc.querySelectorAll(`link[rel=stylesheet][media="${MQ_DARK}"]`);
     this._lightCSS = document.querySelectorAll(MQ_LIGHT.map((mqLight) => {
-      return `link[rel="stylesheet"][media*="${mqLight}"]`;
+      return `link[rel=stylesheet][media*="${mqLight}"]`;
     }).join());
 
     // Get DOM references.
@@ -220,7 +220,7 @@ export class DarkModeToggle extends HTMLElement {
       }
       // Only show the dialog programmatically on devices not capable of hover
       // and only if there is a label
-      if (win.matchMedia('(hover: none)').matches && this.remember) {
+      if (win.matchMedia('(hover:none)').matches && this.remember) {
         this._showPermanentAside();
       }
       if (this.permanent) {
@@ -289,12 +289,12 @@ export class DarkModeToggle extends HTMLElement {
   _updateCheckbox() {
     if (this.mode === LIGHT) {
       this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
-          `var(--${NAME}-light-icon, url("${DEFAULT_URL}moon.png"))`);
+          `var(--${NAME}-light-icon,url("${DEFAULT_URL}moon.png"))`);
       this.checkboxLabel.textContent = this.light;
       this.darkCheckbox.checked = false;
     } else {
       this.checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
-          `var(--${NAME}-dark-icon, url("${DEFAULT_URL}sun.png"))`);
+          `var(--${NAME}-dark-icon,url("${DEFAULT_URL}sun.png"))`);
       this.checkboxLabel.textContent = this.dark;
       this.darkCheckbox.checked = true;
     }
