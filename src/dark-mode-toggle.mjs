@@ -236,7 +236,7 @@ aside {
 </style>
 <form>
 <fieldset>
-  <label></label>
+  <legend></legend>
 
   <input id="lightRadio" name="mode" type="radio">
   <label id="lightLabel" for="lightRadio"></label>
