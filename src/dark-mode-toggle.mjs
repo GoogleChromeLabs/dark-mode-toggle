@@ -135,13 +135,11 @@ export class DarkModeToggle extends HTMLElement {
     // Does the browser support native `prefers-color-scheme`?
     const hasNativePrefersColorScheme =
         matchMedia(MQ_DARK).media !== NOT_ALL;
-    // Listen to `prefers-color-scheme` changes, unless `permanent` is true.
+    // Listen to `prefers-color-scheme` changes.
     if (hasNativePrefersColorScheme) {
       matchMedia(MQ_DARK).addListener(({matches}) => {
-        if (!this.permanent) {
-          this.mode = matches ? DARK : LIGHT;
-          this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
-        }
+        this.mode = matches ? DARK : LIGHT;
+        this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
       });
     }
     // Set initial state, giving preference to a remembered value, then the
