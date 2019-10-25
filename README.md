@@ -256,6 +256,17 @@ and the `*.mjs` file (in minified form).
 [HTML Modules](https://github.com/w3c/webcomponents/issues/645)
 that would allow for proper tools integration).
 
+## Proudly used on…
+
+- [**v8.dev**](https://v8.dev/): V8 is Google’s open source
+  high-performance JavaScript and WebAssembly engine, written in C++.
+  
+  ![v8.dev in light mode](https://user-images.githubusercontent.com/145676/66128744-c913b580-e5ee-11e9-8c44-e2ca1d24dacb.png)
+  
+  ![v8.dev in dark mode](https://user-images.githubusercontent.com/145676/66128803-ea74a180-e5ee-11e9-8792-c411a54346fc.png)
+
+- Your site here…
+
 ## Notes
 
 This is not an official Google product.
