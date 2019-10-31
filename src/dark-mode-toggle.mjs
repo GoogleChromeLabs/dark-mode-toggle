@@ -222,7 +222,7 @@ export class DarkModeToggle extends HTMLElement {
       this._updateMode();
     } else if (name === APPEARANCE) {
       if (![TOGGLE, SWITCH].includes(newValue)) {
-        throw new RangeError('Allowed values: "${TOGGLE}" and "${SWITCH}".');
+        throw new RangeError(`Allowed values: "${TOGGLE}" and "${SWITCH}".`);
       }
       this._updateAppearance();
     } else if (name === PERMANENT) {
