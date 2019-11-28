@@ -138,6 +138,10 @@
     transition: visibility 0s;
   }
 
+  aside #permanentLabel:empty {
+    display: none;
+  }
+
   @media (hover: hover) {
     aside {
       transition: visibility 3s;
@@ -152,10 +156,6 @@
     #checkboxLabel:hover ~ aside {
       visibility: visible;
       transition: visibility 0s;
-    }
-
-    aside #permanentLabel:empty {
-      display: none;
     }
   }
 </style>
