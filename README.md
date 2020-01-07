@@ -18,18 +18,6 @@ Install from npm:
 npm install --save dark-mode-toggle
 ```
 
-Then import in your app:
-
-```js
-import * as DarkModeToggle from './node_modules/dark-mode-toggle';
-```
-
-Else, use a `<script type="module">` tag (served from Pika's CDN):
-
-```html
-<script type="module" src="https://cdn.pika.dev/dark-mode-toggle"></script>
-```
-
 Or, alternatively, use a `<script type="module">` tag (served from unpkg's CDN):
 
 ```html
@@ -112,7 +100,7 @@ you can instead work with a class that you toggle, for example `class="dark"`.
 You can see this in action in [this demo](https://dark-mode-class-toggle.glitch.me/).
 
 ```js
-import * as DarkModeToggle from 'https://cdn.pika.dev/dark-mode-toggle';
+import * as DarkModeToggle from 'https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs';
 
 const toggle = document.querySelector('dark-mode-toggle');
 const body = document.body;
