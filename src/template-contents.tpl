@@ -23,10 +23,8 @@
   fieldset {
     border: none;
     margin: 0;
-    padding-block-start: 0.25rem;
-    padding-block-end: 0.25rem;
-    padding-inline-start: 0.25rem;
-    padding-inline-end: 0.25rem;
+    padding-block: 0.25rem;
+    padding-inline: 0.25rem;
   }
 
   legend {
@@ -63,11 +61,7 @@
     height: var(--${NAME}-icon-size, 1rem);
     width: var(--${NAME}-icon-size, 1rem);
     vertical-align: middle;
-    margin: 0 0.5rem 0 0;
-  }
-
-  label[dir="rtl"]::before {
-    margin: 0 0 0 0.5rem;
+    margin-inline-end: 0.5rem;
   }
 
   #lightLabel::before {
@@ -128,7 +122,7 @@
 
   aside {
     visibility: hidden;
-    margin-top: 0.15rem;
+    margin-block-start: 0.15rem;
   }
 
   #lightLabel:focus-visible ~ aside,
