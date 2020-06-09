@@ -44,7 +44,7 @@ The example below illustrates the principle.
 <custom-element-demo>
   <template>
     <link rel="stylesheet" href="https://googlechromelabs.github.io/dark-mode-toggle/demo/common.css">
-    <link rel="stylesheet" href="https://googlechromelabs.github.io/dark-mode-toggle/demo/light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
+    <link rel="stylesheet" href="https://googlechromelabs.github.io/dark-mode-toggle/demo/light.css" media="(prefers-color-scheme: light)">
     <link rel="stylesheet" href="https://googlechromelabs.github.io/dark-mode-toggle/demo/dark.css" media="(prefers-color-scheme: dark)">
     <script type="module" src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"></script>
     <style>
@@ -70,7 +70,7 @@ The example below illustrates the principle.
 ```html
 <!-- In the `<head>`
   <link rel="stylesheet" href="common.css">
-  <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)">
+  <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
   <script type="module" src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"></script>
 -->
@@ -248,9 +248,9 @@ that would allow for proper tools integration).
 
 - [**v8.dev**](https://v8.dev/): V8 is Google’s open source
   high-performance JavaScript and WebAssembly engine, written in C++.
-  
+
   ![v8.dev in light mode](https://user-images.githubusercontent.com/145676/66128744-c913b580-e5ee-11e9-8c44-e2ca1d24dacb.png)
-  
+
   ![v8.dev in dark mode](https://user-images.githubusercontent.com/145676/66128803-ea74a180-e5ee-11e9-8792-c411a54346fc.png)
 
 - Your site here…

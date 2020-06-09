@@ -21,9 +21,8 @@ const PREFERS_COLOR_SCHEME = 'prefers-color-scheme';
 const MEDIA = 'media';
 const LIGHT = 'light';
 const DARK = 'dark';
-const NO_PREFERENCE = 'no-preference';
 const MQ_DARK = `(${PREFERS_COLOR_SCHEME}:${DARK})`;
-const MQ_LIGHT = `(${PREFERS_COLOR_SCHEME}:${LIGHT}),(${PREFERS_COLOR_SCHEME}:${NO_PREFERENCE})`;
+const MQ_LIGHT = `(${PREFERS_COLOR_SCHEME}:${LIGHT})`;
 const LINK_REL_STYLESHEET = 'link[rel=stylesheet]';
 const REMEMBER = 'remember';
 const LEGEND = 'legend';
@@ -114,12 +113,10 @@ export class DarkModeToggle extends HTMLElement {
     const shadowRoot = this.attachShadow({mode: 'closed'});
     shadowRoot.appendChild(template.content.cloneNode(true));
 
-    // Note: we treat `prefers-color-scheme: light` and
-    // `prefers-color-scheme: no-preference` the same.
     // We need to support `media="(prefers-color-scheme: dark)"` (with space)
     // and `media="(prefers-color-scheme:dark)"` (without space)
     this._darkCSS = doc.querySelectorAll(`${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${DARK}"]`);
-    this._lightCSS = doc.querySelectorAll(`${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${LIGHT}"],${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${NO_PREFERENCE}"]`);
+    this._lightCSS = doc.querySelectorAll(`${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${LIGHT}"]`);
 
     // Get DOM references.
     this._lightRadio = shadowRoot.querySelector('#lightRadio');
