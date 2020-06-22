@@ -203,7 +203,11 @@ Reacting on "remember the last selected mode" functionality changes:
 
 ## Style Customization
 
-See the demo source code for some concrete examples.
+You can style the custom element with [`::part()`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part).
+Additionally, you can use a number of exposed CSS variables.
+See the demo's
+[CSS source code](https://github.com/GoogleChromeLabs/dark-mode-toggle/blob/master/demo/common.css)
+for some concrete examples.
 
 | CSS Variable Name | Default | Description |
 | ----------------- | ------- | ----------- |
