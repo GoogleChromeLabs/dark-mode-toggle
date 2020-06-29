@@ -204,10 +204,30 @@ Reacting on "remember the last selected mode" functionality changes:
 ## Style Customization
 
 You can style the custom element with [`::part()`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part).
-Additionally, you can use a number of exposed CSS variables.
 See the demo's
 [CSS source code](https://github.com/GoogleChromeLabs/dark-mode-toggle/blob/master/demo/common.css)
 for some concrete examples.
+The exposed parts and their names can be seen below:
+
+```html
+<form part="form">
+  <fieldset part="fieldset">
+    <legend part="legend"></legend>
+    <input part="lightRadio" id="l" name="mode" type="radio">
+    <label part="lightLabel" for="l"></label>
+    <input part="darkRadio" id="d" name="mode" type="radio">
+    <label  part="darkLabel" for="d"></label>
+    <input part="toggleCheckbox" id="t" type="checkbox">
+    <label part="toggleLabel" for="t"></label>
+    <aside part="aside">
+      <input part="permanentCheckbox" id="p" type="checkbox">
+      <label part="permanentLabel" for="p"></label>
+    </aside>
+  </fieldset>
+</form>
+```
+
+Additionally, you can use a number of exposed CSS variables, as listed in the following:
 
 | CSS Variable Name | Default | Description |
 | ----------------- | ------- | ----------- |
