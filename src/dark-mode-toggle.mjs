@@ -110,7 +110,7 @@ export class DarkModeToggle extends HTMLElement {
   }
 
   _initializeDOM() {
-    const shadowRoot = this.attachShadow({mode: 'closed'});
+    const shadowRoot = this.attachShadow({mode: 'open'});
     shadowRoot.appendChild(template.content.cloneNode(true));
 
     // We need to support `media="(prefers-color-scheme: dark)"` (with space)
