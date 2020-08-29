@@ -23,8 +23,10 @@
   fieldset {
     border: none;
     margin: 0;
-    padding-block: 0.25rem;
-    padding-inline: 0.25rem;
+    padding-block-start: 0.25rem;
+    padding-block-end: 0.25rem;
+    padding-inline-start: 0.25rem;
+    padding-inline-end: 0.25rem;
   }
 
   legend {
