@@ -6,6 +6,7 @@
   "browser": "src/dark-mode-toggle.mjs",
   "module": "dist/dark-mode-toggle.min.mjs",
   "unpkg": "dist/dark-mode-toggle.min.mjs",
+  "types": "src/dark-mode-toggle.d.ts",
   "files": [
     "src",
     "dist"
