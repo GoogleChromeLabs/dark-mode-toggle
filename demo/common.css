@@ -122,10 +122,6 @@ dark-mode-toggle {
   --dark-mode-toggle-light-icon: url("moon.png");
 }
 
-#dark-mode-toggle-1::part(toggleLabel)::before {
-  margin-inline-end: 0;
-}
-
 #dark-mode-toggle-2 {
   --dark-mode-toggle-dark-icon: url("sun.svg");
   --dark-mode-toggle-light-icon: url("moon.svg");

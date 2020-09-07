@@ -38,7 +38,6 @@
   }
 
   label {
-    padding: 0.15rem;
     white-space: nowrap;
   }
 
@@ -48,7 +47,7 @@
     pointer-events: none;
   }
 
-  input:focus + label {
+  input:focus-visible + label {
     outline: #e59700 auto 2px;
     outline: -webkit-focus-ring-color auto 5px;
   }
@@ -61,6 +60,9 @@
     height: var(--${NAME}-icon-size, 1rem);
     width: var(--${NAME}-icon-size, 1rem);
     vertical-align: middle;
+  }
+
+  label:not(:empty)::before {
     margin-inline-end: 0.5rem;
   }
 
