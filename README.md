@@ -283,6 +283,11 @@ that would allow for proper tools integration).
 
 This is not an official Google product.
 
+## Acknowledgements
+
+Thanks to all [contributors](https://github.com/GoogleChromeLabs/dark-mode-toggle/graphs/contributors)
+for making `<dark-mode-toggle>` even better!
+
 ## License
 
 Copyright 2019 Google LLC
