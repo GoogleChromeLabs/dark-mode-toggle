@@ -24,6 +24,10 @@ Or, alternatively, use a `<script type="module">` tag (served from unpkg's CDN):
 <script type="module" src="https://unpkg.com/dark-mode-toggle"></script>
 ```
 
+![Dark mode toggle live coding sample.](https://user-images.githubusercontent.com/145676/94532333-0466b580-023e-11eb-947e-f73044a7cd63.gif)
+
+(See the [original HD version](https://youtu.be/qfsvoPhx-bE) so you can pause.)
+
 ## Usage
 
 There are two ways how you can use `<dark-mode-toggle>`:
@@ -287,6 +291,7 @@ This is not an official Google product.
 
 Thanks to all [contributors](https://github.com/GoogleChromeLabs/dark-mode-toggle/graphs/contributors)
 for making `<dark-mode-toggle>` even better!
+Usage video by [Tomek Sułkowski](https://twitter.com/sulco).
 
 ## License
 
