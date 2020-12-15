@@ -5,7 +5,7 @@
   "main": "src/dark-mode-toggle.mjs",
   "browser": "dist/dark-mode-toggle.min.mjs",
   "module": "dist/dark-mode-toggle.min.mjs",
-  "exports": "dist/dark-mode-toggle.min.mjs",
+  "exports": "./dist/dark-mode-toggle.min.mjs",
   "unpkg": "dist/dark-mode-toggle.min.mjs",
   "types": "src/dark-mode-toggle.d.ts",
   "files": [
