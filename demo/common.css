@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 :root {
-  color-scheme: dark light; /* stylelint-disable-line property-no-unknown */
-
   --heading-color: red;
   --duration: 0.5s;
   --timing: ease;
@@ -108,9 +106,9 @@ aside:nth-of-type(4) {
 dark-mode-toggle {
   --dark-mode-toggle-remember-icon-checked: url("checked.svg");
   --dark-mode-toggle-remember-icon-unchecked: url("unchecked.svg");
-  --dark-mode-toggle-remember-font: 0.75rem 'Helvetica';
-  --dark-mode-toggle-legend-font: bold 0.85rem 'Helvetica';
-  --dark-mode-toggle-label-font: 0.85rem 'Helvetica';
+  --dark-mode-toggle-remember-font: 0.75rem "Helvetica";
+  --dark-mode-toggle-legend-font: bold 0.85rem "Helvetica";
+  --dark-mode-toggle-label-font: 0.85rem "Helvetica";
   --dark-mode-toggle-color: var(--text-color);
   --dark-mode-toggle-background-color: none;
 

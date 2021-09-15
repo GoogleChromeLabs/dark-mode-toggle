@@ -281,11 +281,17 @@ export class DarkModeToggle extends HTMLElement {
       this._checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
           `var(--${NAME}-light-icon,url("${DEFAULT_URL}moon.png"))`);
       this._checkboxLabel.textContent = this.light;
+      if (!this.light) {
+        this._checkboxLabel.ariaLabel = DARK;
+      }
       this._darkCheckbox.checked = false;
     } else {
       this._checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
           `var(--${NAME}-dark-icon,url("${DEFAULT_URL}sun.png"))`);
       this._checkboxLabel.textContent = this.dark;
+      if (!this.dark) {
+        this._checkboxLabel.ariaLabel = LIGHT;
+      }
       this._darkCheckbox.checked = true;
     }
   }

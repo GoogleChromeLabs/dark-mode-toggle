@@ -17,12 +17,14 @@
 ((doc) => {
   const themeColor = doc.querySelector('meta[name="theme-color"]');
   const icon = doc.querySelector('link[rel="icon"]');
+  const colorScheme = doc.querySelector('meta[name="color-scheme"]');
   const body = doc.body;
 
   doc.addEventListener('colorschemechange', (e) => {
     // The event fires right before the color scheme goes into effect,
     // so we need the `color` value.
     themeColor.content = getComputedStyle(body).color;
+    colorScheme.content = e.detail.colorScheme;
     icon.href = e.detail.colorScheme === 'dark' ? 'moon.png' : 'sun.png';
     console.log(`${e.target.id} changed the color scheme to ${
       e.detail.colorScheme}`);

@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 :root {
+  color-scheme: light; /* stylelint-disable-line property-no-unknown */
+
   --background-color: rgb(240, 240, 240);
   --text-color: rgb(15, 15, 15);
   --shadow-color: rgba(15, 15, 15, 0.5);
