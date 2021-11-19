@@ -81,8 +81,7 @@ The example below illustrates the principle.
 <main>
   <h1>Hi there</h1>
   <img src="https://googlechromelabs.github.io/dark-mode-toggle/demo/cat.jpg"
-       alt="Sitting cat in front of a tree" width="320" height="195"
-       intrinsicsize="640x390">
+       alt="Sitting cat in front of a tree" width="320" height="195">
   <p>Check out the dark mode toggle in the upper right corner!</p>
 </main>
 <aside>
