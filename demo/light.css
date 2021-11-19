@@ -17,8 +17,8 @@
 :root {
   color-scheme: light; /* stylelint-disable-line property-no-unknown */
 
-  --background-color: rgb(240, 240, 240);
-  --text-color: rgb(15, 15, 15);
-  --shadow-color: rgba(15, 15, 15, 0.5);
-  --accent-color: rgba(240, 0, 0, 0.5);
+  --background-color: rgb(240 240 240);
+  --text-color: rgb(15 15 15);
+  --shadow-color: rgb(15 15 15 / 50%);
+  --accent-color: rgb(240 0 0 / 50%);
 }
