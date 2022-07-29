@@ -130,7 +130,9 @@ export class DarkModeToggle extends HTMLElement {
     this._permanentCheckbox =
         shadowRoot.querySelector('[part=permanentCheckbox]');
     this._permanentLabel = shadowRoot.querySelector('[part=permanentLabel]');
+  }
 
+  connectedCallback() {
     // Does the browser support native `prefers-color-scheme`?
     const hasNativePrefersColorScheme =
         matchMedia(MQ_DARK).media !== NOT_ALL;
