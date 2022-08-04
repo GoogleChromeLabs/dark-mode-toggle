@@ -139,6 +139,9 @@ export class DarkModeToggle extends HTMLElement {
     // Listen to `prefers-color-scheme` changes.
     if (hasNativePrefersColorScheme) {
       matchMedia(MQ_DARK).addListener(({matches}) => {
+        if (this.permanent) {
+          return;
+        }
         this.mode = matches ? DARK : LIGHT;
         this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
       });
@@ -228,7 +231,9 @@ export class DarkModeToggle extends HTMLElement {
       this._updateAppearance();
     } else if (name === PERMANENT) {
       if (this.permanent) {
-        store.setItem(NAME, this.mode);
+        if (this.mode) {
+          store.setItem(NAME, this.mode);
+        }
       } else {
         store.removeItem(NAME);
       }
