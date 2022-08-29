@@ -16,7 +16,12 @@
 
 // @license © 2019 Google LLC. Licensed under the Apache License, Version 2.0.
 const doc = document;
-const store = localStorage;
+let store = {};
+try {
+  store = localStorage;
+} catch (err) {
+  // Do nothing. The user probably blocks cookies.
+}
 const PREFERS_COLOR_SCHEME = 'prefers-color-scheme';
 const MEDIA = 'media';
 const LIGHT = 'light';
@@ -149,7 +154,12 @@ export class DarkModeToggle extends HTMLElement {
     // Set initial state, giving preference to a remembered value, then the
     // native value (if supported), and eventually defaulting to a light
     // experience.
-    const rememberedValue = store.getItem(NAME);
+    let rememberedValue = false;
+    try {
+      rememberedValue = store.getItem(NAME);
+    } catch (err) {
+      // Do nothing. The user probably blocks cookies.
+    }
     if (rememberedValue && [DARK, LIGHT].includes(rememberedValue)) {
       this.mode = rememberedValue;
       this._permanentCheckbox.checked = true;
@@ -161,7 +171,11 @@ export class DarkModeToggle extends HTMLElement {
       this.mode = LIGHT;
     }
     if (this.permanent && !rememberedValue) {
-      store.setItem(NAME, this.mode);
+      try {
+        store.setItem(NAME, this.mode);
+      } catch (err) {
+        // Do nothing. The user probably blocks cookies.
+      }
     }
 
     // Default to toggle appearance.
@@ -219,7 +233,11 @@ export class DarkModeToggle extends HTMLElement {
         this._showPermanentAside();
       }
       if (this.permanent) {
-        store.setItem(NAME, this.mode);
+        try {
+          store.setItem(NAME, this.mode);
+        } catch (err) {
+          // Do nothing. The user probably blocks cookies.
+        }
       }
       this._updateRadios();
       this._updateCheckbox();
@@ -232,10 +250,18 @@ export class DarkModeToggle extends HTMLElement {
     } else if (name === PERMANENT) {
       if (this.permanent) {
         if (this.mode) {
-          store.setItem(NAME, this.mode);
+          try {
+            store.setItem(NAME, this.mode);
+          } catch (err) {
+            // Do nothing. The user probably blocks cookies.
+          }
         }
       } else {
-        store.removeItem(NAME);
+        try {
+          store.removeItem(NAME);
+        } catch (err) {
+          // Do nothing. The user probably blocks cookies.
+        }
       }
       this._permanentCheckbox.checked = this.permanent;
     } else if (name === LEGEND) {

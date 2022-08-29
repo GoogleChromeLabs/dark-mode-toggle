@@ -1,6 +1,6 @@
 {
   "name": "dark-mode-toggle",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "Web Component that toggles dark mode 🌒",
   "main": "./dist/dark-mode-toggle.mjs",
   "browser": "./dist/dark-mode-toggle.min.mjs",
@@ -36,14 +36,14 @@
   },
   "homepage": "https://github.com/googlechromelabs/dark-mode-toggle#readme",
   "devDependencies": {
-    "eslint": "^8.21.0",
+    "eslint": "^8.23.0",
     "eslint-config-google": "^0.14.0",
     "http-server": "^14.1.1",
     "postcss-html": "^1.5.0",
     "shx": "^0.3.4",
-    "stylelint": "^14.9.1",
-    "stylelint-config-standard": "^26.0.0",
-    "terser": "^5.14.2"
+    "stylelint": "^14.11.0",
+    "stylelint-config-standard": "^28.0.0",
+    "terser": "^5.15.0"
   },
   "eslintConfig": {
     "parserOptions": {
