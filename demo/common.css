@@ -96,6 +96,10 @@ aside:nth-of-type(4) {
   top: 12rem;
 }
 
+aside:nth-of-type(5) {
+  top: 16rem;
+}
+
 #content select,
 #content button,
 #content input[type="text"],
@@ -140,4 +144,9 @@ dark-mode-toggle {
 #dark-mode-toggle-4 {
   --dark-mode-toggle-active-mode-background-color: var(--accent-color);
   --dark-mode-toggle-remember-filter: invert(100%);
+}
+
+#dark-mode-toggle-5 {
+  --dark-mode-toggle-remember-filter: invert(100%);
+  --dark-mode-toggle-icon-size: 2rem;
 }

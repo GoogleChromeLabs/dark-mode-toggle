@@ -33,6 +33,7 @@ const REMEMBER = 'remember';
 const LEGEND = 'legend';
 const TOGGLE = 'toggle';
 const SWITCH = 'switch';
+const SLIDER = 'slider';
 const APPEARANCE = 'appearance';
 const PERMANENT = 'permanent';
 const MODE = 'mode';
@@ -41,7 +42,7 @@ const PERMANENT_COLOR_SCHEME = 'permanentcolorscheme';
 const ALL = 'all';
 const NOT_ALL = 'not all';
 const NAME = 'dark-mode-toggle';
-const DEFAULT_URL = 'https://googlechromelabs.github.io/dark-mode-toggle/demo/';
+const DEFAULT_URL = 'https://haocen.github.io/dark-mode-toggle/demo/';
 
 // See https://html.spec.whatwg.org/multipage/common-dom-interfaces.html ↵
 // #reflecting-content-attributes-in-idl-attributes.
@@ -78,7 +79,7 @@ const template = doc.createElement('template');
 // ⚠️ Note: this is a minified version of `src/template-contents.tpl`.
 // Compress the CSS with https://cssminifier.com/, then paste it here.
 // eslint-disable-next-line max-len
-template.innerHTML = `<style>*,::after,::before{box-sizing:border-box}:host{contain:content;display:block}:host([hidden]){display:none}form{background-color:var(--${NAME}-background-color,transparent);color:var(--${NAME}-color,inherit);padding:0}fieldset{border:none;margin:0;padding-block:.25rem;padding-inline:.25rem}legend{font:var(--${NAME}-legend-font,inherit);padding:0}input,label{cursor:pointer}label{white-space:nowrap}input{opacity:0;position:absolute;pointer-events:none}input:focus-visible+label{outline:#e59700 auto 2px;outline:-webkit-focus-ring-color auto 5px}label:not(:empty)::before{margin-inline-end:.5rem;}label::before{content:"";display:inline-block;background-size:var(--${NAME}-icon-size,1rem);background-repeat:no-repeat;height:var(--${NAME}-icon-size,1rem);width:var(--${NAME}-icon-size,1rem);vertical-align:middle;}[part=lightLabel]::before{background-image:var(--${NAME}-light-icon, url("${DEFAULT_URL}sun.png"))}[part=darkLabel]::before{filter:var(--${NAME}-icon-filter, none);background-image:var(--${NAME}-dark-icon, url("${DEFAULT_URL}moon.png"))}[part=toggleLabel]::before{background-image:var(--${NAME}-checkbox-icon,none)}[part=permanentLabel]::before{background-image:var(--${NAME}-remember-icon-unchecked, url("${DEFAULT_URL}unchecked.svg"))}[part=darkLabel],[part=lightLabel],[part=toggleLabel]{font:var(--${NAME}-label-font,inherit)}[part=darkLabel]:empty,[part=lightLabel]:empty,[part=toggleLabel]:empty{font-size:0;padding:0}[part=permanentLabel]{font:var(--${NAME}-remember-font,inherit)}input:checked+[part=permanentLabel]::before{background-image:var(--${NAME}-remember-icon-checked, url("${DEFAULT_URL}checked.svg"))}input:checked+[part=darkLabel],input:checked+[part=lightLabel]{background-color:var(--${NAME}-active-mode-background-color,transparent)}input:checked+[part=darkLabel]::before,input:checked+[part=lightLabel]::before{background-color:var(--${NAME}-active-mode-background-color,transparent)}input:checked+[part=toggleLabel]::before{filter:var(--${NAME}-icon-filter, none)}input:checked+[part=toggleLabel]+aside [part=permanentLabel]::before{filter:var(--${NAME}-remember-filter, invert(100%))}aside{visibility:hidden;margin-block-start:.15rem}[part=darkLabel]:focus-visible~aside,[part=lightLabel]:focus-visible~aside,[part=toggleLabel]:focus-visible~aside{visibility:visible;transition:visibility 0s}aside [part=permanentLabel]:empty{display:none}@media (hover:hover){aside{transition:visibility 3s}aside:hover{visibility:visible}[part=darkLabel]:hover~aside,[part=lightLabel]:hover~aside,[part=toggleLabel]:hover~aside{visibility:visible;transition:visibility 0s}}</style><form part=form><fieldset part=fieldset><legend part=legend></legend><input part=lightRadio id=l name=mode type=radio><label part=lightLabel for=l></label><input part=darkRadio id=d name=mode type=radio><label part=darkLabel for=d></label><input part=toggleCheckbox id=t type=checkbox><label part=toggleLabel for=t></label><aside part=aside><input part=permanentCheckbox id=p type=checkbox><label part=permanentLabel for=p></label></aside></fieldset></form>`;
+template.innerHTML = `<style>*,::after,::before{box-sizing:border-box}:host{contain:content;display:block}:host([hidden]){display:none}form{background-color:var(--${NAME}-background-color,transparent);color:var(--${NAME}-color,inherit);padding:0}fieldset{border:none;margin:0;padding-block:.25rem;padding-inline:.25rem}legend{font:var(--${NAME}-legend-font,inherit);padding:0}input,label{cursor:pointer}label{white-space:nowrap}input{opacity:0;position:absolute;pointer-events:none}input:focus-visible+label{outline:#e59700 auto 2px;outline:-webkit-focus-ring-color auto 5px}label::before{content:"";display:inline-block;background-size:var(--${NAME}-icon-size,1rem);background-repeat:no-repeat;height:var(--${NAME}-icon-size,1rem);width:var(--${NAME}-icon-size,1rem);vertical-align:middle}label:not(:empty)::before{margin-inline-end:.5rem}[part=lightLabel]::before{background-image:var(--${NAME}-light-icon, url("${DEFAULT_URL}sun.png"))}[part=darkLabel]::before{filter:var(--${NAME}-icon-filter, none);background-image:var(--${NAME}-dark-icon, url("${DEFAULT_URL}moon.png"))}[part=toggleLabel]::before{background-image:var(--${NAME}-checkbox-icon,none)}[part=permanentLabel]::before{background-image:var(--${NAME}-remember-icon-unchecked, url("${DEFAULT_URL}unchecked.svg"))}[part=darkLabel],[part=lightLabel],[part=toggleLabel]{font:var(--${NAME}-label-font,inherit)}[part=darkLabel]:empty,[part=lightLabel]:empty,[part=toggleLabel]:empty{font-size:0;padding:0}[part=permanentLabel]{font:var(--${NAME}-remember-font,inherit)}input:checked+[part=permanentLabel]::before{background-image:var(--${NAME}-remember-icon-checked, url("${DEFAULT_URL}checked.svg"))}input:checked+[part=darkLabel],input:checked+[part=lightLabel]{background-color:var(--${NAME}-active-mode-background-color,transparent)}input:checked+[part=darkLabel]::before,input:checked+[part=lightLabel]::before{background-color:var(--${NAME}-active-mode-background-color,transparent)}input:checked+[part=toggleLabel]::before{filter:var(--${NAME}-icon-filter, none)}input:checked+[part=toggleLabel]+aside [part=permanentLabel]::before{filter:var(--${NAME}-remember-filter, invert(100%))}aside{visibility:hidden;margin-block-start:.15rem}[part=darkLabel]:focus-visible~aside,[part=lightLabel]:focus-visible~aside,[part=sliderLabel]:focus-visible~aside,[part=toggleLabel]:focus-visible~aside{visibility:visible;transition:visibility 0s}aside [part=permanentLabel]:empty{display:none}@media (hover:hover){aside{transition:visibility 3s}aside:hover{visibility:visible}[part=darkLabel]:hover~aside,[part=lightLabel]:hover~aside,[part=sliderLabel]:hover~aside,[part=toggleLabel]:hover~aside{visibility:visible;transition:visibility 0s}}[part=sliderCheckbox]{position:absolute;top:0;right:0;left:0;bottom:0;width:100%;height:100%;margin:0;opacity:0;z-index:1}[part=sliderLabel]:not([hidden]){display:block;position:relative;height:calc(var(--${NAME}-icon-size,1rem) * 1.5);width:calc(var(--${NAME}-icon-size,1rem) * 3);background-color:#333;border-radius:var(--${NAME}-icon-size,1rem);transition:.4s}[part=sliderLabel]:not([hidden])::before{display:flex;align-items:center;justify-content:center;position:absolute;top:0;right:auto;left:0;bottom:0;height:calc(var(--${NAME}-icon-size,1rem) * 1.5);width:calc(var(--${NAME}-icon-size,1rem) * 1.5);border-radius:100%;border:2px #333 solid;background-color:#fff;color:#333;transition:.4s;content:"";background-position:center;background-size:var(--${NAME}-icon-size,1rem);background-image:var(--${NAME}-light-icon, url("${DEFAULT_URL}fa-sun.svg"));box-sizing:border-box}input:checked+[part=sliderLabel]{background-color:#fff}input:checked+[part=sliderLabel]:not([hidden])::before{left:calc(100% - var(--${NAME}-icon-size,1rem) * 1.5);border-color:#000;background-color:#ccc;color:#000;background-size:var(--${NAME}-icon-size,1rem);background-image:var(--${NAME}-dark-icon, url("${DEFAULT_URL}fa-moon.svg"));filter:var(--${NAME}-icon-filter, invert(100%))}</style><form part=form><fieldset part=fieldset><legend part=legend></legend><input id=l part=lightRadio type=radio name=mode> <label for=l part=lightLabel></label> <input id=d part=darkRadio type=radio name=mode> <label for=d part=darkLabel></label> <input id=t part=toggleCheckbox type=checkbox> <label for=t part=toggleLabel></label> <input id=s part=sliderCheckbox type=checkbox> <label for=s part=sliderLabel></label><aside part=aside><input id=p part=permanentCheckbox type=checkbox> <label for=p part=permanentLabel></label></aside></fieldset></form>`;
 
 export class DarkModeToggle extends HTMLElement {
   static get observedAttributes() {
@@ -104,6 +105,7 @@ export class DarkModeToggle extends HTMLElement {
       this.mode = event.detail.colorScheme;
       this._updateRadios();
       this._updateCheckbox();
+      this._updateSlider();
     });
 
     doc.addEventListener(PERMANENT_COLOR_SCHEME, (event) => {
@@ -130,6 +132,8 @@ export class DarkModeToggle extends HTMLElement {
     this._darkLabel = shadowRoot.querySelector('[part=darkLabel]');
     this._darkCheckbox = shadowRoot.querySelector('[part=toggleCheckbox]');
     this._checkboxLabel = shadowRoot.querySelector('[part=toggleLabel]');
+    this._sliderCheckbox = shadowRoot.querySelector('[part=sliderCheckbox]');
+    this._sliderLabel = shadowRoot.querySelector('[part=sliderLabel]');
     this._legendLabel = shadowRoot.querySelector('legend');
     this._permanentAside = shadowRoot.querySelector('aside');
     this._permanentCheckbox =
@@ -183,7 +187,7 @@ export class DarkModeToggle extends HTMLElement {
       this.appearance = TOGGLE;
     }
 
-    // Update the appearance to either of toggle or switch.
+    // Update the appearance to toggle, switch or slider.
     this._updateAppearance();
 
     // Update the radios
@@ -192,16 +196,27 @@ export class DarkModeToggle extends HTMLElement {
     // Make the checkbox reflect the state of the radios
     this._updateCheckbox();
 
+    // Make the slider reflect the state of the radios
+    this._updateSlider();
+
     // Synchronize the behavior of the radio and the checkbox.
     [this._lightRadio, this._darkRadio].forEach((input) => {
       input.addEventListener('change', () => {
         this.mode = this._lightRadio.checked ? LIGHT : DARK;
         this._updateCheckbox();
+        this._updateSlider();
         this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
       });
     });
     this._darkCheckbox.addEventListener('change', () => {
       this.mode = this._darkCheckbox.checked ? DARK : LIGHT;
+      this._updateRadios();
+      this._updateSlider();
+      this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
+    });
+    this._sliderCheckbox.addEventListener('change', () => {
+      this.mode = this._sliderCheckbox.checked ? DARK : LIGHT;
+      this._updateCheckbox();
       this._updateRadios();
       this._dispatchEvent(COLOR_SCHEME_CHANGE, {colorScheme: this.mode});
     });
@@ -241,10 +256,11 @@ export class DarkModeToggle extends HTMLElement {
       }
       this._updateRadios();
       this._updateCheckbox();
+      this._updateSlider();
       this._updateMode();
     } else if (name === APPEARANCE) {
-      if (![TOGGLE, SWITCH].includes(newValue)) {
-        throw new RangeError(`Allowed values: "${TOGGLE}" and "${SWITCH}".`);
+      if (![TOGGLE, SWITCH, SLIDER].includes(newValue)) {
+        throw new RangeError(`Allowed values: "${TOGGLE}", "${SWITCH}" and "${SLIDER}".`);
       }
       this._updateAppearance();
     } else if (name === PERMANENT) {
@@ -291,14 +307,24 @@ export class DarkModeToggle extends HTMLElement {
 
   _updateAppearance() {
     // Hide or show the light-related affordances dependent on the appearance,
-    // which can be "switch" or "toggle".
-    const appearAsToggle = this.appearance === TOGGLE;
-    this._lightRadio.hidden = appearAsToggle;
-    this._lightLabel.hidden = appearAsToggle;
-    this._darkRadio.hidden = appearAsToggle;
-    this._darkLabel.hidden = appearAsToggle;
-    this._darkCheckbox.hidden = !appearAsToggle;
-    this._checkboxLabel.hidden = !appearAsToggle;
+    // which can be "switch" , "toggle" or "slider".
+    this._lightRadio.hidden = this._lightLabel.hidden =
+      this._darkRadio.hidden = this._darkLabel.hidden =
+      this._darkCheckbox.hidden = this._checkboxLabel.hidden =
+      this._sliderCheckbox.hidden = this._sliderLabel.hidden = true;
+    switch (this.appearance) {
+      case SWITCH:
+        this._lightRadio.hidden = this._lightLabel.hidden =
+          this._darkRadio.hidden = this._darkLabel.hidden = false;
+        break;
+      case SLIDER:
+        this._sliderCheckbox.hidden = this._sliderLabel.hidden = false;
+        break;
+      case TOGGLE:
+      default:
+        this._darkCheckbox.hidden = this._checkboxLabel.hidden = false;
+        break;
+    }
   }
 
   _updateRadios() {
@@ -326,6 +352,14 @@ export class DarkModeToggle extends HTMLElement {
         this._checkboxLabel.ariaLabel = LIGHT;
       }
       this._darkCheckbox.checked = true;
+    }
+  }
+
+  _updateSlider() {
+    if (this.mode === LIGHT) {
+      this._sliderCheckbox.checked = false;
+    } else {
+      this._sliderCheckbox.checked = true;
     }
   }
 

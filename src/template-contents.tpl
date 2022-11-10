@@ -129,7 +129,8 @@
 
   [part="lightLabel"]:focus-visible ~ aside,
   [part="darkLabel"]:focus-visible ~ aside,
-  [part="toggleLabel"]:focus-visible ~ aside {
+  [part="toggleLabel"]:focus-visible ~ aside,
+  [part="sliderLabel"]:focus-visible ~ aside {
     visibility: visible;
     transition: visibility 0s;
   }
@@ -149,10 +150,67 @@
 
     [part="lightLabel"]:hover ~ aside,
     [part="darkLabel"]:hover ~ aside,
-    [part="toggleLabel"]:hover ~ aside {
+    [part="toggleLabel"]:hover ~ aside,
+    [part="sliderLabel"]:hover ~ aside {
       visibility: visible;
       transition: visibility 0s;
     }
+  }
+
+  [part="sliderCheckbox"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    z-index: 1;
+  }
+  [part="sliderLabel"]:not([hidden]) {
+    display: block;
+    position: relative;
+    height: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
+    width: calc(var(--${NAME}-icon-size, 1rem) * 3);
+    background-color: #333;
+    border-radius: var(--${NAME}-icon-size, 1rem);
+    transition: 0.4s;
+  }
+  [part="sliderLabel"]:not([hidden])::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: auto;
+    left: 0;
+    bottom: 0;
+    height: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
+    width: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
+    border-radius: 100%;
+    border: 2px #333 solid;
+    background-color: #fff;
+    color: #333;
+    transition: 0.4s;
+    content: "";
+    background-position: center;
+    background-size: var(--${NAME}-icon-size, 1rem);
+    background-image: var(--${NAME}-light-icon, url("${DEFAULT_URL}fa-sun.svg"));
+    box-sizing: border-box;
+  }
+  input:checked + [part="sliderLabel"] {
+    background-color: #fff;
+  }
+  input:checked + [part="sliderLabel"]:not([hidden])::before {
+    left: calc(100% - var(--${NAME}-icon-size, 1rem) * 1.5);
+    border-color: #000; /* inverted */
+    background-color: #ccc; /* inverted */
+    color: #000; /* inverted */
+    background-size: var(--${NAME}-icon-size, 1rem);
+    background-image: var(--${NAME}-dark-icon, url("${DEFAULT_URL}fa-moon.svg"));
+    filter: var(--${NAME}-icon-filter, invert(100%));
   }
 </style>
 <form part="form">
@@ -164,6 +222,8 @@
     <label  part="darkLabel" for="d"></label>
     <input part="toggleCheckbox" id="t" type="checkbox">
     <label part="toggleLabel" for="t"></label>
+    <input part="sliderCheckbox" id="s" type="checkbox">
+    <label part="sliderLabel" for="s"></label>
     <aside part="aside">
       <input part="permanentCheckbox" id="p" type="checkbox">
       <label part="permanentLabel" for="p"></label>
