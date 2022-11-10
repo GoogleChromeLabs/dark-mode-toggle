@@ -139,7 +139,7 @@ dynamically via JavaScript.
 | Name | Required | Values | Default | Description |
 | ---- | -------- | ------ | ------- | ----------- |
 | `mode` | No | Any of `"dark"` or `"light"` | Defaults to whatever the user's preferred color scheme is according to `prefers-color-scheme`, or `"light"` if the user's browser doesn't support the media query. | If set overrides the user's preferred color scheme. |
-| `appearance` | No | Any of `"toggle"` or `"switch"` | Defaults to `"toggle"`. | The `"switch"` appearance conveys the idea of a theme switcher (light/dark), whereas `"toggle"` conveys the idea of a dark mode toggle (on/off). |
+| `appearance` | No | Any of `"toggle"`, `"switch"` or `"toggle"` | Defaults to `"toggle"`. | The `"switch"` appearance conveys the idea of a theme switcher (light/dark), whereas `"toggle"` conveys the idea of a dark mode toggle (on/off), the `"slider"` is same as toggle (on/off) just looks like a slider instead. |
 | `permanent` | No | `true` if present | Defaults to not remember the last choice. | If present remembers the last selected mode (`"dark"` or `"light"`), which allows the user to permanently override their usual preferred color scheme. |
 | `legend` | No | Any string | Defaults to no legend. | Any string value that represents the legend for the toggle or switch. |
 | `light` | No | Any string | Defaults to no label. | Any string value that represents the label for the `"light"` mode. |
