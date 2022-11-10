@@ -170,7 +170,7 @@
     z-index: 1;
   }
   [part="sliderLabel"]:not([hidden]) {
-    display: block;
+    display: inline-block;
     position: relative;
     height: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
     width: calc(var(--${NAME}-icon-size, 1rem) * 3);
