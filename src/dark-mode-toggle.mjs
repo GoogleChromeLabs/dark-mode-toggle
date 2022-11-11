@@ -42,7 +42,7 @@ const PERMANENT_COLOR_SCHEME = 'permanentcolorscheme';
 const ALL = 'all';
 const NOT_ALL = 'not all';
 const NAME = 'dark-mode-toggle';
-const DEFAULT_URL = 'https://haocen.github.io/dark-mode-toggle/demo/';
+const DEFAULT_URL = 'https://googlechromelabs.github.io/dark-mode-toggle/demo/';
 
 // See https://html.spec.whatwg.org/multipage/common-dom-interfaces.html ↵
 // #reflecting-content-attributes-in-idl-attributes.
