@@ -158,24 +158,12 @@
     }
   }
 
-  [part="sliderCheckbox"] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    opacity: 0;
-    z-index: 1;
-  }
   [part="sliderLabel"]:not([hidden]) {
     display: inline-block;
     position: relative;
-    height: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
-    width: calc(var(--${NAME}-icon-size, 1rem) * 3);
-    background-color: #333;
+    height: calc(var(--${NAME}-icon-size, 1rem) * 2);
+    width: calc(var(--${NAME}-icon-size, 1rem) * 3.5);
+    background-color: #b7bbbd;
     border-radius: var(--${NAME}-icon-size, 1rem);
     transition: 0.4s;
   }
@@ -184,14 +172,13 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 0;
-    right: auto;
-    left: 0;
-    bottom: 0;
+    top: calc(var(--dark-mode-toggle-icon-size, 1rem) * 0.25);
+    left: calc(var(--dark-mode-toggle-icon-size, 1rem) * 0.25);
     height: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
     width: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
     border-radius: 100%;
-    border: 2px #333 solid;
+    /* border: 2px #333 solid; */
+    box-shadow: 0 0.15em 0.3em rgb(0 0 0 / 15%), 0 0.2em 0.5em rgb(0 0 0 / 30%);
     background-color: #fff;
     color: #333;
     transition: 0.4s;
@@ -202,15 +189,40 @@
     box-sizing: border-box;
   }
   input:checked + [part="sliderLabel"] {
-    background-color: #fff;
+    background-color: #4e5255;
   }
   input:checked + [part="sliderLabel"]:not([hidden])::before {
-    left: calc(100% - var(--${NAME}-icon-size, 1rem) * 1.5);
+    left: calc(100% - var(--${NAME}-icon-size, 1rem) * 1.75);
     border-color: #000; /* inverted */
     background-color: #ccc; /* inverted */
     color: #000; /* inverted */
     background-size: var(--${NAME}-icon-size, 1rem);
     background-image: var(--${NAME}-dark-icon, url("${DEFAULT_URL}fa-moon.svg"));
+    filter: var(--${NAME}-icon-filter, invert(100%));
+    box-shadow: 0 0.5px hsl(0deg 0% 100% / 16%);
+  }
+  [part="sliderLabel"]:not([hidden])::after {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: calc(var(--dark-mode-toggle-icon-size,1rem) * 0.25);
+    left: calc(100% - var(--${NAME}-icon-size, 1rem) * 1.75);
+    height: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
+    width: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
+    border-radius: 100%;
+    color: #333;
+    content: "";
+    background-position: center;
+    background-size: var(--${NAME}-icon-size, 1rem);
+    background-image: var(--${NAME}-dark-icon, url("${DEFAULT_URL}fa-moon.svg"));
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    opacity: .5;
+  }
+  input:checked + [part="sliderLabel"]:not([hidden])::after {
+    left: calc(var(--dark-mode-toggle-icon-size,1rem) * 0.25);
+    background-image: var(--${NAME}-light-icon, url("${DEFAULT_URL}fa-sun.svg"));
     filter: var(--${NAME}-icon-filter, invert(100%));
   }
 </style>
