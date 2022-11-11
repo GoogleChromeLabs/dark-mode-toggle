@@ -148,5 +148,5 @@ dark-mode-toggle {
 
 #dark-mode-toggle-5 {
   --dark-mode-toggle-remember-filter: invert(100%);
-  --dark-mode-toggle-icon-size: 2rem;
+  --dark-mode-toggle-icon-size: 1rem;
 }
