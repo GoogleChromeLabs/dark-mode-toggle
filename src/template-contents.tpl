@@ -118,7 +118,8 @@
     filter: var(--${NAME}-icon-filter, none);
   }
 
-  input:checked + [part="toggleLabel"] + aside [part="permanentLabel"]::before {
+  /* Make sure "sliderLaber" is right before aside otherwise won't work */
+  input:checked + [part="sliderLabel"] + aside [part="permanentLabel"]::before {
     filter: var(--${NAME}-remember-filter, invert(100%));
   }
 
