@@ -121,7 +121,7 @@ toggle.addEventListener('colorschemechange', () => {
 ## Demo
 
 See the custom element in action in the
-[interactive demo](https://haocen.github.io/dark-mode-toggle/demo/index.html).
+[interactive demo](https://googlechromelabs.github.io/dark-mode-toggle/demo/index.html).
 It shows four different kinds of synchronized `<dark-mode-toggle>`s.
 If you use Chrome on an Android device, pay attention to the address bar's
 theme color, and also note how the favicon changes.
