@@ -97,7 +97,8 @@ aside:nth-of-type(4) {
 }
 
 aside:nth-of-type(5) {
-  bottom: 5rem;
+  width: 10rem;
+  top: 16rem;
 }
 
 #content select,
