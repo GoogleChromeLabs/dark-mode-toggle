@@ -172,8 +172,8 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: calc(var(--dark-mode-toggle-icon-size, 1rem) * 0.25);
-    left: calc(var(--dark-mode-toggle-icon-size, 1rem) * 0.25);
+    top: calc(var(--${NAME}-icon-size, 1rem) * 0.25);
+    left: calc(var(--${NAME}-icon-size, 1rem) * 0.25);
     height: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
     width: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
     border-radius: 100%;
@@ -206,7 +206,7 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: calc(var(--dark-mode-toggle-icon-size,1rem) * 0.25);
+    top: calc(var(--${NAME}-icon-size,1rem) * 0.25);
     left: calc(100% - var(--${NAME}-icon-size, 1rem) * 1.75);
     height: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
     width: calc(var(--${NAME}-icon-size, 1rem) * 1.5);
@@ -221,7 +221,7 @@
     opacity: .5;
   }
   input:checked + [part="sliderLabel"]:not([hidden])::after {
-    left: calc(var(--dark-mode-toggle-icon-size,1rem) * 0.25);
+    left: calc(var(--${NAME}-icon-size,1rem) * 0.25);
     background-image: var(--${NAME}-light-icon, url("${DEFAULT_URL}fa-sun.svg"));
     filter: var(--${NAME}-icon-filter, invert(100%));
   }
