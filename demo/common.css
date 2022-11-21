@@ -96,6 +96,11 @@ aside:nth-of-type(4) {
   top: 12rem;
 }
 
+aside:nth-of-type(5) {
+  width: 10rem;
+  top: 16rem;
+}
+
 #content select,
 #content button,
 #content input[type="text"],
