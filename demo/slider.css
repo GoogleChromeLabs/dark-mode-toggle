@@ -18,7 +18,6 @@ dark-mode-toggle.slider::part(toggleLabel)::before {
   height: calc(var(--dark-mode-toggle-icon-icon-size, 1rem) * 1.5);
   width: calc(var(--dark-mode-toggle-icon-icon-size, 1rem) * 1.5);
   border-radius: 100%;
-  /* border: 2px #333 solid; */
   box-shadow: 0 0.15em 0.3em rgb(0 0 0 / 15%), 0 0.2em 0.5em rgb(0 0 0 / 30%);
   background-color: #fff;
   color: #333;
@@ -50,7 +49,7 @@ dark-mode-toggle.slider::part(toggleLabel)::after {
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: calc(var(--dark-mode-toggle-icon-size,1rem) * 0.25);
+  top: calc(var(--dark-mode-toggle-icon-size, 1rem) * 0.25);
   left: calc(100% - var(--dark-mode-toggle-icon-size, 1rem) * 1.75);
   height: calc(var(--dark-mode-toggle-icon-size, 1rem) * 1.5);
   width: calc(var(--dark-mode-toggle-icon-size, 1rem) * 1.5);
@@ -62,11 +61,11 @@ dark-mode-toggle.slider::part(toggleLabel)::after {
   background-image: var(--dark-mode-toggle-dark-icon, url("moon.svg"));
   background-repeat: no-repeat;
   box-sizing: border-box;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 dark-mode-toggle.slider[mode="dark"]::part(toggleLabel)::after {
-  left: calc(var(--dark-mode-toggle-icon-size,1rem) * 0.25);
+  left: calc(var(--dark-mode-toggle-icon-size, 1rem) * 0.25);
   background-image: var(--dark-mode-toggle-light-icon, url("sun.svg"));
   filter: var(--dark-mode-toggle-icon-filter, invert(100%));
 }

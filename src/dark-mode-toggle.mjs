@@ -120,8 +120,12 @@ export class DarkModeToggle extends HTMLElement {
 
     // We need to support `media="(prefers-color-scheme: dark)"` (with space)
     // and `media="(prefers-color-scheme:dark)"` (without space)
-    this._darkCSS = doc.querySelectorAll(`${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${DARK}"]`);
-    this._lightCSS = doc.querySelectorAll(`${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${LIGHT}"]`);
+    this._darkCSS = doc.querySelectorAll(
+        `${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${DARK}"]`,
+    );
+    this._lightCSS = doc.querySelectorAll(
+        `${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${LIGHT}"]`,
+    );
 
     // Get DOM references.
     this._lightRadio = shadowRoot.querySelector('[part=lightRadio]');
@@ -132,15 +136,15 @@ export class DarkModeToggle extends HTMLElement {
     this._checkboxLabel = shadowRoot.querySelector('[part=toggleLabel]');
     this._legendLabel = shadowRoot.querySelector('legend');
     this._permanentAside = shadowRoot.querySelector('aside');
-    this._permanentCheckbox =
-        shadowRoot.querySelector('[part=permanentCheckbox]');
+    this._permanentCheckbox = shadowRoot.querySelector(
+        '[part=permanentCheckbox]',
+    );
     this._permanentLabel = shadowRoot.querySelector('[part=permanentLabel]');
   }
 
   connectedCallback() {
     // Does the browser support native `prefers-color-scheme`?
-    const hasNativePrefersColorScheme =
-        matchMedia(MQ_DARK).media !== NOT_ALL;
+    const hasNativePrefersColorScheme = matchMedia(MQ_DARK).media !== NOT_ALL;
     // Listen to `prefers-color-scheme` changes.
     if (hasNativePrefersColorScheme) {
       matchMedia(MQ_DARK).addListener(({matches}) => {
@@ -282,11 +286,13 @@ export class DarkModeToggle extends HTMLElement {
   }
 
   _dispatchEvent(type, value) {
-    this.dispatchEvent(new CustomEvent(type, {
-      bubbles: true,
-      composed: true,
-      detail: value,
-    }));
+    this.dispatchEvent(
+        new CustomEvent(type, {
+          bubbles: true,
+          composed: true,
+          detail: value,
+        }),
+    );
   }
 
   _updateAppearance() {
@@ -311,16 +317,20 @@ export class DarkModeToggle extends HTMLElement {
 
   _updateCheckbox() {
     if (this.mode === LIGHT) {
-      this._checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
-          `var(--${NAME}-light-icon,url("${DEFAULT_URL}moon.png"))`);
+      this._checkboxLabel.style.setProperty(
+          `--${NAME}-checkbox-icon`,
+          `var(--${NAME}-light-icon,url("${DEFAULT_URL}moon.png"))`,
+      );
       this._checkboxLabel.textContent = this.light;
       if (!this.light) {
         this._checkboxLabel.ariaLabel = DARK;
       }
       this._darkCheckbox.checked = false;
     } else {
-      this._checkboxLabel.style.setProperty(`--${NAME}-checkbox-icon`,
-          `var(--${NAME}-dark-icon,url("${DEFAULT_URL}sun.png"))`);
+      this._checkboxLabel.style.setProperty(
+          `--${NAME}-checkbox-icon`,
+          `var(--${NAME}-dark-icon,url("${DEFAULT_URL}sun.png"))`,
+      );
       this._checkboxLabel.textContent = this.dark;
       if (!this.dark) {
         this._checkboxLabel.ariaLabel = LIGHT;

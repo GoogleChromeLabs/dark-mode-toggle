@@ -4,7 +4,6 @@
 export type ColorScheme = 'light' | 'dark';
 
 export class DarkModeToggle extends HTMLElement {
-
   /**
    * The user's preferred color scheme.
    */
@@ -60,7 +59,7 @@ declare global {
   }
 
   interface GlobalEventHandlersEventMap {
-    'colorschemechange': ColorSchemeChangeEvent;
-    'permanentcolorscheme': PermanentColorSchemeEvent;
+    colorschemechange: ColorSchemeChangeEvent;
+    permanentcolorscheme: PermanentColorSchemeEvent;
   }
 }
