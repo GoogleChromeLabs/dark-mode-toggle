@@ -8,6 +8,10 @@ dark-mode-toggle.slider::part(toggleLabel) {
   transition: 0.4s;
 }
 
+dark-mode-toggle.slider[mode="dark"]::part(toggleLabel) {
+  background-color: #4e5255;
+}
+
 dark-mode-toggle.slider::part(toggleLabel)::before {
   display: flex;
   align-items: center;
@@ -15,8 +19,8 @@ dark-mode-toggle.slider::part(toggleLabel)::before {
   position: absolute;
   top: calc(var(--dark-mode-toggle-icon-size, 1rem) * 0.25);
   left: calc(var(--dark-mode-toggle-icon-size, 1rem) * 0.25);
-  height: calc(var(--dark-mode-toggle-icon-icon-size, 1rem) * 1.5);
-  width: calc(var(--dark-mode-toggle-icon-icon-size, 1rem) * 1.5);
+  height: calc(var(--dark-mode-toggle-icon-size, 1rem) * 1.5);
+  width: calc(var(--dark-mode-toggle-icon-size, 1rem) * 1.5);
   border-radius: 100%;
   box-shadow: 0 0.15em 0.3em rgb(0 0 0 / 15%), 0 0.2em 0.5em rgb(0 0 0 / 30%);
   background-color: #fff;
@@ -24,13 +28,9 @@ dark-mode-toggle.slider::part(toggleLabel)::before {
   transition: 0.4s;
   content: "";
   background-position: center;
-  background-size: var(--dark-mode-toggle-icon-icon-size, 1rem);
-  background-image: var(--dark-mode-toggle-icon-light-icon, url("sun.svg"));
+  background-size: var(--dark-mode-toggle-icon-size, 1rem);
+  background-image: var(--dark-mode-toggle-light-icon, url("sun.svg"));
   box-sizing: border-box;
-}
-
-dark-mode-toggle.slider[mode="dark"]::part(toggleLabel) {
-  background-color: #4e5255;
 }
 
 dark-mode-toggle.slider[mode="dark"]::part(toggleLabel)::before {
