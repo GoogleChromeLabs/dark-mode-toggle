@@ -27,14 +27,14 @@
     colorScheme.content = e.detail.colorScheme;
     icon.href = e.detail.colorScheme === 'dark' ? 'moon.png' : 'sun.png';
     console.log(
-        `${e.target.id} changed the color scheme to ${e.detail.colorScheme}`,
+      `${e.target.id} changed the color scheme to ${e.detail.colorScheme}`,
     );
   });
 
   doc.addEventListener('permanentcolorscheme', (e) => {
     const permanent = e.detail.permanent;
     console.log(
-        `${permanent ? 'R' : 'Not r'}emembering the last selected mode.`,
+      `${permanent ? 'R' : 'Not r'}emembering the last selected mode.`,
     );
   });
 })(document);

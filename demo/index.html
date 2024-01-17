@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <title>Hello Dark Mode</title>
@@ -93,8 +93,18 @@
         the script in the <code>dist</code> folder.
       </p>
       <p>
-        See <a href="with-flashing.html">the flashing issue</a> and the fix
-        (<a href="https://github.com/GoogleChromeLabs/dark-mode-toggle/issues/77">#77</a>).
+        Per default, the custom element is optimized for loading speed.
+        Depending on your page, this can introduce flashing (<a
+          href="with-flashing.html"
+          >example with flashing</a
+        >). At the expense of loading speed using
+        <code>document.write()</code> and following the
+        <a
+          href="https://github.com/GoogleChromeLabs/dark-mode-toggle?tab=readme-ov-file#-using-different-stylesheets-per-color-scheme-that-are-conditionally-loaded"
+          >instructions in the README</a
+        >, you can prevent this (<a href="without-flashing.html"
+          >example without flashing</a
+        >).
       </p>
     </main>
     <aside>

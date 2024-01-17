@@ -75,10 +75,17 @@ more than one file per theme. The example below illustrates the principle.
 
 ```html
 <head>
-  <link rel="stylesheet" href="common.css">
-  <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light)">
-  <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
-  <script type="module" src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"></script>
+  <link rel="stylesheet" href="common.css" />
+  <link
+    rel="stylesheet"
+    href="light.css"
+    media="(prefers-color-scheme: light)"
+  />
+  <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)" />
+  <script
+    type="module"
+    src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"
+  ></script>
 </head>
 <!-- ... -->
 <main>
@@ -107,19 +114,30 @@ The above method might cause flashing
 ([#77](https://github.com/GoogleChromeLabs/dark-mode-toggle/issues/77)) when the
 page loads, as the dark mode toggle module is loaded after the page is rendered.
 A loader script can be used to apply the saved theme before the page is
-rendered. Wrap the stylesheet tags with `<noscript
-id="dark-mode-toggle-stylesheets">...</noscript>` and add the loader script as
-following:
+rendered. Wrap the stylesheet tags with
+`<noscript id="dark-mode-toggle-stylesheets">...</noscript>` and add the loader
+script as follows:
 
 ```html
 <head>
-  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="common.css" />
   <noscript id="dark-mode-toggle-stylesheets">
-    <link rel="stylesheet" href="light.css" media="(prefers-color-scheme: light)">
-    <link rel="stylesheet" href="dark.css" media="(prefers-color-scheme: dark)">
+    <link
+      rel="stylesheet"
+      href="light.css"
+      media="(prefers-color-scheme: light)"
+    />
+    <link
+      rel="stylesheet"
+      href="dark.css"
+      media="(prefers-color-scheme: dark)"
+    />
   </noscript>
-  <script src="dark-mode-toggle-stylesheets-loader.min.js"></script>
-  <script type="module" src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"></script>
+  <script src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script
+    type="module"
+    src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"
+  ></script>
 </head>
 <!-- ... -->
 ```
