@@ -133,7 +133,7 @@ script as follows:
       media="(prefers-color-scheme: dark)"
     />
   </noscript>
-  <script src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle-stylesheets-loader.min.js"></script>
+  <script src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle-stylesheets-loader.js"></script>
   <script
     type="module"
     src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"
