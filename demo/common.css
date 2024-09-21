@@ -28,8 +28,7 @@
 
 body {
   margin: 0;
-  transition:
-    color var(--duration) var(--timing),
+  transition: color var(--duration) var(--timing),
     background-color var(--duration) var(--timing);
   font-family: sans-serif;
   font-size: 12pt;
@@ -101,6 +100,12 @@ aside:nth-of-type(5) {
   top: 16rem;
 }
 
+aside:nth-of-type(6) {
+  width: 20rem;
+  top: 0;
+  left: 0 !important;
+}
+
 #content select,
 #content button,
 #content input[type='text'],
@@ -143,6 +148,11 @@ dark-mode-toggle {
 }
 
 #dark-mode-toggle-4 {
+  --dark-mode-toggle-active-mode-background-color: var(--accent-color);
+  --dark-mode-toggle-remember-filter: invert(100%);
+}
+
+#dark-mode-toggle-6 {
   --dark-mode-toggle-active-mode-background-color: var(--accent-color);
   --dark-mode-toggle-remember-filter: invert(100%);
 }

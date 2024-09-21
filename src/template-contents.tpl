@@ -66,13 +66,17 @@
     margin-inline-end: 0.5rem;
   }
 
-  [part="lightLabel"]::before {
+  [part="lightLabel"]::before, [part="lightThreeWayLabel"]::before {
     background-image: var(--${NAME}-light-icon, url("${DEFAULT_URL}sun.png"));
   }
 
-  [part="darkLabel"]::before {
+  [part="darkLabel"]::before, [part="darkThreeWayLabel"]::before {
     filter: var(--${NAME}-icon-filter, none);
     background-image: var(--${NAME}-dark-icon, url("${DEFAULT_URL}moon.png"));
+  }
+
+  [part="systemThreeWayLabel"]::before {
+    background-image: var(--${NAME}-system-icon, url("${DEFAULT_URL}yin-yang.png"));
   }
 
   [part="toggleLabel"]::before {
@@ -85,13 +89,15 @@
 
   [part="lightLabel"],
   [part="darkLabel"],
-  [part="toggleLabel"] {
+  [part="toggleLabel"],
+  [part$="ThreeWayLabel"] {
     font: var(--${NAME}-label-font, inherit);
   }
 
   [part="lightLabel"]:empty,
   [part="darkLabel"]:empty,
-  [part="toggleLabel"]:empty {
+  [part="toggleLabel"]:empty,
+  [part$="ThreeWayLabel"]:empty {
     font-size: 0;
     padding: 0;
   }
@@ -105,20 +111,22 @@
   }
 
   input:checked + [part="darkLabel"],
-  input:checked + [part="lightLabel"] {
+  input:checked + [part="lightLabel"],
+  input:checked + [part$="ThreeWayLabel"] {
     background-color: var(--${NAME}-active-mode-background-color, transparent);
   }
 
   input:checked + [part="darkLabel"]::before,
-  input:checked + [part="lightLabel"]::before {
+  input:checked + [part="lightLabel"]::before,
+  input:checked + [part$="ThreeWayLabel"]::before {
     background-color: var(--${NAME}-active-mode-background-color, transparent);
   }
 
-  input:checked + [part="toggleLabel"]::before {
+  input:checked + [part="toggleLabel"]::before, input[part="toggleCheckbox"]:checked ~ [part="threeWayRadioWrapper"] [part$="ThreeWayLabel"]::before {
     filter: var(--${NAME}-icon-filter, none);
   }
 
-  input:checked + [part="toggleLabel"] + aside [part="permanentLabel"]::before {
+  input:checked + [part="toggleLabel"] ~ aside [part="permanentLabel"]::before {
     filter: var(--${NAME}-remember-filter, invert(100%));
   }
 
@@ -164,6 +172,14 @@
     <label  part="darkLabel" for="d"></label>
     <input part="toggleCheckbox" id="t" type="checkbox">
     <label part="toggleLabel" for="t"></label>
+    <span part="threeWayRadioWrapper">
+      <input part="lightThreeWayRadio" id="3l" name="three-way-mode" type="radio">
+      <label part="lightThreeWayLabel" for="3l"></label>
+      <input part="systemThreeWayRadio" id="3s" name="three-way-mode" type="radio">
+      <label part="systemThreeWayLabel" for="3s"></label>
+      <input part="darkThreeWayRadio" id="3d" name="three-way-mode" type="radio">
+      <label part="darkThreeWayLabel" for="3d"></label>
+    </span>
     <aside part="aside">
       <input part="permanentCheckbox" id="p" type="checkbox">
       <label part="permanentLabel" for="p"></label>
