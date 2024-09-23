@@ -76,7 +76,7 @@
   }
 
   [part="systemThreeWayLabel"]::before {
-    background-image: var(--${NAME}-system-icon, url("${DEFAULT_URL}yin-yang.png"));
+    background-image: var(--${NAME}-system-icon, url("${DEFAULT_URL}system.png"));
   }
 
   [part="toggleLabel"]::before {
