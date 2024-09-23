@@ -22,7 +22,9 @@ dark-mode-toggle.slider::part(toggleLabel)::before {
   height: calc(var(--dark-mode-toggle-icon-size, 1rem) * 1.5);
   width: calc(var(--dark-mode-toggle-icon-size, 1rem) * 1.5);
   border-radius: 100%;
-  box-shadow: 0 0.15em 0.3em rgb(0 0 0 / 15%), 0 0.2em 0.5em rgb(0 0 0 / 30%);
+  box-shadow:
+    0 0.15em 0.3em rgb(0 0 0 / 15%),
+    0 0.2em 0.5em rgb(0 0 0 / 30%);
   background-color: #fff;
   color: #333;
   transition: 0.4s;

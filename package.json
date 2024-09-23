@@ -52,30 +52,6 @@
     "stylelint-config-standard": "^36.0.1",
     "terser": "^5.33.0"
   },
-  "eslintConfig": {
-    "parserOptions": {
-      "ecmaVersion": 8,
-      "sourceType": "module"
-    },
-    "extends": [
-      "google"
-    ],
-    "env": {
-      "es6": true,
-      "browser": true,
-      "serviceworker": true,
-      "node": true
-    },
-    "rules": {
-      "require-jsdoc": 0,
-      "max-len": [
-        "error",
-        {
-          "ignoreTemplateLiterals": true
-        }
-      ]
-    }
-  },
   "stylelint": {
     "extends": "stylelint-config-standard",
     "rules": {
