@@ -12,8 +12,9 @@ export class DarkModeToggle extends HTMLElement {
   /**
    * The "switch" appearance conveys the idea of a theme switcher (light/dark),
    * whereas "toggle" conveys the idea of a dark mode toggle (on/off).
+   * The "three-way" option will feature a central state that aligns with the user's system preferred color mode, while both the left and right states will consistently apply a fixed color scheme, irrespective of the system settings.
    */
-  appearance: 'toggle' | 'switch';
+  appearance: 'toggle' | 'switch' | 'three-way';
 
   /**
    * If true, remember the last selected mode ("dark" or "light"),
