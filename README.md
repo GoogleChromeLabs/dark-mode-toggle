@@ -132,6 +132,7 @@ script as follows:
       href="dark.css"
       media="(prefers-color-scheme: dark)"
     />
+    <meta name="color-scheme" content="dark light" />
   </noscript>
   <script src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle-stylesheets-loader.js"></script>
   <script
