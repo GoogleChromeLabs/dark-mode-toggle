@@ -30,6 +30,7 @@ const SYSTEM = 'system';
 const MQ_DARK = `(${PREFERS_COLOR_SCHEME}:${DARK})`;
 const MQ_LIGHT = `(${PREFERS_COLOR_SCHEME}:${LIGHT})`;
 const LINK_REL_STYLESHEET = 'link[rel=stylesheet]';
+const STYLE = 'style';
 const REMEMBER = 'remember';
 const LEGEND = 'legend';
 const TOGGLE = 'toggle';
@@ -126,10 +127,12 @@ export class DarkModeToggle extends HTMLElement {
     // We need to support `media="(prefers-color-scheme: dark)"` (with space)
     // and `media="(prefers-color-scheme:dark)"` (without space)
     this._darkCSS = doc.querySelectorAll(
-      `${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${DARK}"]`,
+      `${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${DARK}"],
+       ${STYLE}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${DARK}"]`,
     );
     this._lightCSS = doc.querySelectorAll(
-      `${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${LIGHT}"]`,
+      `${LINK_REL_STYLESHEET}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${LIGHT}"], 
+       ${STYLE}[${MEDIA}*=${PREFERS_COLOR_SCHEME}][${MEDIA}*="${LIGHT}"]`,
     );
 
     // Get DOM references.
