@@ -32,7 +32,7 @@ Or, alternatively, use a `<script type="module">` tag (served from unpkg's CDN):
 
 ## Usage
 
-There are two ways how you can use `<dark-mode-toggle>`:
+There are three ways how you can use `<dark-mode-toggle>`:
 
 ### ① Using different stylesheets per color scheme that are conditionally loaded
 
@@ -166,6 +166,37 @@ toggle.mode === 'dark'
 toggle.addEventListener('colorschemechange', () => {
   body.classList.toggle('dark', toggle.mode === 'dark');
 });
+```
+
+### ③ Using internal stylesheets for each color scheme
+
+This approach allows you to define styles directly within your HTML using
+`<style>` tags, scoped to specific color schemes.
+
+⚠️ **Warning**  
+Internal stylesheets do not benefit from the loading optimizations provided by
+`<link>` elements, which may increase the page's initial load time.
+
+```html
+<head>
+  <style media="(prefers-color-scheme: light)">
+    body {
+      background-color: #ffffff;
+      color: #000000;
+    }
+  </style>
+  <style media="(prefers-color-scheme: dark)">
+    body {
+      background-color: #000000;
+      color: #ffffff;
+    }
+  </style>
+  <script
+    type="module"
+    src="https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs"
+  ></script>
+</head>
+<!-- ... -->
 ```
 
 ## Demo

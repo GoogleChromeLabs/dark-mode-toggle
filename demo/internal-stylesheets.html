@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <style media="(prefers-color-scheme: light)">
+      :root {
+        --background-color: #fff;
+        --text-color: #000;
+      }
+    </style>
+    <style media="(prefers-color-scheme: dark)">
+      :root {
+        --background-color: #000;
+        --text-color: #fff;
+      }
+    </style>
+    <style>
+      body {
+        background-color: var(--background-color);
+        color: var(--text-color);
+      }
+    </style>
+    <script type="module" src="../src/dark-mode-toggle.mjs"></script>
+  </head>
+  <body>
+    <h1>Demo with internal stylesheets</h1>
+    <p>
+      Lorem ipsum dolor sit amet, legere ancillae ne vis. Ne vim laudem accusam
+      consectetuer, eu utinam integre abhorreant sea. Quo eius veri ei, nibh
+      invenire democritum vel in, utamur vulputate id est. Possit ceteros vis
+      an.
+    </p>
+    <div>
+      Switch theme:
+      <dark-mode-toggle permanent></dark-mode-toggle>
+    </div>
+  </body>
+</html>
