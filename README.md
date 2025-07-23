@@ -148,7 +148,7 @@ script as follows:
 If you prefer to not split your CSS in different files based on the color
 scheme, you can instead work with a class that you toggle, for example
 `class="dark"`. You can see this in action in
-[this demo](https://dark-mode-class-toggle.glitch.me/).
+[this demo](https://googlechrome.github.io/samples/dark-mode-class-toggle/).
 
 ```js
 import * as DarkModeToggle from 'https://googlechromelabs.github.io/dark-mode-toggle/src/dark-mode-toggle.mjs';
