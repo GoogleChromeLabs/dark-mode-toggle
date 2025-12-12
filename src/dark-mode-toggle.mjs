@@ -445,7 +445,7 @@ export class DarkModeToggle extends HTMLElement {
   _updateThreeWayRadios() {
     this._lightThreeWayLabel.ariaLabel = LIGHT;
     this._systemThreeWayLabel.ariaLabel = SYSTEM;
-    this._lightThreeWayLabel.ariaLabel = DARK;
+    this._darkThreeWayLabel.ariaLabel = DARK;
     this._lightThreeWayLabel.textContent = this.light;
     this._systemThreeWayLabel.textContent = this.system;
     this._darkThreeWayLabel.textContent = this.dark;
