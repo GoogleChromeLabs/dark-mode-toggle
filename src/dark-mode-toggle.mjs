@@ -181,9 +181,9 @@ export class DarkModeToggle extends HTMLElement {
         this._dispatchEvent(COLOR_SCHEME_CHANGE, { colorScheme: this.mode });
       });
     }
-    // Set initial state, giving preference to a remembered value, then the
-    // native value (if supported), and eventually defaulting to a light
-    // experience.
+    // Set initial state, giving preference to a remembered value, then a
+    // `mode` the page set on us, then the native value (if supported), and
+    // eventually defaulting to a light experience.
     let rememberedValue = false;
     try {
       rememberedValue = store.getItem(NAME);
@@ -194,7 +194,7 @@ export class DarkModeToggle extends HTMLElement {
       this.mode = rememberedValue;
       this._permanentCheckbox.checked = true;
       this.permanent = true;
-    } else if (hasNativePrefersColorScheme) {
+    } else if (!this.mode && hasNativePrefersColorScheme) {
       this.mode = matchMedia(MQ_LIGHT).matches ? LIGHT : DARK;
     }
     if (!this.mode) {
